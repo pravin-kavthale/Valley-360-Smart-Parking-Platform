@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Navbar from '../Navbar';
+import { Link } from 'react-router-dom';
 
 
 
@@ -32,56 +32,64 @@ const Login1 = () => {
     };
 
     return (
-        <div>
-            <Navbar></Navbar>
-        
-        <div className="bg-[url('/src/Images/Login1.jpg')] bg-center bg-cover bg-no-repeat h-[100vh] w-screen relative flex items-center">
-            <div className='w-screen h-[100vh] bg-black opacity-50 absolute top-0 left-0'>
-            <div className='w-screen h-[100vh] bg-black absolute top-0 left-0 flex items-center'>
+        <div className="min-h-screen bg-gradient-to-r from-purple-400 via-purple-500 to-purple-300 flex items-center justify-center px-4 py-8">
+            <div className="w-full max-w-4xl bg-white rounded-xl shadow-lg p-8 flex flex-col lg:flex-row overflow-hidden">
+                <div className="w-full lg:w-1/2 bg-gradient-to-br from-purple-600 to-pink-500 text-white flex flex-col justify-center items-center text-center px-8 py-12">
+                    <p className="text-sm uppercase tracking-[0.35em] text-white/80">Valley 360 Parking</p>
+                    <h2 className="mt-4 text-4xl font-bold leading-tight">Admin Access</h2>
+                    <p className="mt-4 text-sm sm:text-base text-white/90">
+                        Manage parking system securely and oversee operations with confidence.
+                    </p>
+                </div>
 
-            <form onSubmit={handleSubmit} style={{ border: '3px solid gray', borderRadius: '8px' }} className='relative text-white text-center flex flex-col gap-4 mx-auto px-4 w-[30%] py-6 shadow-xl shadow-purple-500'>
-            
-            <h1 className='text-2xl uppercase font-semibold'>Login Page</h1>
-
-                    <div className='flex flex-col gap-2 w-[70%] mx-auto'>
-                        <label className="text-xl font-semibold text-left" for="email">Username</label>
-                        <input
-                            type="email"
-                            className='outline-none px-4 py-2 rounded-full bg-transparent border-2 text-white'
-                            name="email"
-                            value={user.email}
-                            onChange={handleChange}
-                            placeholder='Enter your Email'
-                            required
-                        />
+                <div className="w-full lg:w-1/2 px-4 py-8 sm:px-8 lg:px-10">
+                    <div className="mb-4">
+                        <Link to="/" className="text-sm text-purple-600 hover:text-purple-800 mb-4 inline-block">
+                            ← Back to Home
+                        </Link>
                     </div>
 
-                    <div className='flex flex-col gap-2 w-[70%] mx-auto'>
-                        <label className="text-xl font-semibold text-left" for="password">Password</label>
-                        <input
-                            type="password"
-                            className='outline-none px-4 py-2 rounded-full bg-transparent border-2 text-white'
-                            name="password"
-                            value={user.password}
-                            onChange={handleChange}
-                            placeholder='Enter your password'
-                            required
-                        />
-                    </div>
+                    <h2 className="text-2xl font-semibold text-gray-800">Admin Login</h2>
+                    <p className="mt-2 text-sm text-gray-600">Access your account securely</p>
 
-                    <div>
-                        <button
-                            type="submit"
-                            className='bg-purple-700 px-4 py-2 rounded-md text-xl w-[200px] mx-auto hover:bg-transparent hover:border-purple-600 border-2 border-purple-500'
-                        >
-                            Log In
-                        </button>
-                    </div>
-                    
-                </form>
+                    <form onSubmit={handleSubmit} className='mt-6 space-y-4 text-left'>
+                        <div className='space-y-2'>
+                            <label className="block text-sm font-medium text-gray-700" for="email">Username</label>
+                            <input
+                                type="email"
+                                className='w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400'
+                                name="email"
+                                value={user.email}
+                                onChange={handleChange}
+                                placeholder='Enter your Email'
+                                required
+                            />
+                        </div>
+
+                        <div className='space-y-2'>
+                            <label className="block text-sm font-medium text-gray-700" for="password">Password</label>
+                            <input
+                                type="password"
+                                className='w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400'
+                                name="password"
+                                value={user.password}
+                                onChange={handleChange}
+                                placeholder='Enter your password'
+                                required
+                            />
+                        </div>
+
+                        <div className="pt-2">
+                            <button
+                                type="submit"
+                                className='w-full rounded-md py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md transition hover:scale-105 hover:shadow-md'
+                            >
+                                Log In
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </div>
         </div>
     );
 };

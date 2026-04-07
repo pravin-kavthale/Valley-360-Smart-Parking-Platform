@@ -1,7 +1,7 @@
-import backgroundImage from '../../Images/Registation_Bg.jpg'; // Adjust the path as needed
 import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 // Function to validate the password
 const validatePassword = (password) => {
@@ -65,87 +65,79 @@ const Registration = () => {
     };
 
     return (
-        <div
-            className='min-h-screen py-40'
-            style={{
-                backgroundImage: 'linear-gradient(115deg, #9F7AEA, #FEE2FE)',
-                backgroundSize: 'cover', // Ensure the gradient covers the entire background
-            }}
-        >
-            <div className='container mx-auto'>
-                <div className='flex w-8/12 bg-white rounded-xl mx-auto shadow-lg overflow-hidden p-8'>
-                    <div
-                        className='w-1/2 bg-cover flex flex-col items-center justify-center py-12 bg-no-repeat bg-center '
-                        style={{
-                            backgroundImage: `url(${backgroundImage})`, // Apply the imported image
-                        }}
-                    >
-                        <h1 className='text-white text-3xl mb-3'>Welcome</h1>
-                        <h4 className='text-white mr-3'>Park Smart, Park Easy.</h4>
-                        <p className='text-white pl-4'>Hello! Your perfect parking spot is just a registration away. Join us now!</p>
+        <div className="min-h-screen bg-gradient-to-r from-purple-400 via-purple-500 to-purple-300 flex items-center justify-center px-4 py-8">
+            <div className="w-full max-w-4xl bg-white rounded-xl shadow-lg p-8 flex flex-col lg:flex-row overflow-hidden">
+                <div className="w-full lg:w-1/2 bg-gradient-to-br from-purple-600 to-pink-500 text-white flex flex-col justify-center items-center text-center px-8 py-12">
+                    <p className='text-sm uppercase tracking-[0.35em] text-white/80'>Valley 360 Parking</p>
+                    <h1 className='mt-4 text-4xl font-bold leading-tight'>Welcome</h1>
+                    <p className='mt-4 text-sm sm:text-base text-white/90'>Hello! Your perfect parking spot is just a registration away. Join us now!</p>
+                </div>
+
+                <div className="w-full lg:w-1/2 px-4 py-8 sm:px-8 lg:px-10">
+                    <div className="mb-4">
+                        <Link to="/" className="text-sm text-purple-600 hover:text-purple-800 mb-4 inline-block">
+                            ← Back to Home
+                        </Link>
                     </div>
 
-                    <div className='w-1/2 px-12'>
-                        <h2 className='text-3xl mb:4'>Register Here</h2>
-                        <p className='mb-4'>Create your account. It's free and only takes a minute</p>
+                    <h2 className='text-2xl font-semibold text-gray-800'>Register Here</h2>
+                    <p className='mt-2 text-sm text-gray-600'>Create your account. It's free and only takes a minute</p>
 
-                        <form onSubmit={handleSignup}>
+                    <form onSubmit={handleSignup} className="mt-6 space-y-4">
 
-                            <div className='grid grid-cols-2 gap-5'>
-                                <input type='text' placeholder='First Name' className='border border-gray-400 py-1 px-2' value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
-                                <input type='text' placeholder='Last Name' className='border border-gray-400 py-1 px-2' value={lastName} onChange={(e) => setLastName(e.target.value)} required />
-                            </div>
+                        <div className='grid grid-cols-2 gap-4'>
+                            <input type='text' placeholder='First Name' className='w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400' value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
+                            <input type='text' placeholder='Last Name' className='w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400' value={lastName} onChange={(e) => setLastName(e.target.value)} required />
+                        </div>
 
-                            <div className='mt-5'>
-                                <input type='email' placeholder='Email' className='border border-gray-400 py-1 px-2 w-full' value={email} onChange={(e) => setEmail(e.target.value)} required />
-                            </div>
+                        <div className='space-y-2'>
+                            <input type='email' placeholder='Email' className='w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400' value={email} onChange={(e) => setEmail(e.target.value)} required />
+                        </div>
 
-                            <div className='mt-5'>
-                                <input
-                                    type='password'
-                                    placeholder='Password'
-                                    className='border border-gray-400 py-1 px-2 w-full'
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    required
-                                />
-                                {passwordError && <p className='text-red-500 mt-1'>{passwordError}</p>}
-                            </div>
+                        <div className='space-y-2'>
+                            <input
+                                type='password'
+                                placeholder='Password'
+                                className='w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400'
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                            />
+                            {passwordError && <p className='text-red-500 text-sm mt-1'>{passwordError}</p>}
+                        </div>
 
-                            <div className='mt-5'>
-                                <input type='tel' placeholder='Contact' pattern="[0-9]{10}" title="Please enter a 10-digit phone number" className='border border-gray-400 py-1 px-2 w-full' value={contact} onChange={(e) => setContact(e.target.value)} required />
-                            </div>
+                        <div className='space-y-2'>
+                            <input type='tel' placeholder='Contact' pattern="[0-9]{10}" title="Please enter a 10-digit phone number" className='w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400' value={contact} onChange={(e) => setContact(e.target.value)} required />
+                        </div>
 
-                            <div className='mt-5'>
-                                <input type='text' placeholder='Address' className='border border-gray-400 py-1 px-2 w-full' value={address} onChange={(e) => setAddress(e.target.value)} required />
-                            </div>
+                        <div className='space-y-2'>
+                            <input type='text' placeholder='Address' className='w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400' value={address} onChange={(e) => setAddress(e.target.value)} required />
+                        </div>
 
-                            <div className='grid-cols-2 gap-5 mt-5'>
-                                <span className='text-black mr-2'>Gender:</span>
-                                <select className='border border-gray-400 py-1 pc-2 mr-4' value={gender} onChange={(e) => setGender(e.target.value)} required>
-                                    <option value="">Select Gender</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                    <option value="Other">Other</option>
-                                </select><br />
-                            </div>
-                            <div className='grid-cols-2 gap-4 mt-4'>
-                                <span className='text-black gap-2 mr-2'>Role:</span>
-                                <select className='border border-gray-400 py-1 pc-2 mr-4' value={roleId} onChange={(e) => setRoleId(e.target.value)} required>
-                                    <option value="">Select Role</option>
-                                    <option value="2">Owner</option>
-                                    <option value="3">Customer</option>
-                                </select>
-                            </div>
-                            <div className='mt-5'>
-                                <button type='submit' className='w-full bg-purple-600 py-3 text-center text-white'> Register Now </button>
-                            </div>
+                        <div className='space-y-2'>
+                            <span className='block text-sm font-medium text-gray-700'>Gender:</span>
+                            <select className='w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400' value={gender} onChange={(e) => setGender(e.target.value)} required>
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div className='space-y-2'>
+                            <span className='block text-sm font-medium text-gray-700'>Role:</span>
+                            <select className='w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400' value={roleId} onChange={(e) => setRoleId(e.target.value)} required>
+                                <option value="">Select Role</option>
+                                <option value="2">Owner</option>
+                                <option value="3">Customer</option>
+                            </select>
+                        </div>
+                        <div className='pt-2'>
+                            <button type='submit' className='w-full rounded-md py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md transition hover:scale-105 hover:shadow-md'> Register Now </button>
+                        </div>
 
-                        </form>
-                    </div>
+                    </form>
                 </div>
             </div>
-            {/* Optional: Place 'hi' where it fits your layout */}
             <ToastContainer />
         </div>
     );

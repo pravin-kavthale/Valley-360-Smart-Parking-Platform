@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import backgroundImage from "../../Images/Login.jpeg"; // Ensure the path is correct
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [user, setUser] = useState({ email: '', password: '' });
@@ -56,17 +55,31 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-[#fff4ea] via-[#fbeee4] to-[#f8e3d5] flex items-center justify-center px-4 py-8 sm:px-6 lg:px-10">
-      <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 rounded-3xl bg-white/60 backdrop-blur-sm shadow-[0_20px_60px_rgba(168,118,92,0.18)] overflow-hidden border border-white/50">
-        <div className="p-7 sm:p-10 lg:p-12 flex flex-col justify-center animate-in fade-in duration-700">
-          <h2 className="text-4xl sm:text-5xl font-bold text-[#3d2a21] leading-tight">Access Your Account</h2>
-          <p className="mt-2 text-lg sm:text-xl font-medium text-[#df8f5f]">Securely, Easily</p>
+    <div className="min-h-screen bg-gradient-to-r from-purple-400 via-purple-500 to-purple-300 flex items-center justify-center px-4 py-8">
+      <div className="w-full max-w-4xl bg-white rounded-xl shadow-lg p-8 flex flex-col lg:flex-row overflow-hidden">
+        <div className="w-full lg:w-1/2 bg-gradient-to-br from-purple-600 to-pink-500 text-white flex flex-col justify-center items-center text-center px-8 py-12">
+          <p className="text-sm uppercase tracking-[0.35em] text-white/80">Valley 360 Parking</p>
+          <h2 className="mt-4 text-4xl font-bold leading-tight">Welcome Back</h2>
+          <p className="mt-4 text-sm sm:text-base text-white/90">
+            Access your account securely and continue managing parking with ease.
+          </p>
+        </div>
 
-          <form onSubmit={handleSubmit} className="mt-10 space-y-7">
+        <div className="w-full lg:w-1/2 px-4 py-8 sm:px-8 lg:px-10">
+          <div className="mb-4">
+            <Link to="/" className="text-sm text-purple-600 hover:text-purple-800 mb-4 inline-block">
+              ← Back to Home
+            </Link>
+          </div>
+
+          <h2 className="text-2xl font-semibold text-gray-800">Login</h2>
+          <p className="mt-2 text-sm text-gray-600">Access your account securely</p>
+
+          <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
-            <div className="relative">
-              <label htmlFor="email" className="block text-sm text-[#5c463b] mb-2">
+            <div className="space-y-2">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                 Email address
               </label>
               <input
@@ -76,14 +89,14 @@ const Login = () => {
                 value={user.email}
                 onChange={handleChange}
                 required
-                className="block w-full py-3 px-0 text-sm text-[#3d2a21] bg-transparent border-0 border-b-2 border-[#d8c5b8] appearance-none focus:outline-none focus:ring-0 focus:border-[#de8d69] placeholder:text-[#8f7869]/70 transition-colors duration-300"
+                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400"
                 placeholder="Enter your email"
-                style={{ caretColor: '#3d2a21' }}
+                style={{ caretColor: '#1f2937' }}
               />
             </div>
 
-            <div className="relative">
-              <label htmlFor="password" className="block text-sm text-[#5c463b] mb-2">
+            <div className="space-y-2">
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                 Password
               </label>
               <input
@@ -93,9 +106,9 @@ const Login = () => {
                 value={user.password}
                 onChange={handleChange}
                 required
-                className="block w-full py-3 px-0 text-sm text-[#3d2a21] bg-transparent border-0 border-b-2 border-[#d8c5b8] appearance-none focus:outline-none focus:ring-0 focus:border-[#de8d69] placeholder:text-[#8f7869]/70 transition-colors duration-300"
+                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400"
                 placeholder="Enter your password"
-                style={{ caretColor: '#3d2a21' }}
+                style={{ caretColor: '#1f2937' }}
               />
             </div>
 
@@ -105,15 +118,15 @@ const Login = () => {
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  className="h-4 w-4 text-[#d8705a] focus:ring-[#e3a17a] border-[#cfb7a8] rounded"
+                  className="h-4 w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-400"
                 />
-                <label htmlFor="remember-me" className="ml-2 text-sm text-[#5c463b]">
+                <label htmlFor="remember-me" className="ml-2 text-sm text-gray-600">
                   Remember me
                 </label>
               </div>
 
               <div className="text-sm">
-                <a href="#" className="font-medium text-[#7a5c4e] hover:text-[#5a4035] transition-colors duration-200">
+                <a href="#" className="font-medium text-purple-600 hover:text-purple-800">
                   Forgot password?
                 </a>
               </div>
@@ -122,32 +135,21 @@ const Login = () => {
             <div className="pt-2">
               <button
                 type="submit"
-                className="w-full sm:w-auto text-[18px] rounded-full bg-gradient-to-r from-[#ef7f7b] via-[#e3666b] to-[#d95563] py-2.5 px-14 text-white shadow-[0_10px_25px_rgba(217,85,99,0.35)] hover:scale-[1.02] transition-all duration-300"
+                className="w-full rounded-md py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md transition hover:scale-105 hover:shadow-md"
               >
                 Login
               </button>
             </div>
 
-            <div>
-              <span className="block text-sm text-[#6a5144]">
+            <div className="pt-1 text-center">
+              <span className="text-sm text-gray-600">
                 Don&apos;t have an account?{' '}
-                <a href="/SignUp" className="font-semibold text-[#d06f56] hover:text-[#b85d48] transition-colors duration-200">
+                <a href="/SignUp" className="font-semibold text-purple-600 hover:text-purple-800">
                   Register
                 </a>
               </span>
             </div>
           </form>
-        </div>
-
-        <div className="relative hidden lg:flex items-center justify-center p-12 bg-gradient-to-b from-[#f5dfcf] to-[#f2d7c6]">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.45),transparent_45%),radial-gradient(circle_at_70%_80%,rgba(222,141,105,0.22),transparent_45%)]" />
-          <div className="relative h-[340px] w-[340px] rounded-full bg-white/60 shadow-[0_18px_45px_rgba(124,82,58,0.2)] border border-white/70 p-5 flex items-center justify-center">
-            <img
-              src={backgroundImage}
-              alt="Parking illustration"
-              className="h-full w-full object-cover rounded-full"
-            />
-          </div>
         </div>
       </div>
     </div>
