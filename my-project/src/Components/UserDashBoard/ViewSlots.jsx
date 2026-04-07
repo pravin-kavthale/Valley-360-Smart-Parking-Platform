@@ -23,7 +23,16 @@ const ParkingSlots = () => {
   useEffect(() => {
     const fetchSlots = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/parkingSlots/${parkingId}`);
+        const token = sessionStorage.getItem('jwtToken');
+        if (!token) {
+          toast.error('User is not authenticated. Please log in.');
+          return;
+        }
+        const response = await axios.get(`http://localhost:8080/parkingSlots/${parkingId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         setSlots(response.data);
       } catch (error) {
         toast.error('Error fetching parking slots');

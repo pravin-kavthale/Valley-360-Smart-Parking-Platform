@@ -100,11 +100,21 @@ const BookParking = () => {
 
     const calculatedPrice = calculatePrice(hours, formData.vehicleType);
 
+    const token = sessionStorage.getItem('jwtToken');
+    if (!token) {
+      alert('User is not authenticated. Please log in.');
+      return;
+    }
+
     try {
       await axios.post('http://localhost:8080/booking/add', {
         ...formData,
         parkingHours: hours,
         price: calculatedPrice,
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       });
       alert('Booking successful!');
     } catch (error) {

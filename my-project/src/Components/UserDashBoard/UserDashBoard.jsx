@@ -28,6 +28,11 @@ const UserDashboard = () => {
             const { latitude, longitude } = position.coords;
             setUserLocation({ lat: latitude, lng: longitude });
 
+            const token = sessionStorage.getItem('jwtToken');
+            if (!token) {
+              toast.error('User is not authenticated. Please log in.');
+              return;
+            }
             try {
               const response = await axios.get('http://localhost:8080/parkingArea/nearby', {
                 params: {
@@ -35,6 +40,9 @@ const UserDashboard = () => {
                   longitude,
                   radius: 3 // Assuming 3 km radius
                 },
+                headers: {
+                  Authorization: `Bearer ${token}`
+                }
               });
 
               setParkingAreas(response.data);
@@ -58,6 +66,7 @@ const UserDashboard = () => {
 
   const handleBookNow = (id) => {
     navigate(`/ViewSlots/${id}`); // Navigate to booking page with parking ID
+    
   };
 
   return (
