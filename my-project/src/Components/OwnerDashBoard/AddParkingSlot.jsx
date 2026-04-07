@@ -64,6 +64,14 @@ const ParkingSlotForm = () => {
             toast.error('Parking ID is missing in session storage.');
             return;
         }
+        
+        const token = sessionStorage.getItem('jwtToken');
+        console.log('Token:', token); // Debugging token retrieval
+        if (!token) {
+            toast.error('User is not authenticated. Please log in.');
+
+            return;
+        }
 
         try {
             const response = await axios.post('http://localhost:8080/parkingSlots/Add', {
@@ -72,7 +80,13 @@ const ParkingSlotForm = () => {
                 vehicleType,
                 status,
                 parkingId: Number(parkingId), // Convert parkingId to number if needed
-            });
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
 
             if (response.status === 200) {
                 toast.success('Parking slot added successfully');

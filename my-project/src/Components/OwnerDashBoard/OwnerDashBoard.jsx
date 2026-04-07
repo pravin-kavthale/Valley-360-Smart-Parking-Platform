@@ -30,7 +30,16 @@ const OwnerDashboard = () => {
 
   const fetchTodaysBookings = async (ownerId) => {
     try {
-      const response = await axios.get(`http://localhost:8080/booking/today/${ownerId}`);
+      const token = sessionStorage.getItem('jwtToken');
+      if (!token) {
+        toast.error('User is not authenticated. Please log in.');
+        return;
+      }
+      const response = await axios.get(`http://localhost:8080/booking/today/${ownerId}`,{
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       setTodaysBookings(response.data);
     } catch (error) {
       toast.error('Error fetching today\'s bookings');
@@ -40,7 +49,16 @@ const OwnerDashboard = () => {
 
   const fetchPreviousBookings = async (ownerId) => {
     try {
-      const response = await axios.get(`http://localhost:8080/booking/previous/${ownerId}`);
+      const token = sessionStorage.getItem('jwtToken');
+      if (!token) {
+        toast.error('User is not authenticated. Please log in.');
+        return;
+      }
+      const response = await axios.get(`http://localhost:8080/booking/previous/${ownerId}`,{
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       setPreviousBookings(response.data);
     } catch (error) {
       toast.error('Error fetching previous bookings');
