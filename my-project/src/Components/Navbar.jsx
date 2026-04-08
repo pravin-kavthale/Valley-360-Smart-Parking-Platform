@@ -1,5 +1,5 @@
 import React from 'react'
-import { LuParkingCircle } from "react-icons/lu";
+import { LuCar  } from "react-icons/lu";
 import {motion} from 'framer-motion'
 
 
@@ -51,7 +51,7 @@ const Navbar = () => {
         <p className="text-primary">Valley<span className='text-secondary'>360</span></p>
         <p className="text-primary">Parking</p>
        
-        <LuParkingCircle className='text-green-700'/>
+        <LuCar className='text-green-700'/>
         </div>
 
         <div className='hidden md:block '>

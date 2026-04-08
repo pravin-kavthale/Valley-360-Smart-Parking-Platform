@@ -1,77 +1,189 @@
-import Footer from "../Footer/Footer"
+import React from 'react';
+import { motion } from 'framer-motion';
+import { LuCar , LuShieldCheck, LuMapPinned, LuClock3 } from 'react-icons/lu';
+import Navbar from '../Navbar';
+import Footer from '../Footer/Footer';
+import HeroImage from '../../Images/Bg-clg.jpg';
+import BannerImage from '../../Images/Parking-Banner.png';
+import { FadeUp, FadeRight } from '../../utility/annimation';
 
-const links = [
-    { name: 'Open roles', href: '#' },
-    //{ name: 'Internship program', href: '#' },
-    { name: 'Our values', href: '#' },
-    { name: 'Meet our leadership', href: '#' },
-  ]
-  const stats = [
-    { name: 'Offices worldwide', value: '12' },
-    { name: 'Full-time colleagues', value: '300+' },
-    { name: 'Hours per week', value: '40' },
-    { name: 'Paid time off', value: 'Unlimited' },
-  ]
-  
-   const AboutUs = () => {
-    return (
-      <div className="relative isolate overflow-hidden bg-gray-900 py-24 sm:py-32">
-        <img
-          alt=""
-          src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=focalpoint&fp-y=.8&w=2830&h=1500&q=80&blend=111827&sat=-100&exp=15&blend-mode=multiply"
-          className="absolute inset-0 -z-10 h-full w-full object-cover object-right md:object-center"
-        />
-        <div
-          aria-hidden="true"
-          className="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl"
-        >
-          <div
-            style={{
-              clipPath:
-                'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
-            }}
-            className="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr from-[#ff4694] to-[#776fff] opacity-20"
-          />
+const stats = [
+  { value: '24/7', label: 'Platform access' },
+  { value: 'Real-time', label: 'Parking visibility' },
+  { value: 'Fast', label: 'Spot reservation' },
+  { value: 'Secure', label: 'Booking flow' },
+];
+
+
+const features = [
+  {
+    icon: LuCar ,
+    title: 'Parking made simpler',
+    description: 'We keep the booking flow focused and fast so users can move from search to reservation without friction.',
+  },
+  {
+    icon: LuShieldCheck,
+    title: 'Trusted and reliable',
+    description: 'The system is designed to help owners and drivers manage parking with more confidence and less manual work.',
+  },
+  {
+    icon: LuMapPinned,
+    title: 'Built for local routes',
+    description: 'Find parking near work, home, or in the city with a layout that prioritizes clarity and quick decisions.',
+  },
+];
+
+const AboutUs = () => {
+  console.log("AboutUs rendered");
+  return (
+    <main className="overflow-x-hidden bg-white">
+      <Navbar />
+
+      <section className="relative isolate overflow-hidden py-16 sm:py-20">
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-primary/10 via-white to-secondary/10" />
+        <div className="absolute right-0 top-24 -z-10 h-72 w-72 rounded-full bg-primary/20 blur-3xl" />
+        <div className="absolute left-0 top-56 -z-10 h-72 w-72 rounded-full bg-secondary/20 blur-3xl" />
+
+        <div className="container grid grid-cols-1 items-center gap-14 md:grid-cols-2">
+          <div className="space-y-8">
+            <motion.div
+              variants={FadeUp(0.2)}
+              initial="hidden"
+              animate="visible"
+              className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-white px-4 py-2 text-sm font-semibold text-primary shadow-sm"
+            >
+              <LuCar  className="text-secondary" />
+              About Valley360 Parking
+            </motion.div>
+
+            <motion.h1
+              variants={FadeRight(0.35)}
+              initial="hidden"
+              animate="visible"
+              className="max-w-xl text-4xl font-bold leading-tight font-averia text-slate-900 sm:text-5xl lg:text-6xl"
+            >
+              Modern parking, designed to feel as clear as the home page.
+            </motion.h1>
+
+            <motion.p
+              variants={FadeRight(0.5)}
+              initial="hidden"
+              animate="visible"
+              className="max-w-xl text-lg leading-8 text-slate-600"
+            >
+              Valley360 Parking brings drivers, owners, and administrators into one simple flow. The goal is consistent: make parking easier to find, easier to manage, and easier to trust across every screen.
+            </motion.p>
+
+            <motion.div
+              variants={FadeRight(0.65)}
+              initial="hidden"
+              animate="visible"
+              className="flex flex-wrap gap-4"
+            >
+              <a href="/Login" className="primary-btn inline-flex items-center gap-2">
+                <LuClock3 />
+                Start Booking
+              </a>
+              <a
+                href="/ContactUs"
+                className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-6 py-3 font-semibold text-slate-700 shadow-sm transition hover:border-primary hover:text-primary"
+              >
+                Contact Us
+              </a>
+            </motion.div>
+          </div>
+
+          <motion.img 
+            initial={{opacity:0, x:200, rotate:75}}
+            animate={{opacity:1, x:0, rotate:0}}
+            transition={{duration:1, delay:0.2}}
+            src={HeroImage} alt='' className='w-[350px] ms:w=[550px] drop-shadow md:px-10'>
+
+          </motion.img>
         </div>
-        <div
-          aria-hidden="true"
-          className="absolute -top-52 left-1/2 -z-10 -translate-x-1/2 transform-gpu blur-3xl sm:top-[-28rem] sm:ml-16 sm:translate-x-0 sm:transform-gpu"
-        >
-          <div
-            style={{
-              clipPath:
-                'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
-            }}
-            className="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr from-[#ff4694] to-[#776fff] opacity-20"
-          />
+      </section>
+
+      <section className="py-8 sm:py-12">
+        <div className="container grid grid-cols-2 gap-4 md:grid-cols-4">
+          {stats.map((stat, index) => (
+            <motion.div
+              key={stat.label}
+              variants={FadeUp(0.2 + index * 0.1)}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="rounded-2xl border border-slate-100 bg-white p-6 text-center shadow-sm"
+            >
+              <p className="text-2xl font-bold text-primary sm:text-3xl">{stat.value}</p>
+              <p className="mt-2 text-sm font-medium text-slate-500">{stat.label}</p>
+            </motion.div>
+          ))}
         </div>
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl lg:mx-0">
-            <h2 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">Work with us</h2>
-            <p className="mt-6 text-lg leading-8 text-gray-300">
-            At <strong>Valley360 Parking</strong>, we are dedicated to transforming the way you find and manage parking. Our mission is to provide a seamless and efficient parking experience, whether you're in the heart of the city or closer to home.
+      </section>
+
+      <section className="py-10 sm:py-16">
+        <div className="container">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-secondary">Why it feels consistent</p>
+            <h2 className="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">The about page now follows the same visual rhythm as the home page.</h2>
+            <p className="mt-4 text-slate-600">
+              It uses the same branded colors, spacing, card shapes, and motion so users do not feel like they have jumped into a different product.
             </p>
           </div>
-          <div className="mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none">
-            <div className="grid grid-cols-1 gap-x-8 gap-y-6 text-base font-semibold leading-7 text-white sm:grid-cols-2 md:flex lg:gap-x-10">
-              {links.map((link) => (
-                <a key={link.name} href={link.href}>
-                  {link.name} <span aria-hidden="true">&rarr;</span>
-                </a>
-              ))}
-            </div>
-            <dl className="mt-16 grid grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4">
-              {stats.map((stat) => (
-                <div key={stat.name} className="flex flex-col-reverse">
-                  <dt className="text-base leading-7 text-gray-300">{stat.name}</dt>
-                  <dd className="text-2xl font-bold leading-9 tracking-tight text-white">{stat.value}</dd>
-                </div>
-              ))}
-            </dl>
+
+          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
+            {features.map((feature, index) => {
+              const Icon = feature.icon;
+
+              return (
+                <motion.article
+                  key={feature.title}
+                  variants={FadeUp(0.2 + index * 0.12)}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  className="rounded-3xl border border-slate-100 bg-white p-8 shadow-[0_12px_40px_rgba(15,23,42,0.08)]"
+                >
+                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-2xl text-primary">
+                    <Icon />
+                  </div>
+                  <h3 className="mt-6 text-xl font-bold text-slate-900">{feature.title}</h3>
+                  <p className="mt-3 leading-7 text-slate-600">{feature.description}</p>
+                </motion.article>
+              );
+            })}
           </div>
         </div>
-      </div>
-    )
-  }
+      </section>
 
-  export default AboutUs;
+      <section className="py-10 sm:py-16">
+        <div className="container">
+          <div className="grid grid-cols-1 gap-8 rounded-[2rem] bg-slate-900 px-6 py-10 text-white md:grid-cols-[1.3fr_0.7fr] md:px-10 lg:px-12">
+            <div className="space-y-4">
+              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-secondary">Built for every role</p>
+              <h2 className="text-3xl font-bold sm:text-4xl">Drivers, owners, and admins all need the same clarity.</h2>
+              <p className="max-w-2xl text-white/75">
+                Valley360 Parking keeps the booking experience simple for users while still giving owners and administrators the tools they need to manage inventory, availability, and access.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
+              <div className="rounded-2xl bg-white/10 p-5">
+                <p className="text-sm text-white/60">Driver flow</p>
+                <p className="mt-2 text-lg font-semibold">Search, reserve, and confirm in fewer steps.</p>
+              </div>
+              <div className="rounded-2xl bg-white/10 p-5">
+                <p className="text-sm text-white/60">Owner flow</p>
+                <p className="mt-2 text-lg font-semibold">Update parking spaces and manage slots quickly.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </main>
+  );
+};
+
+export default AboutUs;
