@@ -56,7 +56,7 @@ const NavbarOwner = () => {
     className="container flex justify-between items-center- py-4 md:pt-4 gap-14">
         {/*  Logo section */}
         <div className='text-2xl flex items-center gap-2 font-bold uppercase'>
-        <p className="text-primary">Admin</p>
+        <p className="text-primary">Owner</p>
         <p className="text-primary">Dashboard</p>
        
         <LuCar className='text-green-700'/>

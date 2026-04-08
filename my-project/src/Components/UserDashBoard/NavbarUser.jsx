@@ -2,8 +2,7 @@ import React from 'react'
 import { LuCar  } from "react-icons/lu";
 import {motion} from 'framer-motion'
 
-
-
+import { useNavigate } from 'react-router-dom';
 
 const NavbarMenu = [
 
@@ -27,9 +26,12 @@ const NavbarMenu = [
 ];
    
 const NavbarUser = () => {
+    const navigate = useNavigate();
+
     const handleLogout = () => {
         // Clear session storage
         sessionStorage.removeItem('user'); // Remove the user's data from session storage
+        sessionStorage.removeItem('jwtToken');
 
         // Redirect to home page
         navigate('/');
@@ -37,19 +39,19 @@ const NavbarUser = () => {
     
   return (
     
-   <nav >
-    <motion.div 
+   <nav className='bg-third/40'>
+        <motion.div 
     initial={{opacity:0}}
     animate={{opacity:1}}
     transition={{duration:0.5, delay:0.5}}
     
-    className="container flex justify-between items-center- py-4 md:pt-4 gap-14">
+    className="container flex justify-between items-center py-4 md:pt-4 gap-14">
         {/*  Logo section */}
         <div className='text-2xl flex items-center gap-2 font-bold uppercase'>
         <p className="text-primary">User</p>
         <p className="text-primary">Dashboard</p>
        
-        <LuCar className='text-green-700'/>
+        <LuCar className='text-primary'/>
         </div>
 
         <div className='hidden md:block'>
