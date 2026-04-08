@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '/src/api';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -28,11 +28,7 @@ const ParkingSlots = () => {
           toast.error('User is not authenticated. Please log in.');
           return;
         }
-        const response = await axios.get(`http://localhost:8080/parkingSlots/${parkingId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
+        const response = await api.get(`http://localhost:8080/parkingSlots/${parkingId}`);
         setSlots(response.data);
       } catch (error) {
         toast.error('Error fetching parking slots');
@@ -84,3 +80,5 @@ const ParkingSlots = () => {
 };
 
 export default ParkingSlots;
+
+

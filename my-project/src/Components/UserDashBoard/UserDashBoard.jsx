@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '/src/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { motion } from 'framer-motion';
@@ -55,14 +55,11 @@ const UserDashboard = () => {
         }
 
         try {
-          const response = await axios.get('http://localhost:8080/parkingArea/nearby', {
+          const response = await api.get('http://localhost:8080/parkingArea/nearby', {
             params: {
               latitude,
               longitude,
               radius: 3,
-            },
-            headers: {
-              Authorization: `Bearer ${token}`,
             },
           });
 
@@ -325,3 +322,5 @@ const UserDashboard = () => {
 };
 
 export default UserDashboard;
+
+

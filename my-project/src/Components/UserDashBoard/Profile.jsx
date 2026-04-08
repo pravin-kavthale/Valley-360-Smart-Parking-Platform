@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '/src/api';
 import { toast } from 'react-toastify';
 import Navbar from '../Navbar';
 
@@ -17,9 +17,18 @@ const Profile = () => {
           const user = JSON.parse(userStr); // Parse user data
           const id = user.id; // Extract user ID
           console.log('User ID:', id); // Debugging
+          
+          const token = sessionStorage.getItem('jwtToken'); // Fetch JWT token
+          console.log('JWT Token:', token); // Debugging
+          if (!token) {
+            toast.error('Authentication token not found. Please log in again.');
+            console.log('JWT token was not found in sessionStorage.');
+            setLoading(false);
+            return;
+          }
 
           if (id) {
-            const response = await axios.get(`http://localhost:8080/User/${id}`);
+            const response = await api.get(`http://localhost:8080/User/${id}`);
             console.log('User data fetched from API:', response.data); // Debugging
             setUser(response.data);
           } else {
@@ -83,3 +92,5 @@ const Profile = () => {
 };
 
 export default Profile;
+
+

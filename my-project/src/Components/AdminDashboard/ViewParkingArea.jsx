@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '/src/api';
 
 const ViewParkingArea = () => {
   const [parkingAreas, setParkingAreas] = useState([]);
@@ -9,7 +9,7 @@ const ViewParkingArea = () => {
   useEffect(() => {
     const fetchParkingAreas = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/parkingArea/GetAllParkingArea');
+        const response = await api.get('http://localhost:8080/parkingArea/GetAllParkingArea');
         setParkingAreas(response.data);
       } catch (error) {
         setError('Error fetching parking slots');
@@ -25,7 +25,7 @@ const ViewParkingArea = () => {
   
 const handleDelete = async (id) => {
   try {
-   const msg= await axios.delete(`http://localhost:8080/Admin/deleteParkignArea/${id}`);
+   const msg= await api.delete(`http://localhost:8080/Admin/deleteParkignArea/${id}`);
     setParkingAreas((prevAreas) => prevAreas.filter((area) => area.id !== id));
   } catch (error) {
     console.error('Error deleting parking area:', error);
@@ -73,3 +73,5 @@ const handleDelete = async (id) => {
 };
 
 export default ViewParkingArea;
+
+

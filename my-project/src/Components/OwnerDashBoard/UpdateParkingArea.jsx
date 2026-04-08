@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '/src/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -35,7 +35,7 @@ const UpdateParkingArea = () => {
     // Fetch parking area details by ID
     const fetchParkingArea = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/parkingArea/${id}`);
+        const response = await api.get(`http://localhost:8080/parkingArea/${id}`);
         const { data } = response;
         setArea(data.area);
         setCity(data.city);
@@ -62,7 +62,7 @@ const UpdateParkingArea = () => {
     }
 
     try {
-      const response = await axios.put(`http://localhost:8080/parkingArea/update/${id}`, {
+      const response = await api.put(`http://localhost:8080/parkingArea/update/${id}`, {
         area,
         city,
         pincode,
@@ -164,3 +164,5 @@ const UpdateParkingArea = () => {
 };
 
 export default UpdateParkingArea;
+
+

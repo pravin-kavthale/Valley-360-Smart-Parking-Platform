@@ -1,5 +1,5 @@
 import React,{useState , useEffect} from 'react'
-import axios from 'axios';
+import api from '/src/api';
 
 const BookParking = () => {
     const [formData, setFormData] = useState({
@@ -22,7 +22,7 @@ const BookParking = () => {
       const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-          await axios.post('http://localhost:8080/booking/Book', formData);
+          await api.post('http://localhost:8080/booking/Book', formData);
           alert('Booking successful!');
         } catch (error) {
           alert('Error during booking');
@@ -109,3 +109,5 @@ const BookParking = () => {
 }
 
 export default BookParking
+
+

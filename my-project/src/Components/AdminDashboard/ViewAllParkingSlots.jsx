@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '/src/api';
 
 const ViewAllParkingSlots = () => {
     const [parkingSlots, setParkingSlots] = useState([]);
@@ -9,7 +9,7 @@ const ViewAllParkingSlots = () => {
     useEffect(() => {
         const fetchParkingSlots = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/parkingSlots/GetAllParkingSlots');
+                const response = await api.get('http://localhost:8080/parkingSlots/GetAllParkingSlots');
                 setParkingSlots(response.data);
             } catch (error) {
                 setError('Error fetching parking slots');
@@ -51,3 +51,5 @@ const ViewAllParkingSlots = () => {
 };
 
 export default ViewAllParkingSlots;
+
+

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import axios from 'axios';
+import api from '/src/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { motion } from 'framer-motion';
@@ -46,11 +46,7 @@ const OwnerDashboard = () => {
         toast.error('User is not authenticated. Please log in.');
         return;
       }
-      const response = await axios.get(`http://localhost:8080/booking/today/${ownerId}`,{
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
+      const response = await api.get(`http://localhost:8080/booking/today/${ownerId}`);
       setTodaysBookings(response.data);
     } catch (error) {
       toast.error('Error fetching today\'s bookings');
@@ -65,11 +61,7 @@ const OwnerDashboard = () => {
         toast.error('User is not authenticated. Please log in.');
         return;
       }
-      const response = await axios.get(`http://localhost:8080/booking/previous/${ownerId}`,{
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
+      const response = await api.get(`http://localhost:8080/booking/previous/${ownerId}`);
       setPreviousBookings(response.data);
     } catch (error) {
       toast.error('Error fetching previous bookings');
@@ -351,3 +343,4 @@ const OwnerDashboard = () => {
 };
 
 export default OwnerDashboard;
+

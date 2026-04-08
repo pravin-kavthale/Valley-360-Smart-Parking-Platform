@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '/src/api';
 import { Link } from 'react-router-dom';
 
 
@@ -14,7 +14,7 @@ const Login1 = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:8080/Admin/Login', null, {
+        api.post('http://localhost:8080/Admin/Login', null, {
             params: {
                 email: user.email,
                 password: user.password
@@ -95,3 +95,5 @@ const Login1 = () => {
 };
 
 export default Login1;
+
+

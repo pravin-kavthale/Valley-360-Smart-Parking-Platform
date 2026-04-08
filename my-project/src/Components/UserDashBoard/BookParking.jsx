@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '/src/api';
 import { useParams } from 'react-router-dom';
 
 const BookParking = () => {
@@ -107,14 +107,10 @@ const BookParking = () => {
     }
 
     try {
-      await axios.post('http://localhost:8080/booking/add', {
+      await api.post('http://localhost:8080/booking/add', {
         ...formData,
         parkingHours: hours,
         price: calculatedPrice,
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
       });
       alert('Booking successful!');
     } catch (error) {
@@ -233,3 +229,5 @@ const BookParking = () => {
 };
 
 export default BookParking;
+
+

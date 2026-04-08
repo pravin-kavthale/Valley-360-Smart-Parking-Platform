@@ -25,3 +25,4 @@ const ResponsiveMenu = ({open}) => {
 }
 
 export default ResponsiveMenu
+

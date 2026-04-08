@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '/src/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +15,7 @@ const OwnersList = () => {
 
   const fetchOwners = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/User/GetAllOwners'); // Ensure URL matches the backend
+      const response = await api.get('http://localhost:8080/User/GetAllOwners'); // Ensure URL matches the backend
       setOwners(response.data);
     } catch (error) {
       toast.error('Error fetching owners');
@@ -28,7 +28,7 @@ const OwnersList = () => {
   const handleDelete = async (id) => {
     try {
       console.log({id})
-      const response=await axios.delete(`http://localhost:8080/Admin/Delete/${id}`);
+      const response=await api.delete(`http://localhost:8080/Admin/Delete/${id}`);
       toast.success('User deleted successfully');
       // Refresh the list after deletion
       fetchOwners();
@@ -71,3 +71,5 @@ const OwnersList = () => {
 };
 
 export default OwnersList;
+
+

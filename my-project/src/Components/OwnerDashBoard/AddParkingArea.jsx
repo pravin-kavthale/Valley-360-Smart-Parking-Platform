@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '/src/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
@@ -61,7 +61,7 @@ const AddParkingArea = () => {
 
 
     try {
-      const response = await axios.post('http://localhost:8080/parkingArea/add', {
+      const response = await api.post('http://localhost:8080/parkingArea/add', {
         area,
         city,
         pincode,
@@ -69,11 +69,6 @@ const AddParkingArea = () => {
         longitude,
         status,
         ownerId,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
         }
       );
       
@@ -176,3 +171,5 @@ const AddParkingArea = () => {
 };
 
 export default AddParkingArea;
+
+

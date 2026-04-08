@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '/src/api';
 
 const AdminDashboard = () => {
     const [data, setData] = useState({
@@ -13,7 +13,7 @@ const AdminDashboard = () => {
         // Define the async function
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/Admin/dashboard'); // Make sure this matches your actual endpoint
+                const response = await api.get('http://localhost:8080/Admin/dashboard'); // Make sure this matches your actual endpoint
                 setData(response.data);
                
             } catch (error) {
@@ -61,3 +61,5 @@ const Button = ({ href, children }) => (
 );
 
 export default AdminDashboard;
+
+

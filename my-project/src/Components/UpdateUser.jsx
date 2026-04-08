@@ -1,4 +1,4 @@
-import axios from 'axios';
+import api from '/src/api';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
@@ -54,7 +54,7 @@ const UpdateUserPage = () => {
     }
 
     try {
-      const response = await axios.put(`http://localhost:8080/User/updateUser/${user.email}`, {
+      const response = await api.put(`http://localhost:8080/User/updateUser/${user.email}`, {
         firstName,
         lastName,
         contact,
@@ -131,3 +131,5 @@ const UpdateUserPage = () => {
 };
 
 export default UpdateUserPage;
+
+

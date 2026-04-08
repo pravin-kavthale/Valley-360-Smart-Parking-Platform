@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '/src/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate , useParams} from 'react-router-dom';
@@ -17,7 +17,7 @@ const DeleteUser = () => {
         }
 
         try {
-            const response = await axios.delete(`http://localhost:8080/User/Delete/${userId}`);
+            const response = await api.delete(`http://localhost:8080/User/Delete/${userId}`);
 
             if (response.status === 200) {
                 toast.success('User deleted successfully');
@@ -55,3 +55,5 @@ const DeleteUser = () => {
 };
 
 export default DeleteUser;
+
+

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '/src/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
@@ -29,7 +29,7 @@ const UserDashboard = () => {
             setUserLocation({ lat: latitude, lng: longitude });
 
             try {
-              const response = await axios.get('http://localhost:8080/parkingArea/nearby', {
+              const response = await api.get('http://localhost:8080/parkingArea/nearby', {
                 params: {
                   latitude,
                   longitude,
@@ -97,3 +97,5 @@ const UserDashboard = () => {
 };
 
 export default UserDashboard;
+
+

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '/src/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -23,7 +23,7 @@ const ParkingSlotForm = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:8080/parkingSlots/Add', {
+            const response = await api.post('http://localhost:8080/parkingSlots/Add', {
                 slotNumber,
                 price,
                 vehicleType,
@@ -119,3 +119,5 @@ const ParkingSlotForm = () => {
 };
 
 export default ParkingSlotForm;
+
+

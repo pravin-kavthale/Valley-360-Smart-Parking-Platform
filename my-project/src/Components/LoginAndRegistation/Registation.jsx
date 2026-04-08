@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import axios from 'axios';
+import api from '/src/api';
 import { Link } from 'react-router-dom';
 
 // Function to validate the password
@@ -44,7 +44,7 @@ const Registration = () => {
 
         try {
             // Send a POST request to the backend with the form data
-            await axios.post('http://localhost:8080/User/Register', {
+            await api.post('http://localhost:8080/User/Register', {
                 firstName,
                 lastName,
                 email,
@@ -144,3 +144,5 @@ const Registration = () => {
 };
 
 export default Registration;
+
+

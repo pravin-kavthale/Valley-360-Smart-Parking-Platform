@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '/src/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -13,7 +13,7 @@ const CustomersList = () => {
 
   const fetchOwners = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/User/GetAllCustomers'); // Ensure URL matches the backend
+      const response = await api.get('http://localhost:8080/User/GetAllCustomers'); // Ensure URL matches the backend
       console.log(response.data); // Check this in the browser console
       setOwners(response.data);
     } catch (error) {
@@ -51,3 +51,5 @@ const CustomersList = () => {
 };
 
 export default CustomersList;
+
+

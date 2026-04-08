@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '/src/api';
 
 const ProfileComponent = () => {
   const [formData, setFormData] = useState({
@@ -18,7 +18,7 @@ const ProfileComponent = () => {
 
   useEffect(() => {
     // Fetch user profile from backend (example ID 1)
-    axios.get('http://localhost:8080/User/Register')
+    api.get('http://localhost:8080/User/Register')
       .then(response => {
         setFormData(response.data);
       })
@@ -45,7 +45,7 @@ const ProfileComponent = () => {
 
     if (Object.keys(newErrors).length === 0) {
       // Submit data to backend
-      axios.post('http://localhost:8080/api/users', formData)
+      api.post('http://localhost:8080/api/users', formData)
         .then(response => {
           console.log('Profile updated successfully:', response.data);
         })
@@ -163,3 +163,5 @@ const ProfileComponent = () => {
 };
 
 export default ProfileComponent;
+
+
