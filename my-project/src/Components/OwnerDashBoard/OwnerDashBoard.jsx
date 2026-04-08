@@ -19,13 +19,14 @@ const OwnerDashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Retrieve the owner object from sessionStorage
     const storedOwner = sessionStorage.getItem('user');
 
     if (storedOwner) {
       const parsedOwner = JSON.parse(storedOwner);
       setOwner(parsedOwner);
+
       fetchTodaysBookings(parsedOwner.id);
+      fetchPreviousBookings(parsedOwner.id); // ✅ ADD THIS
     }
   }, []);
 
@@ -180,7 +181,6 @@ const OwnerDashboard = () => {
           >
             <div className="flex flex-wrap items-start justify-between gap-6">
               <div className="space-y-4">
-                <p className="text-sm font-semibold uppercase tracking-[0.28em] text-secondary">Owner Dashboard</p>
                 <h1 className="text-3xl font-bold text-slate-900 sm:text-4xl">Welcome back, manage bookings with clarity.</h1>
                 <p className="max-w-2xl text-slate-600">
                   Keep track of today's bookings, review history, and handle owner actions from one consistent dashboard.

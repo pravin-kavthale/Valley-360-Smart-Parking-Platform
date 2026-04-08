@@ -76,7 +76,7 @@ const UserDashboard = () => {
         <div className="min-h-screen bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-white p-6">
           <ToastContainer position="top-center" />
           <div className="container mx-auto">
-            <h1 className="text-4xl font-bold mb-6">User Dashboard</h1>
+            
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {parkingAreas.length > 0 ? (
                 parkingAreas.map((area) => (

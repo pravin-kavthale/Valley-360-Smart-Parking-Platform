@@ -27,6 +27,13 @@ const NavbarMenu = [
 ];
    
 const NavbarUser = () => {
+    const handleLogout = () => {
+        // Clear session storage
+        sessionStorage.removeItem('user'); // Remove the user's data from session storage
+
+        // Redirect to home page
+        navigate('/');
+    };
     
   return (
     
@@ -39,8 +46,8 @@ const NavbarUser = () => {
     className="container flex justify-between items-center- py-4 md:pt-4 gap-14">
         {/*  Logo section */}
         <div className='text-2xl flex items-center gap-2 font-bold uppercase'>
-        <p className="text-primary">Valley<span className='text-secondary'>360</span></p>
-        <p className="text-primary">Parking</p>
+        <p className="text-primary">User</p>
+        <p className="text-primary">Dashboard</p>
        
         <LuCar className='text-green-700'/>
         </div>
@@ -54,6 +61,14 @@ const NavbarUser = () => {
                         >{menu.title}</a>
                         </li>
                     ))}
+                    <li className='text-xl'>
+                        <button
+                            onClick={handleLogout}
+                            className='inline-block py-1 px-3 hover:text-primary hover:shadow-[0_3px_0_-1px_#ef4444] font-semibold'
+                        >
+                            Logout
+                        </button>
+                    </li> 
                     
             </ul>
             
