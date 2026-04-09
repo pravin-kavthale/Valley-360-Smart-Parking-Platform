@@ -158,7 +158,7 @@ const UserDashboard = () => {
   );
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-primary/5 via-white to-secondary/5 overflow-x-hidden">
+    <main className="min-h-screen bg-gradient-to-r from-purple-400 via-purple-500 to-purple-300 overflow-x-hidden">
       <NavbarUser />
 
       <section className="py-10 sm:py-16">

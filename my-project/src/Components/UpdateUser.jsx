@@ -68,58 +68,58 @@ const UpdateUserPage = () => {
   };
 
   return (
-    <div className="container mx-auto p-8">
+    <div className="min-h-screen bg-gradient-to-r from-purple-400 via-purple-500 to-purple-300 flex items-center justify-center px-4 py-8">
       <ToastContainer position="top-center" />
-      <h1 className="text-3xl font-bold mb-8 text-center">Update User Details</h1>
-      <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <form onSubmit={handleUpdate}>
-          <div className="grid grid-cols-1 gap-6">
+      <h1 className="text-3xl font-bold mb-8 text-center text-white">Update User Details</h1>
+      <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-4xl mx-auto">
+        <form onSubmit={handleUpdate} className="space-y-4">
+          <div className="grid grid-cols-1 gap-4">
             <div className="flex flex-col">
-              <label className="text-sm font-semibold text-gray-700">First Name:</label>
+              <label className="text-sm text-gray-600">First Name:</label>
               <input 
                 type="text" 
                 value={firstName} 
                 onChange={(e) => setFirstName(e.target.value)} 
                 required
-                className={`mt-1 p-2 border border-gray-300 rounded-md ${errors.firstName ? 'border-red-500' : ''}`}
+                className={`mt-1 w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400 ${errors.firstName ? 'border-red-500' : ''}`}
               />
               {errors.firstName && <p className="text-red-500 text-sm mt-1">{errors.firstName}</p>}
             </div>
             <div className="flex flex-col">
-              <label className="text-sm font-semibold text-gray-700">Last Name:</label>
+              <label className="text-sm text-gray-600">Last Name:</label>
               <input 
                 type="text" 
                 value={lastName} 
                 onChange={(e) => setLastName(e.target.value)} 
                 required
-                className={`mt-1 p-2 border border-gray-300 rounded-md ${errors.firstName ? 'border-red-500' : ''}`} // Use same class for border if error present
+                className={`mt-1 w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400 ${errors.firstName ? 'border-red-500' : ''}`} // Use same class for border if error present
               />
               {errors.firstName && <p className="text-red-500 text-sm mt-1">{errors.firstName}</p>}
             </div>
             <div className="flex flex-col">
-              <label className="text-sm font-semibold text-gray-700">Contact:</label>
+              <label className="text-sm text-gray-600">Contact:</label>
               <input 
                 type="tel" 
                 value={contact} 
                 onChange={(e) => setContact(e.target.value)} 
                 required
-                className={`mt-1 p-2 border border-gray-300 rounded-md ${errors.contact ? 'border-red-500' : ''}`}
+                className={`mt-1 w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400 ${errors.contact ? 'border-red-500' : ''}`}
               />
               {errors.contact && <p className="text-red-500 text-sm mt-1">{errors.contact}</p>}
             </div>
             <div className="flex flex-col">
-              <label className="text-sm font-semibold text-gray-700">Address:</label>
+              <label className="text-sm text-gray-600">Address:</label>
               <input 
                 type="text" 
                 value={address} 
                 onChange={(e) => setAddress(e.target.value)} 
                 required
-                className="mt-1 p-2 border border-gray-300 rounded-md"
+                className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
               />
             </div>
             <button 
               type="submit" 
-              className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors"
+              className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-md py-2 hover:scale-105 hover:shadow-md transition"
             >
               Update
             </button>
