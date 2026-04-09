@@ -15,6 +15,14 @@ const AddParkingArea = () => {
 
   const navigate = useNavigate();
 
+  const handleBack = () => {
+    if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      navigate('/owner-dashboard');
+    }
+  };
+
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -89,82 +97,107 @@ const AddParkingArea = () => {
   };
 
   return (
-    <div className="container mx-auto p-8">
+    <div className="min-h-screen bg-gradient-to-r from-purple-400 via-purple-500 to-purple-300 flex items-center justify-center px-4 py-8">
       <ToastContainer position="top-center" />
-      <h1 className="text-3xl font-bold mb-8 text-center">Add Parking Area</h1>
-      <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <form onSubmit={handleAddParkingArea}>
-          <div className="grid grid-cols-1 gap-6">
-            <div className="flex flex-col">
-              <label className="text-sm font-semibold text-gray-700">Area:</label>
-              <input 
-                type="text" 
-                value={area} 
-                onChange={(e) => setArea(e.target.value)} 
-                className="mt-1 p-2 border border-gray-300 rounded-md" 
+      <div className="w-full max-w-4xl bg-white rounded-xl shadow-lg p-8 flex flex-col md:flex-row overflow-hidden">
+        <div className="w-full md:w-1/2 bg-gradient-to-br from-purple-600 to-pink-500 text-white flex flex-col justify-center items-center text-center px-8 py-12">
+          <p className='text-sm uppercase tracking-[0.35em] text-white/80'>Valley 360 Parking</p>
+          <h1 className='mt-4 text-4xl font-bold leading-tight'>Add Parking Area</h1>
+          <p className='mt-4 text-sm sm:text-base text-white/90'>Manage and register parking locations efficiently</p>
+        </div>
+
+        <div className="w-full md:w-1/2 px-4 py-8 sm:px-8 lg:px-10">
+          <div className="mb-4">
+            <button
+              onClick={handleBack}
+              className="text-sm text-purple-600 hover:text-purple-800 mb-4"
+            >
+              ← Back
+            </button>
+          </div>
+
+          <h2 className="text-2xl font-semibold text-gray-800">Parking Area Details</h2>
+          <p className="mt-2 text-sm text-gray-600">Enter the location details to register a new parking area</p>
+
+          <form onSubmit={handleAddParkingArea} className="mt-6 space-y-4">
+            <div className="space-y-2">
+              <label className="block text-sm text-gray-600">Area:</label>
+              <input
+                type="text"
+                value={area}
+                onChange={(e) => setArea(e.target.value)}
+                className="w-full border border-gray-300 rounded-md px-3 py-2 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400"
                 required
               />
             </div>
-            <div className="flex flex-col">
-              <label className="text-sm font-semibold text-gray-700">City:</label>
-              <input 
-                type="text" 
-                value={city} 
-                onChange={(e) => setCity(e.target.value)} 
-                className="mt-1 p-2 border border-gray-300 rounded-md" 
+
+            <div className="space-y-2">
+              <label className="block text-sm text-gray-600">City:</label>
+              <input
+                type="text"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                className="w-full border border-gray-300 rounded-md px-3 py-2 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400"
                 required
               />
             </div>
-            <div className="flex flex-col">
-              <label className="text-sm font-semibold text-gray-700">Pincode:</label>
-              <input 
-                type="text" 
-                value={pincode} 
-                onChange={(e) => setPincode(e.target.value)} 
-                className={`mt-1 p-2 border border-gray-300 rounded-md ${pincodeError ? 'border-red-500' : ''}`} 
+
+            <div className="space-y-2">
+              <label className="block text-sm text-gray-600">Pincode:</label>
+              <input
+                type="text"
+                value={pincode}
+                onChange={(e) => setPincode(e.target.value)}
+                className={`w-full border rounded-md px-3 py-2 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400 ${pincodeError ? 'border-red-500' : 'border-gray-300'}`}
                 required
               />
               {pincodeError && <p className="text-red-500 text-sm mt-1">{pincodeError}</p>}
             </div>
-            <div className="flex flex-col">
-              <label className="text-sm font-semibold text-gray-700">Latitude:</label>
-              <input 
-                type="text" 
-                value={latitude} 
-                onChange={(e) => setLatitude(e.target.value)} 
-                className="mt-1 p-2 border border-gray-300 rounded-md" 
+
+            <div className="space-y-2">
+              <label className="block text-sm text-gray-600">Latitude:</label>
+              <input
+                type="text"
+                value={latitude}
+                onChange={(e) => setLatitude(e.target.value)}
+                className="w-full border border-gray-300 rounded-md px-3 py-2 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400"
                 readOnly
               />
             </div>
-            <div className="flex flex-col">
-              <label className="text-sm font-semibold text-gray-700">Longitude:</label>
-              <input 
-                type="text" 
-                value={longitude} 
-                onChange={(e) => setLongitude(e.target.value)} 
-                className="mt-1 p-2 border border-gray-300 rounded-md" 
+
+            <div className="space-y-2">
+              <label className="block text-sm text-gray-600">Longitude:</label>
+              <input
+                type="text"
+                value={longitude}
+                onChange={(e) => setLongitude(e.target.value)}
+                className="w-full border border-gray-300 rounded-md px-3 py-2 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400"
                 readOnly
               />
             </div>
-            <div className="flex flex-col">
-              <label className="text-sm font-semibold text-gray-700">Status:</label>
-              <select 
-                value={status} 
-                onChange={(e) => setStatus(e.target.value)} 
-                className="mt-1 p-2 border border-gray-300 rounded-md"
+
+            <div className="space-y-2">
+              <label className="block text-sm text-gray-600">Status:</label>
+              <select
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
+                className="w-full border border-gray-300 rounded-md px-3 py-2 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400"
               >
                 <option value="AVAILABLE">AVAILABLE</option>
                 <option value="NOT_AVAILABLE">NOT_AVAILABLE</option>
               </select>
             </div>
-            <button 
-              type="submit" 
-              className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors"
-            >
-              Add Parking Area
-            </button>
-          </div>
-        </form>
+
+            <div className='pt-2'>
+              <button
+                type="submit"
+                className="w-full rounded-md py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md transition hover:scale-105 hover:shadow-md"
+              >
+                Add Parking Area
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
