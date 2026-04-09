@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import api from '/src/api';
 import { toast } from 'react-toastify';
 import Navbar from '../Navbar';
+import NavbarUser from './NavbarUser';
 
 const Profile = () => {
   const [user, setUser] = useState(null); // User state

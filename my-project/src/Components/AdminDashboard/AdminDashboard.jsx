@@ -26,8 +26,9 @@ const AdminDashboard = () => {
     }, []);
 
     return (
-        <div className="p-6 bg-gray-100 min-h-screen">
-            <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
+        <div className="min-h-screen bg-gradient-to-r from-purple-400 via-purple-500 to-purple-300 px-4 py-8">
+            <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-6xl mx-auto">
+            <h1 className="text-2xl font-bold mb-6 text-gray-800">Admin Dashboard</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <Card title="Parking Slots" value={data.parkingSlots} />
                 <Card title="Parking Areas" value={data.parkingAreas} />
@@ -35,27 +36,28 @@ const AdminDashboard = () => {
                 <Card title="Customers" value={data.customers} />
             </div>
             <div className="mt-6">
-                <h2 className="text-xl font-semibold mb-4">Manage</h2>
-                <div className="flex space-x-4">
+                <h2 className="text-xl font-semibold mb-4 text-gray-800">Manage</h2>
+                <div className="flex flex-wrap gap-4">
                     <Button href="/admin/parking-slots">Manage Parking Slots</Button>
                     <Button href="/admin/parking-areas">Manage Parking Areas</Button>
                     <Button href="/admin/owners">Manage Owners</Button>
                     <Button href="/admin/customers">Manage Customers</Button>
                 </div>
             </div>
+            </div>
         </div>
     );
 };
 
 const Card = ({ title, value }) => (
-    <div className="bg-white shadow rounded-lg p-4">
-        <h3 className="text-lg font-semibold">{title}</h3>
-        <p className="text-2xl font-bold">{value}</p>
+    <div className="bg-white border border-gray-100 rounded-xl p-4 shadow-sm">
+        <h3 className="text-lg font-semibold text-gray-700">{title}</h3>
+        <p className="text-2xl font-bold text-gray-900">{value}</p>
     </div>
 );
 
 const Button = ({ href, children }) => (
-    <a href={href} className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+    <a href={href} className="bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-md py-2 px-4 hover:scale-105 hover:shadow-md transition">
         {children}
     </a>
 );

@@ -26,19 +26,23 @@ const Login1 = () => {
     };
 
     return (
-        <div className="bg-[url('/src/Images/Login1.jpg')] bg-center bg-cover bg-no-repeat h-[100vh] w-screen relative flex items-center">
-            <div className='w-screen h-[100vh] bg-black opacity-50 absolute top-0 left-0'>
-            <div className='w-screen h-[100vh] bg-black absolute top-0 left-0 flex items-center'>
+        <div className="min-h-screen bg-gradient-to-r from-purple-400 via-purple-500 to-purple-300 flex items-center justify-center px-4 py-8">
+            <div className="w-full max-w-4xl bg-white rounded-xl shadow-lg p-8 flex flex-col md:flex-row overflow-hidden">
+                <div className="w-full md:w-1/2 bg-gradient-to-br from-purple-600 to-pink-500 text-white flex flex-col justify-center items-center text-center p-6">
+                    <h1 className='text-4xl font-bold'>Admin Login</h1>
+                    <p className='mt-3 text-sm sm:text-base text-white/90'>Securely access your admin dashboard and controls</p>
+                </div>
+                <div className="w-full md:w-1/2 p-6">
 
-            <form onSubmit={handleSubmit} style={{ border: '3px solid gray', borderRadius: '8px' }} className='relative text-white text-center flex flex-col gap-4 mx-auto px-4 w-[30%] py-6 shadow-xl shadow-purple-500'>
+            <form onSubmit={handleSubmit} className='space-y-4'>
             
-            <h1 className='text-2xl uppercase font-semibold'>Login Page</h1>
+            <h1 className='text-2xl font-semibold text-gray-800'>Login Page</h1>
 
-                    <div className='flex flex-col gap-2 w-[70%] mx-auto'>
-                        <label className="text-xl font-semibold text-left" for="email">Username</label>
+                    <div className='space-y-2'>
+                        <label className="block text-sm text-gray-600" for="email">Username</label>
                         <input
                             type="email"
-                            className='outline-none px-4 py-2 rounded-full bg-transparent border-2 text-white'
+                            className='w-full border border-gray-300 rounded-md px-3 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-400'
                             name="email"
                             value={user.email}
                             onChange={handleChange}
@@ -47,11 +51,11 @@ const Login1 = () => {
                         />
                     </div>
 
-                    <div className='flex flex-col gap-2 w-[70%] mx-auto'>
-                        <label className="text-xl font-semibold text-left" for="password">Password</label>
+                    <div className='space-y-2'>
+                        <label className="block text-sm text-gray-600" for="password">Password</label>
                         <input
                             type="password"
-                            className='outline-none px-4 py-2 rounded-full bg-transparent border-2 text-white'
+                            className='w-full border border-gray-300 rounded-md px-3 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-400'
                             name="password"
                             value={user.password}
                             onChange={handleChange}
@@ -60,10 +64,10 @@ const Login1 = () => {
                         />
                     </div>
 
-                    <div>
+                    <div className='pt-2'>
                         <button
                             type="submit"
-                            className='bg-purple-700 px-4 py-2 rounded-md text-xl w-[200px] mx-auto hover:bg-transparent hover:border-purple-600 border-2 border-purple-500'
+                            className='w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-md py-2 hover:scale-105 hover:shadow-md transition'
                         >
                             Log In
                         </button>
