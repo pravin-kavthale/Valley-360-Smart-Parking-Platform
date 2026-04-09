@@ -29,10 +29,12 @@ const Registration = () => {
     const [address, setAddress] = useState('');
     const [roleId, setRoleId] = useState('');
     const [passwordError, setPasswordError] = useState('');
+    const [error, setError] = useState('');
 
     // Handler for form submission
     const handleSignup = async (e) => {
         e.preventDefault(); // Prevent default form submission behavior
+        setError('');
 
         // Validate password
         if (!validatePassword(password)) {
@@ -53,14 +55,17 @@ const Registration = () => {
                 gender,
                 address,
                 roleId: parseInt(roleId, 10), // Convert roleId to integer
-            })
-            .then(response => {
-                toast.success("Signup Successful!"); // Display success message
-                window.location.href = '/';
             });
 
+            toast.success("Signup Successful!"); // Display success message
+            window.location.href = '/';
+
         } catch (error) {
-            toast.error('There was an error signing up!', error); // Log any errors
+            if (error.response && error.response.status === 409) {
+                setError(error.response.data.message);
+            } else {
+                setError('Something went wrong');
+            }
         }
     };
 
@@ -83,15 +88,21 @@ const Registration = () => {
                     <h2 className='text-2xl font-semibold text-gray-800'>Register Here</h2>
                     <p className='mt-2 text-sm text-gray-600'>Create your account. It's free and only takes a minute</p>
 
+                    {error && (
+                        <p className='mt-4 text-sm text-red-500'>
+                            {error}
+                        </p>
+                    )}
+
                     <form onSubmit={handleSignup} className="mt-6 space-y-4">
 
                         <div className='grid grid-cols-2 gap-4'>
-                            <input type='text' placeholder='First Name' className='w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400' value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
-                            <input type='text' placeholder='Last Name' className='w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400' value={lastName} onChange={(e) => setLastName(e.target.value)} required />
+                            <input type='text' placeholder='First Name' className='w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400' value={firstName} onChange={(e) => { setError(''); setFirstName(e.target.value); }} required />
+                            <input type='text' placeholder='Last Name' className='w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400' value={lastName} onChange={(e) => { setError(''); setLastName(e.target.value); }} required />
                         </div>
 
                         <div className='space-y-2'>
-                            <input type='email' placeholder='Email' className='w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400' value={email} onChange={(e) => setEmail(e.target.value)} required />
+                            <input type='email' placeholder='Email' className='w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400' value={email} onChange={(e) => { setError(''); setEmail(e.target.value); }} required />
                         </div>
 
                         <div className='space-y-2'>
@@ -100,23 +111,23 @@ const Registration = () => {
                                 placeholder='Password'
                                 className='w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400'
                                 value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={(e) => { setError(''); setPassword(e.target.value); }}
                                 required
                             />
                             {passwordError && <p className='text-red-500 text-sm mt-1'>{passwordError}</p>}
                         </div>
 
                         <div className='space-y-2'>
-                            <input type='tel' placeholder='Contact' pattern="[0-9]{10}" title="Please enter a 10-digit phone number" className='w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400' value={contact} onChange={(e) => setContact(e.target.value)} required />
+                            <input type='tel' placeholder='Contact' pattern="[0-9]{10}" title="Please enter a 10-digit phone number" className='w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400' value={contact} onChange={(e) => { setError(''); setContact(e.target.value); }} required />
                         </div>
 
                         <div className='space-y-2'>
-                            <input type='text' placeholder='Address' className='w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400' value={address} onChange={(e) => setAddress(e.target.value)} required />
+                            <input type='text' placeholder='Address' className='w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400' value={address} onChange={(e) => { setError(''); setAddress(e.target.value); }} required />
                         </div>
 
                         <div className='space-y-2'>
                             <span className='block text-sm font-medium text-gray-700'>Gender:</span>
-                            <select className='w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400' value={gender} onChange={(e) => setGender(e.target.value)} required>
+                            <select className='w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400' value={gender} onChange={(e) => { setError(''); setGender(e.target.value); }} required>
                                 <option value="">Select Gender</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
@@ -125,7 +136,7 @@ const Registration = () => {
                         </div>
                         <div className='space-y-2'>
                             <span className='block text-sm font-medium text-gray-700'>Role:</span>
-                            <select className='w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400' value={roleId} onChange={(e) => setRoleId(e.target.value)} required>
+                            <select className='w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400' value={roleId} onChange={(e) => { setError(''); setRoleId(e.target.value); }} required>
                                 <option value="">Select Role</option>
                                 <option value="2">Owner</option>
                                 <option value="3">Customer</option>
