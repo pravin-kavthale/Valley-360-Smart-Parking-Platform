@@ -83,81 +83,87 @@ const UpdateParkingArea = () => {
   };
 
   return (
-    <div className="container mx-auto p-8">
+    <div className="min-h-screen bg-gradient-to-r from-purple-400 via-purple-500 to-purple-300 flex items-center justify-center px-4 py-8">
       <ToastContainer position="top-center" />
-      <h1 className="text-3xl font-bold mb-8 text-center">Update Parking Area</h1>
-      <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <form onSubmit={handleUpdateParkingArea}>
-          <div className="grid grid-cols-1 gap-6">
-            <div className="flex flex-col">
-              <label className="text-sm font-semibold text-gray-700">Area:</label>
+      <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-4xl flex flex-col md:flex-row overflow-hidden">
+        <div className="w-full md:w-1/2 bg-gradient-to-br from-purple-600 to-pink-500 text-white flex flex-col justify-center items-center text-center p-6">
+          <h1 className="text-3xl font-bold">Update Parking Area</h1>
+          <p className="mt-3 text-sm sm:text-base text-white/90">Edit and maintain parking location details efficiently</p>
+        </div>
+        <div className="w-full md:w-1/2 p-6">
+        <form onSubmit={handleUpdateParkingArea} className="space-y-4">
+            <div className="space-y-2">
+              <label className="block text-sm text-gray-600">Area:</label>
               <input 
                 type="text" 
                 value={area} 
                 onChange={(e) => setArea(e.target.value)} 
-                className="mt-1 p-2 border border-gray-300 rounded-md" 
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400" 
                 required
               />
             </div>
-            <div className="flex flex-col">
-              <label className="text-sm font-semibold text-gray-700">City:</label>
+            <div className="space-y-2">
+              <label className="block text-sm text-gray-600">City:</label>
               <input 
                 type="text" 
                 value={city} 
                 onChange={(e) => setCity(e.target.value)} 
-                className="mt-1 p-2 border border-gray-300 rounded-md" 
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400" 
                 required
               />
             </div>
-            <div className="flex flex-col">
-              <label className="text-sm font-semibold text-gray-700">Pincode:</label>
+            <div className="space-y-2">
+              <label className="block text-sm text-gray-600">Pincode:</label>
               <input 
                 type="text" 
                 value={pincode} 
                 onChange={(e) => setPincode(e.target.value)} 
-                className="mt-1 p-2 border border-gray-300 rounded-md" 
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400" 
                 required
               />
             </div>
-            <div className="flex flex-col">
-              <label className="text-sm font-semibold text-gray-700">Latitude:</label>
+            <div className="space-y-2">
+              <label className="block text-sm text-gray-600">Latitude:</label>
               <input 
                 type="text" 
                 value={latitude} 
                 onChange={(e) => setLatitude(e.target.value)} 
-                className="mt-1 p-2 border border-gray-300 rounded-md" 
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400" 
                 required
               />
             </div>
-            <div className="flex flex-col">
-              <label className="text-sm font-semibold text-gray-700">Longitude:</label>
+            <div className="space-y-2">
+              <label className="block text-sm text-gray-600">Longitude:</label>
               <input 
                 type="text" 
                 value={longitude} 
                 onChange={(e) => setLongitude(e.target.value)} 
-                className="mt-1 p-2 border border-gray-300 rounded-md" 
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400" 
                 required
               />
             </div>
-            <div className="flex flex-col">
-              <label className="text-sm font-semibold text-gray-700">Status:</label>
+            <div className="space-y-2">
+              <label className="block text-sm text-gray-600">Status:</label>
               <select 
                 value={status} 
                 onChange={(e) => setStatus(e.target.value)} 
-                className="mt-1 p-2 border border-gray-300 rounded-md"
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
               >
                 <option value="ACTIVE">Active</option>
                 <option value="INACTIVE">Inactive</option>
               </select>
             </div>
+            <div className="pt-2">
             <button 
               type="submit" 
-              className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors"
+              className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-md py-2 hover:scale-105 hover:shadow-md transition"
             >
               Update Parking Area
             </button>
-          </div>
+            </div>
+          
         </form>
+        </div>
       </div>
     </div>
   );

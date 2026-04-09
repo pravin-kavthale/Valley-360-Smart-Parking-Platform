@@ -31,10 +31,16 @@ const BookParking = () => {
       };
     
       return (
-        <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md mx-auto">
+        <div className="min-h-screen bg-gradient-to-r from-purple-400 via-purple-500 to-purple-300 flex items-center justify-center px-4 py-8">
+        <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-4xl flex flex-col md:flex-row overflow-hidden">
+          <div className="w-full md:w-1/2 bg-gradient-to-br from-purple-600 to-pink-500 text-white flex flex-col justify-center items-center text-center p-6">
+            <h2 className="text-3xl font-bold">Book Parking</h2>
+            <p className="mt-3 text-sm sm:text-base text-white/90">Reserve slots with a clean and consistent flow</p>
+          </div>
+          <div className="w-full md:w-1/2 p-6">
           <h2 className="text-2xl font-bold mb-6">Book Parking</h2>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="date" className="block text-gray-700 font-medium mb-2">
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <label htmlFor="date" className="block text-sm text-gray-600">
               Date and Time:
             </label>
             <input
@@ -44,9 +50,9 @@ const BookParking = () => {
               value={formData.date}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
             />
-            <label htmlFor="vehicleNo" className="block text-gray-700 font-medium mb-2">
+            <label htmlFor="vehicleNo" className="block text-sm text-gray-600">
               Vehicle Number:
             </label>
             <input
@@ -56,9 +62,9 @@ const BookParking = () => {
               value={formData.vehicleNo}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
             />
-            <label htmlFor="vehicleType" className="block text-gray-700 font-medium mb-2">
+            <label htmlFor="vehicleType" className="block text-sm text-gray-600">
               Vehicle Type:
             </label>
             <select
@@ -67,13 +73,13 @@ const BookParking = () => {
               value={formData.vehicleType}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
             >
               <option value="TWO_WHEELER">Car</option>
               <option value="TWO_WHEELER">Motorcycle</option>
               
             </select>
-            <label htmlFor="parkingHours" className="block text-gray-700 font-medium mb-2">
+            <label htmlFor="parkingHours" className="block text-sm text-gray-600">
               Parking Hours:
             </label>
             <input
@@ -83,9 +89,9 @@ const BookParking = () => {
               value={formData.parkingHours}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
             />
-            <label htmlFor="price" className="block text-gray-700 font-medium mb-2">
+            <label htmlFor="price" className="block text-sm text-gray-600">
               Price:
             </label>
             <input
@@ -95,15 +101,17 @@ const BookParking = () => {
               value={formData.price}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
             />
             <button
               type="submit"
-              className="w-full bg-blue-500 text-white py-2 rounded-lg font-semibold hover:bg-blue-600 transition-colors"
+              className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-md py-2 hover:scale-105 hover:shadow-md transition"
             >
               Book Now
             </button>
           </form>
+        </div>
+        </div>
         </div>
       );
 }

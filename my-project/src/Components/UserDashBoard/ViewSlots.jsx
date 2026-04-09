@@ -50,20 +50,20 @@ const ParkingSlots = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 text-white p-6">
+    <div className="min-h-screen bg-gradient-to-r from-purple-400 via-purple-500 to-purple-300 p-6">
       <ToastContainer position="top-center" />
       <div className="container mx-auto">
-        <h1 className="text-4xl font-bold mb-6">Parking Slots</h1>
+        <h1 className="text-4xl font-bold mb-6 text-white">Parking Slots</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {slots.length > 0 ? (
             slots.map((slot) => (
-              <div key={slot.id} className="bg-white text-black rounded-lg p-4 shadow-md">
+              <div key={slot.id} className="bg-white text-black rounded-xl p-4 shadow-lg">
                 <h2 className="text-2xl font-bold">Slot Number: {slot.number}</h2>
                 <p>Vehicle Type: {slot.vehicleType}</p>
                 <p>Status: {slot.status}</p>
                 <p>Price: {slot.price ? `$${slot.price.toFixed(2)}` : 'N/A'}</p>
                 <button
-                  className="mt-4 bg-purple-700 text-white py-2 px-4 rounded hover:bg-purple-800 transition"
+                  className="mt-4 w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-md py-2 hover:scale-105 hover:shadow-md transition"
                   onClick={() => handleBookNow(slot.id, user.id)}
                 >
                   Book Slots

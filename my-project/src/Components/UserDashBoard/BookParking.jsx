@@ -120,10 +120,16 @@ const BookParking = () => {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md mx-auto">
-      <h2 className="text-2xl font-bold mb-6">Book Parking</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="bookingDate" className="block text-gray-700 font-medium mb-2">
+    <div className="min-h-screen bg-gradient-to-r from-purple-400 via-purple-500 to-purple-300 flex items-center justify-center px-4 py-8">
+      <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-4xl flex flex-col md:flex-row overflow-hidden">
+        <div className="w-full md:w-1/2 bg-gradient-to-br from-purple-600 to-pink-500 text-white flex flex-col justify-center items-center text-center p-6">
+          <h2 className="text-3xl font-bold">Book Parking</h2>
+          <p className="mt-3 text-sm sm:text-base text-white/90">Reserve your slot with accurate timing and pricing</p>
+        </div>
+        <div className="w-full md:w-1/2 p-6">
+      <h2 className="text-2xl font-bold mb-6 text-gray-800">Book Parking</h2>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <label htmlFor="bookingDate" className="block text-sm text-gray-600">
           Booking Date:
         </label>
         <input
@@ -132,11 +138,11 @@ const BookParking = () => {
           name="bookingDate"
           value={formData.bookingDate}
           onChange={handleChange}
-          className={`w-full px-3 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.bookingDate ? 'border-red-500' : ''}`}
+          className={`w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400 ${errors.bookingDate ? 'border-red-500' : ''}`}
         />
         {errors.bookingDate && <p className="text-red-500 text-sm mb-4">{errors.bookingDate}</p>}
 
-        <label htmlFor="arrivalDate" className="block text-gray-700 font-medium mb-2">
+        <label htmlFor="arrivalDate" className="block text-sm text-gray-600">
           Arrival Date and Time:
         </label>
         <input
@@ -146,11 +152,11 @@ const BookParking = () => {
           value={formData.arrivalDate}
           onChange={handleChange}
           required
-          className={`w-full px-3 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.arrivalDate ? 'border-red-500' : ''}`}
+          className={`w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400 ${errors.arrivalDate ? 'border-red-500' : ''}`}
         />
         {errors.arrivalDate && <p className="text-red-500 text-sm mb-4">{errors.arrivalDate}</p>}
 
-        <label htmlFor="departureDate" className="block text-gray-700 font-medium mb-2">
+        <label htmlFor="departureDate" className="block text-sm text-gray-600">
           Departure Date and Time:
         </label>
         <input
@@ -160,11 +166,11 @@ const BookParking = () => {
           value={formData.departureDate}
           onChange={handleChange}
           required
-          className={`w-full px-3 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.departureDate ? 'border-red-500' : ''}`}
+          className={`w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400 ${errors.departureDate ? 'border-red-500' : ''}`}
         />
         {errors.departureDate && <p className="text-red-500 text-sm mb-4">{errors.departureDate}</p>}
 
-        <label htmlFor="vehicleNo" className="block text-gray-700 font-medium mb-2">
+        <label htmlFor="vehicleNo" className="block text-sm text-gray-600">
           Vehicle Number:
         </label>
         <input
@@ -174,11 +180,11 @@ const BookParking = () => {
           value={formData.vehicleNo}
           onChange={handleChange}
           required
-          className={`w-full px-3 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.vehicleNo ? 'border-red-500' : ''}`}
+          className={`w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400 ${errors.vehicleNo ? 'border-red-500' : ''}`}
         />
         {errors.vehicleNo && <p className="text-red-500 text-sm mb-4">{errors.vehicleNo}</p>}
 
-        <label htmlFor="vehicleType" className="block text-gray-700 font-medium mb-2">
+        <label htmlFor="vehicleType" className="block text-sm text-gray-600">
           Vehicle Type:
         </label>
         <select
@@ -187,13 +193,13 @@ const BookParking = () => {
           value={formData.vehicleType}
           onChange={handleChange}
           required
-          className="w-full px-3 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
         >
           <option value="TWO_WHEELER">Two-Wheeler</option>
           <option value="FOUR_WHEELER">Four-Wheeler</option>
         </select>
 
-        <label htmlFor="parkingHours" className="block text-gray-700 font-medium mb-2">
+        <label htmlFor="parkingHours" className="block text-sm text-gray-600">
           Parking Hours:
         </label>
         <input
@@ -202,10 +208,10 @@ const BookParking = () => {
           name="parkingHours"
           value={Math.ceil((new Date(formData.departureDate) - new Date(formData.arrivalDate)) / (1000 * 60 * 60))}
           readOnly
-          className="w-full px-3 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
         />
 
-        <label htmlFor="price" className="block text-gray-700 font-medium mb-2">
+        <label htmlFor="price" className="block text-sm text-gray-600">
           Price:
         </label>
         <input
@@ -214,16 +220,18 @@ const BookParking = () => {
           name="price"
           value={calculatePrice(Math.ceil((new Date(formData.departureDate) - new Date(formData.arrivalDate)) / (1000 * 60 * 60)), formData.vehicleType)}
           readOnly
-          className="w-full px-3 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
         />
 
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 rounded-lg font-semibold hover:bg-blue-600 transition-colors"
+          className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-md py-2 hover:scale-105 hover:shadow-md transition"
         >
           Book Now
         </button>
       </form>
+    </div>
+    </div>
     </div>
   );
 };

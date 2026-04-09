@@ -97,44 +97,48 @@ const ParkingSlotForm = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-r from-purple-500 via-emerald-300 to-purple-700 flex items-center justify-center">
-            <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-                <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Add Parking Slot</h2>
+        <div className="min-h-screen bg-gradient-to-r from-purple-400 via-purple-500 to-purple-300 flex items-center justify-center px-4 py-8">
+            <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-4xl flex flex-col md:flex-row overflow-hidden">
+                <div className="w-full md:w-1/2 bg-gradient-to-br from-purple-600 to-pink-500 text-white flex flex-col justify-center items-center text-center p-6">
+                    <h2 className="text-3xl font-bold">Add Parking Slot</h2>
+                    <p className="mt-3 text-sm sm:text-base text-white/90">Manage and register parking slot details efficiently</p>
+                </div>
+                <div className="w-full md:w-1/2 p-6">
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    <div>
-                        <label htmlFor="slotNumber" className="block text-sm font-medium text-gray-700">Slot Number</label>
+                    <div className="space-y-2">
+                        <label htmlFor="slotNumber" className="block text-sm text-gray-600">Slot Number</label>
                         <input
                             type="text"
                             id="slotNumber"
                             value={slotNumber}
                             onChange={(e) => setSlotNumber(e.target.value)}
                             required
-                            className={`mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${slotNumberError ? 'border-red-500' : ''}`}
+                            className={`w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400 ${slotNumberError ? 'border-red-500' : ''}`}
                         />
                         {slotNumberError && <p className="text-red-500 text-sm mt-1">{slotNumberError}</p>}
                     </div>
                     
-                    <div>
-                        <label htmlFor="price" className="block text-sm font-medium text-gray-700">Price</label>
+                    <div className="space-y-2">
+                        <label htmlFor="price" className="block text-sm text-gray-600">Price</label>
                         <input
                             type="number"
                             id="price"
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
                             required
-                            className={`mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${priceError ? 'border-red-500' : ''}`}
+                            className={`w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400 ${priceError ? 'border-red-500' : ''}`}
                         />
                         {priceError && <p className="text-red-500 text-sm mt-1">{priceError}</p>}
                     </div>
 
-                    <div>
-                        <label htmlFor="vehicleType" className="block text-sm font-medium text-gray-700">Vehicle Type</label>
+                    <div className="space-y-2">
+                        <label htmlFor="vehicleType" className="block text-sm text-gray-600">Vehicle Type</label>
                         <select
                             id="vehicleType"
                             value={vehicleType}
                             onChange={(e) => setVehicleType(e.target.value)}
                             required
-                            className={`mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${vehicleTypeError ? 'border-red-500' : ''}`}
+                            className={`w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400 ${vehicleTypeError ? 'border-red-500' : ''}`}
                         >
                             <option value="">Select Vehicle Type</option>
                             <option value="TWO_WHEELER">Two-Wheeler</option>
@@ -143,14 +147,14 @@ const ParkingSlotForm = () => {
                         {vehicleTypeError && <p className="text-red-500 text-sm mt-1">{vehicleTypeError}</p>}
                     </div>
 
-                    <div>
-                        <label htmlFor="status" className="block text-sm font-medium text-gray-700">Status</label>
+                    <div className="space-y-2">
+                        <label htmlFor="status" className="block text-sm text-gray-600">Status</label>
                         <select
                             id="status"
                             value={status}
                             onChange={(e) => setStatus(e.target.value)}
                             required
-                            className={`mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${statusError ? 'border-red-500' : ''}`}
+                            className={`w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400 ${statusError ? 'border-red-500' : ''}`}
                         >
                             <option value="">Select Status</option>
                             <option value="AVAILABLE">Available</option>
@@ -159,16 +163,17 @@ const ParkingSlotForm = () => {
                         {statusError && <p className="text-red-500 text-sm mt-1">{statusError}</p>}
                     </div>
 
-                    <div>
+                    <div className="pt-2">
                         <button
                             type="submit"
-                            className="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-md py-2 hover:scale-105 hover:shadow-md transition"
                         >
                             Add Parking Slot
                         </button>
                     </div>
                 </form>
                 <ToastContainer position="top-center" />
+            </div>
             </div>
         </div>
     );
