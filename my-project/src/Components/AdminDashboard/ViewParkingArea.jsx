@@ -35,37 +35,53 @@ const handleDelete = async (id) => {
   if (error) return <div className="text-center text-red-500">{error}</div>;
 
   return (
-    <div>
-      <div className="p-6 bg-slate-500 min-h-screen">
-        <h1 className="text-3xl font-bold mb-6 text-center">Parking Slots</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {Array.isArray(parkingAreas) && parkingAreas.length > 0 ? (
-            parkingAreas.map((area) => (
-              <div key={area.id} className="bg-white shadow-lg rounded-lg p-6">
-                <h2 className="text-xl font-semibold mb-2">Area ID: {area.id}</h2>
-                <p className="text-gray-700">Parking area: {area.area}</p>
-                <p className="text-gray-700">Parking Area city: {area.city}</p>
-                <p className="text-gray-700">Parking Area latitude: {area.latitude}</p>
-                <p className="text-gray-700">Parking Area longitude: {area.longitude}</p>
-                <p className="text-gray-700">Pincode: {area.pincode}</p>
-                <p
-                  className={`text-sm font-medium ${
-                    area.status === 'AVAILABLE' ? 'text-green-600' : 'text-red-600'
-                  }`}
-                >
-                  Status: {area.status}
-                </p>
-                <button
-                  onClick={() => handleDelete(area.id)}
-                  className="mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
-                >
-                  Delete
-                </button>
-              </div>
-            ))
-          ) : (
-            <div className="text-center text-gray-600">No parking slots available</div>
-          )}
+    <div className="min-h-screen bg-gradient-to-r from-purple-400 via-purple-500 to-purple-300 p-6">
+      <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-7xl mx-auto space-y-4">
+        <h1 className="text-2xl font-semibold text-gray-800 mb-4">Parking Areas</h1>
+        <div className="overflow-x-auto">
+          <table className="min-w-full border border-gray-200 rounded-lg overflow-hidden">
+            <thead className="bg-purple-100 text-gray-700 text-sm uppercase">
+              <tr>
+                <th className="px-4 py-2 text-left">ID</th>
+                <th className="px-4 py-2 text-left">Area</th>
+                <th className="px-4 py-2 text-left">City</th>
+                <th className="px-4 py-2 text-left">Latitude</th>
+                <th className="px-4 py-2 text-left">Longitude</th>
+                <th className="px-4 py-2 text-left">Pincode</th>
+                <th className="px-4 py-2 text-left">Status</th>
+                <th className="px-4 py-2 text-left">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Array.isArray(parkingAreas) && parkingAreas.length > 0 ? (
+                parkingAreas.map((area) => (
+                  <tr key={area.id} className="border-t hover:bg-purple-50">
+                    <td className="px-4 py-2 text-sm text-gray-700">{area.id}</td>
+                    <td className="px-4 py-2 text-sm text-gray-700">{area.area}</td>
+                    <td className="px-4 py-2 text-sm text-gray-700">{area.city}</td>
+                    <td className="px-4 py-2 text-sm text-gray-700">{area.latitude}</td>
+                    <td className="px-4 py-2 text-sm text-gray-700">{area.longitude}</td>
+                    <td className="px-4 py-2 text-sm text-gray-700">{area.pincode}</td>
+                    <td className={`px-4 py-2 text-sm font-medium ${area.status === 'AVAILABLE' ? 'text-green-600' : 'text-red-600'}`}>
+                      {area.status}
+                    </td>
+                    <td className="px-4 py-2 text-sm text-gray-700">
+                      <button
+                        onClick={() => handleDelete(area.id)}
+                        className="px-3 py-1 rounded-md text-white text-sm bg-red-500 hover:bg-red-600"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr className="border-t">
+                  <td className="px-4 py-4 text-sm text-gray-700" colSpan="8">No parking areas available</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

@@ -26,25 +26,41 @@ const ViewAllParkingSlots = () => {
     if (error) return <div className="text-center text-red-500">{error}</div>;
 
     return (
-        <div className="p-6 bg-slate-500 min-h-screen">
-            <h1 className="text-3xl font-bold mb-6 text-center">Parking Slots</h1>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {Array.isArray(parkingSlots) && parkingSlots.length > 0 ? (
-                    parkingSlots.map(slot => (
-                        <div key={slot.id} className="bg-white shadow-lg rounded-lg p-6">
-                            <h2 className="text-xl font-semibold mb-2">Slot ID: {slot.id}</h2>
-                            
-                            <p className="text-gray-700">Vehicle Type: {slot.vehicleType}</p>
-                            <p className="text-gray-700">Parking Area ID: {slot.parkingId}</p>
-                            <p className="text-gray-700">Price: ₹{slot.price}</p>
-                            <p className={`text-sm font-medium ${slot.status === 'AVAILABLE' ? 'text-green-600' : 'text-red-600'}`}>
-                                Status: {slot.status}
-                            </p>
-                        </div>
-                    ))
-                ) : (
-                    <div className="text-center text-gray-600">No parking slots available</div>
-                )}
+        <div className="min-h-screen bg-gradient-to-r from-purple-400 via-purple-500 to-purple-300 p-6">
+            <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-7xl mx-auto space-y-4">
+                <h1 className="text-2xl font-semibold text-gray-800 mb-4">Parking Slots</h1>
+                <div className="overflow-x-auto">
+                    <table className="min-w-full border border-gray-200 rounded-lg overflow-hidden">
+                        <thead className="bg-purple-100 text-gray-700 text-sm uppercase">
+                            <tr>
+                                <th className="px-4 py-2 text-left">ID</th>
+                                <th className="px-4 py-2 text-left">Vehicle Type</th>
+                                <th className="px-4 py-2 text-left">Parking Area ID</th>
+                                <th className="px-4 py-2 text-left">Price</th>
+                                <th className="px-4 py-2 text-left">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {Array.isArray(parkingSlots) && parkingSlots.length > 0 ? (
+                                parkingSlots.map(slot => (
+                                    <tr key={slot.id} className="border-t hover:bg-purple-50">
+                                        <td className="px-4 py-2 text-sm text-gray-700">{slot.id}</td>
+                                        <td className="px-4 py-2 text-sm text-gray-700">{slot.vehicleType}</td>
+                                        <td className="px-4 py-2 text-sm text-gray-700">{slot.parkingId}</td>
+                                        <td className="px-4 py-2 text-sm text-gray-700">₹{slot.price}</td>
+                                        <td className={`px-4 py-2 text-sm font-medium ${slot.status === 'AVAILABLE' ? 'text-green-600' : 'text-red-600'}`}>
+                                            {slot.status}
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr className="border-t">
+                                    <td className="px-4 py-4 text-sm text-gray-700" colSpan="5">No parking slots available</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     );
