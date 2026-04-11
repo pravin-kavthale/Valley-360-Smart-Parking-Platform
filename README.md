@@ -230,5 +230,5 @@ If you deploy the project, keep these values externalized and secure.
 - Booking notifications and reminders.
 
 ## Author
+- [pravin-kavthale](https://github.com/pravin-kavthale)
 
-- [pravin-kavthale]('https://github.com/pravin-kavthale')
