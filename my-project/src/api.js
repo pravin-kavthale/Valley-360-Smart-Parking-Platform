@@ -10,7 +10,8 @@ api.interceptors.request.use(
   (config) => {
     const requestUrl = (config.url || '').toString();
     const isPublicEndpoint = PUBLIC_ENDPOINTS.some((endpoint) => requestUrl.includes(endpoint));
-    const token = sessionStorage.getItem('jwtToken');
+    const token = localStorage.getItem('token');
+    console.log('TOKEN:', token);
 
     if (!isPublicEndpoint && !token) {
       console.error('User not authenticated');
@@ -18,6 +19,7 @@ api.interceptors.request.use(
     }
 
     if (!isPublicEndpoint && token) {
+      config.headers = config.headers || {};
       config.headers.Authorization = `Bearer ${token}`;
     }
 

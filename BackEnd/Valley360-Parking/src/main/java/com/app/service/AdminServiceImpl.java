@@ -23,7 +23,7 @@ public class AdminServiceImpl implements AdminService {
 	private PasswordEncoder passwordEncoder;
 
 	@Override
-	public String login(String email, String password) {
+	public User login(String email, String password) {
 		User adminUser = userRepository.findByEmail(email)
 				.orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
 
@@ -35,7 +35,7 @@ public class AdminServiceImpl implements AdminService {
 			throw new BadCredentialsException("Invalid email or password");
 		}
 
-		return adminUser.getEmail();
+		return adminUser;
 	}
 
 }

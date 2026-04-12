@@ -32,10 +32,13 @@ import com.app.service.UserService;
 
 @RestController
 @RequestMapping("/User")
-@CrossOrigin(origins = "*") /*This is useful when you want to make a resource accessible from different domains, 
-					such as when your frontend and backend are hosted on different domains. */
+@CrossOrigin(origins = "*") /*
+							 * This is useful when you want to make a resource accessible from different
+							 * domains,
+							 * such as when your frontend and backend are hosted on different domains.
+							 */
 public class UserController {
-	
+
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -44,27 +47,27 @@ public class UserController {
 	private JWTUtils utils;
 	@Autowired
 	private ModelMapper mapper;
-	
+
 	@PostMapping("/Register")
 	public ResponseEntity<?> registerUser(@RequestBody UserDTO user) {
-		
+
 		userService.registerUser(user);
 		return ResponseEntity.status(HttpStatus.OK).body("User is created");
 	}
-	
+
 	@GetMapping("/getByEmail/{email}")
-	public ResponseEntity<?> getUserByEmail(@PathVariable String email){
+	public ResponseEntity<?> getUserByEmail(@PathVariable String email) {
 		return new ResponseEntity<>(userService.getUserByEmail(email), HttpStatus.FOUND);
 	}
-	
+
 	@PutMapping("/updateUser/{email}")
-	public User updateUser(@RequestBody User user, @PathVariable String email){
+	public User updateUser(@RequestBody User user, @PathVariable String email) {
 		return userService.updateUser(user, email);
 	}
-	
+
 	@PostMapping("/Login")
 	public ResponseEntity<?> login(@RequestParam String email, @RequestParam String password) {
-		
+
 		UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(email,
 				password);
 		Authentication authenticationDetails = authManager.authenticate(authToken);
@@ -76,43 +79,45 @@ public class UserController {
 		roleList.forEach(role -> {
 			authResponse.getUserRoles().add(RoleEnum.valueOf(role));
 		});
-		authResponse.setJwtToken(utils.generateJwtToken(authenticationDetails));
+		String jwtToken = utils.generateJwtToken(authenticationDetails);
+		authResponse.setJwtToken(jwtToken);
+		authResponse.setToken(jwtToken);
 		authResponse.setMessage("Authentication Successfull !!");
-//		User user = userService.login(email, password);
+		// User user = userService.login(email, password);
 		mapper.map(user, authResponse);
-//		byte profilePictureBlob[] = Files.readAllBytes(Paths.get(user.getProfilePicPath()));
-//		
-//		authResponse.setProfilePicture(profilePictureBlob);
-		
+		// byte profilePictureBlob[] =
+		// Files.readAllBytes(Paths.get(user.getProfilePicPath()));
+		//
+		// authResponse.setProfilePicture(profilePictureBlob);
+
 		return ResponseEntity.status(HttpStatus.OK).body(authResponse);
-		
-		
-        
-        
-//        return ResponseEntity.ok(user);
-    }
+
+		// return ResponseEntity.ok(user);
+	}
+
 	@GetMapping("/{id}")
 	public User GetById(@PathVariable long id) {
-	System.out.println("in user controller");
+		System.out.println("in user controller");
 		return userService.getById(id);
 	}
+
 	@GetMapping("/GetAllOwners")
-	public List<User> GetAllOwners(){
-		List<User> UserList=userService.GetAllOwner();
+	public List<User> GetAllOwners() {
+		List<User> UserList = userService.GetAllOwner();
 		return UserList;
 	}
-	
+
 	@GetMapping("/GetAllCustomers")
-	public List<User> GetAllCustomers(){
-		List<User> UserList=userService.GetAllCustomers();
+	public List<User> GetAllCustomers() {
+		List<User> UserList = userService.GetAllCustomers();
 		return UserList;
 	}
-	
+
 	@DeleteMapping("Delete/{id}")
-	public ResponseEntity<?> DeleteUser(@PathVariable Long id){
-		
+	public ResponseEntity<?> DeleteUser(@PathVariable Long id) {
+
 		userService.Delete(id);
 		return ResponseEntity.ok("UserDeleted");
 	}
-	
+
 }
