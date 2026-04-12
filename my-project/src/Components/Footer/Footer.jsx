@@ -20,7 +20,7 @@ const Footer = () => {
         </div>
 
         {/* Social media icons */}
-        <div className='text-3xl flex items-center gap-4 mt-6 text-gray-700'>
+        <div className='text-3xl flex items-center gap-4 mt-6 text-slate-700'>
           <FaInstagram />
           <FaFacebookF />
           <FaWhatsapp />

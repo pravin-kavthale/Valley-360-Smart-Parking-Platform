@@ -65,7 +65,7 @@ const ParkingSlotForm = () => {
             return;
         }
         
-        const token = sessionStorage.getItem('jwtToken');
+        const token = localStorage.getItem('token');
         console.log('Token:', token); // Debugging token retrieval
         if (!token) {
             toast.error('User is not authenticated. Please log in.');
@@ -97,48 +97,48 @@ const ParkingSlotForm = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-r from-purple-400 via-purple-500 to-purple-300 flex items-center justify-center px-4 py-8">
-            <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-4xl flex flex-col md:flex-row overflow-hidden">
-                <div className="w-full md:w-1/2 bg-gradient-to-br from-purple-600 to-pink-500 text-white flex flex-col justify-center items-center text-center p-6">
+        <div className="min-h-screen bg-gradient-to-br from-rose-100 via-orange-100 to-amber-200 flex items-center justify-center px-4 py-8">
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl border border-rose-200 shadow-md p-8 w-full max-w-4xl flex flex-col md:flex-row overflow-hidden">
+                <div className="w-full md:w-1/2 bg-gradient-to-br from-rose-400 to-orange-300 text-white flex flex-col justify-center items-center text-center p-6">
                     <h2 className="text-3xl font-bold">Add Parking Slot</h2>
                     <p className="mt-3 text-sm sm:text-base text-white/90">Manage and register parking slot details efficiently</p>
                 </div>
                 <div className="w-full md:w-1/2 p-6">
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="space-y-2">
-                        <label htmlFor="slotNumber" className="block text-sm text-gray-600">Slot Number</label>
+                        <label htmlFor="slotNumber" className="block text-sm text-slate-600">Slot Number</label>
                         <input
                             type="text"
                             id="slotNumber"
                             value={slotNumber}
                             onChange={(e) => setSlotNumber(e.target.value)}
                             required
-                            className={`w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400 ${slotNumberError ? 'border-red-500' : ''}`}
+                            className={`w-full border border-rose-200 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-rose-400 ${slotNumberError ? 'border-red-500' : ''}`}
                         />
                         {slotNumberError && <p className="text-red-500 text-sm mt-1">{slotNumberError}</p>}
                     </div>
                     
                     <div className="space-y-2">
-                        <label htmlFor="price" className="block text-sm text-gray-600">Price</label>
+                        <label htmlFor="price" className="block text-sm text-slate-600">Price</label>
                         <input
                             type="number"
                             id="price"
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
                             required
-                            className={`w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400 ${priceError ? 'border-red-500' : ''}`}
+                            className={`w-full border border-rose-200 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-rose-400 ${priceError ? 'border-red-500' : ''}`}
                         />
                         {priceError && <p className="text-red-500 text-sm mt-1">{priceError}</p>}
                     </div>
 
                     <div className="space-y-2">
-                        <label htmlFor="vehicleType" className="block text-sm text-gray-600">Vehicle Type</label>
+                        <label htmlFor="vehicleType" className="block text-sm text-slate-600">Vehicle Type</label>
                         <select
                             id="vehicleType"
                             value={vehicleType}
                             onChange={(e) => setVehicleType(e.target.value)}
                             required
-                            className={`w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400 ${vehicleTypeError ? 'border-red-500' : ''}`}
+                            className={`w-full border border-rose-200 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-rose-400 ${vehicleTypeError ? 'border-red-500' : ''}`}
                         >
                             <option value="">Select Vehicle Type</option>
                             <option value="TWO_WHEELER">Two-Wheeler</option>
@@ -148,13 +148,13 @@ const ParkingSlotForm = () => {
                     </div>
 
                     <div className="space-y-2">
-                        <label htmlFor="status" className="block text-sm text-gray-600">Status</label>
+                        <label htmlFor="status" className="block text-sm text-slate-600">Status</label>
                         <select
                             id="status"
                             value={status}
                             onChange={(e) => setStatus(e.target.value)}
                             required
-                            className={`w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400 ${statusError ? 'border-red-500' : ''}`}
+                            className={`w-full border border-rose-200 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-rose-400 ${statusError ? 'border-red-500' : ''}`}
                         >
                             <option value="">Select Status</option>
                             <option value="AVAILABLE">Available</option>
@@ -166,7 +166,7 @@ const ParkingSlotForm = () => {
                     <div className="pt-2">
                         <button
                             type="submit"
-                            className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-md py-2 hover:scale-105 hover:shadow-md transition"
+                            className="w-full bg-rose-500 hover:bg-rose-600 text-white rounded-md py-2 hover:scale-105 hover:shadow-md transition"
                         >
                             Add Parking Slot
                         </button>

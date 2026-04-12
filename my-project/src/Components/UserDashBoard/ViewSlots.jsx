@@ -23,7 +23,7 @@ const ParkingSlots = () => {
   useEffect(() => {
     const fetchSlots = async () => {
       try {
-        const token = sessionStorage.getItem('jwtToken');
+        const token = localStorage.getItem('token');
         if (!token) {
           toast.error('User is not authenticated. Please log in.');
           return;
@@ -50,20 +50,20 @@ const ParkingSlots = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-purple-400 via-purple-500 to-purple-300 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-rose-100 via-orange-100 to-amber-200 p-6">
       <ToastContainer position="top-center" />
       <div className="container mx-auto">
-        <h1 className="text-4xl font-bold mb-6 text-white">Parking Slots</h1>
+        <h1 className="text-4xl font-bold mb-6 text-slate-900">Parking Slots</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {slots.length > 0 ? (
             slots.map((slot) => (
-              <div key={slot.id} className="bg-white text-black rounded-xl p-4 shadow-lg">
+              <div key={slot.id} className="bg-white text-black rounded-xl p-4 shadow-lg border border-rose-100">
                 <h2 className="text-2xl font-bold">Slot Number: {slot.number}</h2>
                 <p>Vehicle Type: {slot.vehicleType}</p>
                 <p>Status: {slot.status}</p>
                 <p>Price: {slot.price ? `$${slot.price.toFixed(2)}` : 'N/A'}</p>
                 <button
-                  className="mt-4 w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-md py-2 hover:scale-105 hover:shadow-md transition"
+                  className="mt-4 w-full bg-rose-500 hover:bg-rose-600 text-white rounded-md py-2 hover:scale-105 hover:shadow-md transition"
                   onClick={() => handleBookNow(slot.id, user.id)}
                 >
                   Book Slots
@@ -71,7 +71,7 @@ const ParkingSlots = () => {
               </div>
             ))
           ) : (
-            <p className="text-white">No slots available.</p>
+            <p className="text-slate-600">No slots available.</p>
           )}
         </div>
       </div>

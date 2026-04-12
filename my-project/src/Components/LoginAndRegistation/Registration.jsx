@@ -80,9 +80,9 @@ const Registration = () => {
                             backgroundImage: `url(${backgroundImage})`, // Apply the imported image
                         }}
                     >
-                        <h1 className='text-white text-3xl mb-3'>Welcome</h1>
-                        <h4 className='text-white mr-3'>Park Smart, Park Easy.</h4>
-                        <p className='text-white pl-4'>Hello! Your perfect parking spot is just a registration away. Join us now!</p>
+                        <h1 className='text-slate-800 text-3xl mb-3'>Welcome</h1>
+                        <h4 className='text-slate-700 mr-3'>Park Smart, Park Easy.</h4>
+                        <p className='text-slate-600 pl-4'>Hello! Your perfect parking spot is just a registration away. Join us now!</p>
                     </div>
 
                     <div className='w-1/2 px-12'>
@@ -138,7 +138,7 @@ const Registration = () => {
                                 </select>
                             </div>
                             <div className='mt-5'>
-                                <button type='submit' className='w-full bg-purple-600 py-3 text-center text-white'> Register Now </button>
+                                <button type='submit' className='w-full bg-rose-500 hover:bg-rose-600 py-3 text-center text-white'> Register Now </button>
                             </div>
 
                         </form>

@@ -40,6 +40,7 @@ const NavbarOwner = () => {
     const handleLogout = () => {
         // Clear session storage
         sessionStorage.removeItem('owner'); // Remove the owner's data from session storage
+        localStorage.removeItem('token');
 
         // Redirect to home page
         navigate('/');
@@ -63,18 +64,18 @@ const NavbarOwner = () => {
         </div>
 
         <div className='hidden md:block'>
-            <ul className='flex items-center gap-6 text-gray-600'>
+            <ul className='flex items-center gap-6 text-slate-600'>
                 {NavbarMenu.map((menu)=>(
                     <li key={menu.id} className='text-xl'>
                         <a href={menu.link}
-                        className='inline-block py-1 px-3 hover:text-primary hover:shadow-[0_3px_0_-1px_#ef4444] font-semibold'
+                        className='inline-block py-1 px-3 hover:text-rose-600 hover:shadow-[0_3px_0_-1px_#FB7185] font-semibold'
                         >{menu.title}</a>
                         </li>
                     ))}
                    <li className='text-xl'>
                             <button
                                 onClick={handleLogout}
-                                className='inline-block py-1 px-3 hover:text-primary hover:shadow-[0_3px_0_-1px_#ef4444] font-semibold'
+                                className='inline-block py-1 px-3 hover:text-rose-600 hover:shadow-[0_3px_0_-1px_#FB7185] font-semibold'
                             >
                                 Logout
                             </button>

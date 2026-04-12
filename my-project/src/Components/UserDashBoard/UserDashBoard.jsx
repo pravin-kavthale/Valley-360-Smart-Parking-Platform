@@ -47,7 +47,7 @@ const UserDashboard = () => {
         const { latitude, longitude } = position.coords;
         setUserLocation({ lat: latitude, lng: longitude });
 
-        const token = sessionStorage.getItem('jwtToken');
+        const token = localStorage.getItem('token');
         if (!token) {
           toast.error('User is not authenticated. Please log in.');
           setLoadingLocation(false);
@@ -158,7 +158,7 @@ const UserDashboard = () => {
   );
 
   return (
-    <main className="min-h-screen bg-gradient-to-r from-purple-400 via-purple-500 to-purple-300 overflow-x-hidden">
+    <main className="min-h-screen bg-gradient-to-br from-rose-100 via-orange-100 to-amber-200 overflow-x-hidden">
       <NavbarUser />
 
       <section className="py-10 sm:py-16">
@@ -167,7 +167,7 @@ const UserDashboard = () => {
             variants={FadeRight(0.2)}
             initial="hidden"
             animate="visible"
-            className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm sm:p-8"
+            className="rounded-3xl border border-rose-100 bg-white p-6 shadow-md sm:p-8"
           >
             <div className="flex flex-wrap items-start justify-between gap-6">
               <div className="space-y-4">
@@ -177,8 +177,8 @@ const UserDashboard = () => {
                 </p>
               </div>
 
-              <div className="flex items-center gap-3 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
-                <div className="rounded-xl bg-primary/10 p-3 text-primary">
+              <div className="flex items-center gap-3 rounded-2xl border border-rose-100 bg-white p-4 shadow-sm">
+                <div className="rounded-xl bg-rose-100 p-3 text-rose-500">
                   <LuUsers className="text-xl" />
                 </div>
                 <div>

@@ -7,6 +7,7 @@ const Logout = () => {
   const logout = () => {
     // Clear session storage
     sessionStorage.removeItem('user');
+    localStorage.removeItem('token');
     
     // Redirect to the home page
     navigate('/');

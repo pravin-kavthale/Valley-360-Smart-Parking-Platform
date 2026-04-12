@@ -64,7 +64,7 @@ const UserDashboard = () => {
   return (
     <div>
       <NavbarUser></NavbarUser>
-    <div className="min-h-screen bg-gradient-to-r from-purple-400 via-purple-500 to-purple-300 text-white p-6">
+    <div className="min-h-screen bg-gradient-to-br from-rose-100 via-orange-100 to-amber-200 text-slate-800 p-6">
       <ToastContainer position="top-center" />
       <div className="container mx-auto">
         <h1 className="text-4xl font-bold mb-6">User Dashboard</h1>
@@ -72,14 +72,14 @@ const UserDashboard = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {parkingAreas.length > 0 ? (
             parkingAreas.map((area) => (
-              <div key={area.id} className="bg-white text-black rounded-xl p-4 shadow-lg">
+              <div key={area.id} className="bg-white text-black rounded-xl p-4 shadow-lg border border-rose-100">
                 <h2 className="text-2xl font-bold">{area.city}</h2>
                 <p>Status: {area.status}</p>
                 <p>PinCode: {area.pincode}</p>
                 <p>Area: {area.area}</p>
                 <p>Distance: {area.distance ? area.distance.toFixed(2) : 'N/A'} km</p>
                 <button
-                  className="mt-4 w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-md py-2 hover:scale-105 hover:shadow-md transition"
+                  className="mt-4 w-full bg-rose-500 hover:bg-rose-600 text-white rounded-md py-2 hover:scale-105 hover:shadow-md transition"
                   onClick={() => handleBookNow(area.id)}
                 >
                   View Slots
@@ -87,7 +87,7 @@ const UserDashboard = () => {
               </div>
             ))
           ) : (
-            <p className="text-white">No parking areas found.</p>
+            <p className="text-slate-600">No parking areas found.</p>
           )}
         </div>
       </div>

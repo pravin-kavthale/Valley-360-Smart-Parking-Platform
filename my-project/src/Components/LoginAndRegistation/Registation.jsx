@@ -70,9 +70,9 @@ const Registration = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-r from-purple-400 via-purple-500 to-purple-300 flex items-center justify-center px-4 py-8">
-            <div className="w-full max-w-4xl bg-white rounded-xl shadow-lg p-8 flex flex-col lg:flex-row overflow-hidden">
-                <div className="w-full lg:w-1/2 bg-gradient-to-br from-purple-600 to-pink-500 text-white flex flex-col justify-center items-center text-center px-8 py-12">
+        <div className="min-h-screen bg-gradient-to-br from-rose-100 via-orange-100 to-amber-200 flex items-center justify-center px-4 py-8">
+            <div className="w-full max-w-4xl bg-white/80 backdrop-blur-sm rounded-2xl border border-rose-200 shadow-md p-8 flex flex-col lg:flex-row overflow-hidden">
+                <div className="w-full lg:w-1/2 bg-gradient-to-br from-rose-400 to-orange-300 text-white flex flex-col justify-center items-center text-center px-8 py-12">
                     <p className='text-sm uppercase tracking-[0.35em] text-white/80'>Valley 360 Parking</p>
                     <h1 className='mt-4 text-4xl font-bold leading-tight'>Welcome</h1>
                     <p className='mt-4 text-sm sm:text-base text-white/90'>Hello! Your perfect parking spot is just a registration away. Join us now!</p>
@@ -80,13 +80,13 @@ const Registration = () => {
 
                 <div className="w-full lg:w-1/2 px-4 py-8 sm:px-8 lg:px-10">
                     <div className="mb-4">
-                        <Link to="/" className="text-sm text-purple-600 hover:text-purple-800 mb-4 inline-block">
+                        <Link to="/" className="text-sm text-rose-600 hover:text-rose-500 mb-4 inline-block">
                             ← Back to Home
                         </Link>
                     </div>
 
-                    <h2 className='text-2xl font-semibold text-gray-800'>Register Here</h2>
-                    <p className='mt-2 text-sm text-gray-600'>Create your account. It's free and only takes a minute</p>
+                    <h2 className='text-2xl font-semibold text-slate-900'>Register Here</h2>
+                    <p className='mt-2 text-sm text-slate-600'>Create your account. It's free and only takes a minute</p>
 
                     {error && (
                         <p className='mt-4 text-sm text-red-500'>
@@ -97,19 +97,19 @@ const Registration = () => {
                     <form onSubmit={handleSignup} className="mt-6 space-y-4">
 
                         <div className='grid grid-cols-2 gap-4'>
-                            <input type='text' placeholder='First Name' className='w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400' value={firstName} onChange={(e) => { setError(''); setFirstName(e.target.value); }} required />
-                            <input type='text' placeholder='Last Name' className='w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400' value={lastName} onChange={(e) => { setError(''); setLastName(e.target.value); }} required />
+                            <input type='text' placeholder='First Name' className='w-full border border-rose-200 rounded-md px-3 py-2 text-sm text-slate-900 outline-none focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-rose-400' value={firstName} onChange={(e) => { setError(''); setFirstName(e.target.value); }} required />
+                            <input type='text' placeholder='Last Name' className='w-full border border-rose-200 rounded-md px-3 py-2 text-sm text-slate-900 outline-none focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-rose-400' value={lastName} onChange={(e) => { setError(''); setLastName(e.target.value); }} required />
                         </div>
 
                         <div className='space-y-2'>
-                            <input type='email' placeholder='Email' className='w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400' value={email} onChange={(e) => { setError(''); setEmail(e.target.value); }} required />
+                            <input type='email' placeholder='Email' className='w-full border border-rose-200 rounded-md px-3 py-2 text-sm text-slate-900 outline-none focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-rose-400' value={email} onChange={(e) => { setError(''); setEmail(e.target.value); }} required />
                         </div>
 
                         <div className='space-y-2'>
                             <input
                                 type='password'
                                 placeholder='Password'
-                                className='w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400'
+                                className='w-full border border-rose-200 rounded-md px-3 py-2 text-sm text-slate-900 outline-none focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-rose-400'
                                 value={password}
                                 onChange={(e) => { setError(''); setPassword(e.target.value); }}
                                 required
@@ -118,16 +118,16 @@ const Registration = () => {
                         </div>
 
                         <div className='space-y-2'>
-                            <input type='tel' placeholder='Contact' pattern="[0-9]{10}" title="Please enter a 10-digit phone number" className='w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400' value={contact} onChange={(e) => { setError(''); setContact(e.target.value); }} required />
+                            <input type='tel' placeholder='Contact' pattern="[0-9]{10}" title="Please enter a 10-digit phone number" className='w-full border border-rose-200 rounded-md px-3 py-2 text-sm text-slate-900 outline-none focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-rose-400' value={contact} onChange={(e) => { setError(''); setContact(e.target.value); }} required />
                         </div>
 
                         <div className='space-y-2'>
-                            <input type='text' placeholder='Address' className='w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400' value={address} onChange={(e) => { setError(''); setAddress(e.target.value); }} required />
+                            <input type='text' placeholder='Address' className='w-full border border-rose-200 rounded-md px-3 py-2 text-sm text-slate-900 outline-none focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-rose-400' value={address} onChange={(e) => { setError(''); setAddress(e.target.value); }} required />
                         </div>
 
                         <div className='space-y-2'>
-                            <span className='block text-sm font-medium text-gray-700'>Gender:</span>
-                            <select className='w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400' value={gender} onChange={(e) => { setError(''); setGender(e.target.value); }} required>
+                            <span className='block text-sm font-medium text-slate-700'>Gender:</span>
+                            <select className='w-full border border-rose-200 rounded-md px-3 py-2 text-sm text-slate-900 outline-none focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-rose-400' value={gender} onChange={(e) => { setError(''); setGender(e.target.value); }} required>
                                 <option value="">Select Gender</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
@@ -135,15 +135,15 @@ const Registration = () => {
                             </select>
                         </div>
                         <div className='space-y-2'>
-                            <span className='block text-sm font-medium text-gray-700'>Role:</span>
-                            <select className='w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400' value={roleId} onChange={(e) => { setError(''); setRoleId(e.target.value); }} required>
+                            <span className='block text-sm font-medium text-slate-700'>Role:</span>
+                            <select className='w-full border border-rose-200 rounded-md px-3 py-2 text-sm text-slate-900 outline-none focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-rose-400' value={roleId} onChange={(e) => { setError(''); setRoleId(e.target.value); }} required>
                                 <option value="">Select Role</option>
                                 <option value="2">Owner</option>
                                 <option value="3">Customer</option>
                             </select>
                         </div>
                         <div className='pt-2'>
-                            <button type='submit' className='w-full rounded-md py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md transition hover:scale-105 hover:shadow-md'> Register Now </button>
+                            <button type='submit' className='w-full rounded-md py-2 bg-rose-500 hover:bg-rose-600 text-white shadow-md transition hover:scale-105 hover:shadow-md'> Register Now </button>
                         </div>
 
                     </form>

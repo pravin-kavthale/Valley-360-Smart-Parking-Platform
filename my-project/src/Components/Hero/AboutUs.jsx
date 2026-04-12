@@ -158,22 +158,22 @@ const AboutUs = () => {
 
       <section className="py-10 sm:py-16">
         <div className="container">
-          <div className="grid grid-cols-1 gap-8 rounded-[2rem] bg-slate-900 px-6 py-10 text-white md:grid-cols-[1.3fr_0.7fr] md:px-10 lg:px-12">
+          <div className="grid grid-cols-1 gap-8 rounded-[2rem] bg-gradient-to-br from-rose-400 to-orange-300 px-6 py-10 text-slate-800 md:grid-cols-[1.3fr_0.7fr] md:px-10 lg:px-12">
             <div className="space-y-4">
-              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-secondary">Built for every role</p>
+              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-rose-600">Built for every role</p>
               <h2 className="text-3xl font-bold sm:text-4xl">Drivers, owners, and admins all need the same clarity.</h2>
-              <p className="max-w-2xl text-white/75">
+              <p className="max-w-2xl text-slate-700">
                 Valley360 Parking keeps the booking experience simple for users while still giving owners and administrators the tools they need to manage inventory, availability, and access.
               </p>
             </div>
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
-              <div className="rounded-2xl bg-white/10 p-5">
-                <p className="text-sm text-white/60">Driver flow</p>
+              <div className="rounded-2xl bg-white/80 p-5 backdrop-blur-sm border border-rose-200 shadow-md">
+                <p className="text-sm text-slate-500">Driver flow</p>
                 <p className="mt-2 text-lg font-semibold">Search, reserve, and confirm in fewer steps.</p>
               </div>
-              <div className="rounded-2xl bg-white/10 p-5">
-                <p className="text-sm text-white/60">Owner flow</p>
+              <div className="rounded-2xl bg-white/80 p-5 backdrop-blur-sm border border-rose-200 shadow-md">
+                <p className="text-sm text-slate-500">Owner flow</p>
                 <p className="mt-2 text-lg font-semibold">Update parking spaces and manage slots quickly.</p>
               </div>
             </div>

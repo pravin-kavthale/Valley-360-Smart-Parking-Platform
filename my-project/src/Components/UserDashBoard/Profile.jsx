@@ -20,11 +20,11 @@ const Profile = () => {
           const id = user.id; // Extract user ID
           console.log('User ID:', id); // Debugging
           
-          const token = sessionStorage.getItem('jwtToken'); // Fetch JWT token
+          const token = localStorage.getItem('token'); // Fetch JWT token
           console.log('JWT Token:', token); // Debugging
           if (!token) {
             toast.error('Authentication token not found. Please log in again.');
-            console.log('JWT token was not found in sessionStorage.');
+            console.log('JWT token was not found in localStorage.');
             setLoading(false);
             return;
           }
@@ -67,55 +67,55 @@ const Profile = () => {
     : 'U';
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-purple-500 to-indigo-600">
+    <div className="min-h-screen bg-gradient-to-br from-rose-100 via-orange-100 to-amber-200">
       <NavbarUser></NavbarUser>
       <div className="max-w-4xl mx-auto mt-16 px-4 pb-16">
-        <div className="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300">
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl border border-rose-200 shadow-md p-8 hover:shadow-2xl transition-all duration-300">
           {user ? (
             <>
               <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 text-center sm:text-left">
-                <div className="w-16 h-16 rounded-full bg-purple-500 text-white flex items-center justify-center text-xl font-bold mx-auto sm:mx-0">
+                <div className="w-16 h-16 rounded-full bg-rose-500 text-white flex items-center justify-center text-xl font-bold mx-auto sm:mx-0">
                   {initials}
                 </div>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-800">{fullName || 'Profile'}</h2>
-                  <p className="text-gray-500 mt-1">{user.email}</p>
+                  <h2 className="text-2xl font-semibold text-slate-900">{fullName || 'Profile'}</h2>
+                  <p className="text-slate-500 mt-1">{user.email}</p>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
                 <div>
-                  <p className="text-sm text-gray-500">Name</p>
-                  <p className="text-lg font-medium text-gray-800 mt-1">{user.firstName} {user.lastName}</p>
+                  <p className="text-sm text-slate-500">Name</p>
+                  <p className="text-lg font-medium text-slate-900 mt-1">{user.firstName} {user.lastName}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Email</p>
-                  <p className="text-lg font-medium text-gray-800 mt-1 break-all">{user.email}</p>
+                  <p className="text-sm text-slate-500">Email</p>
+                  <p className="text-lg font-medium text-slate-900 mt-1 break-all">{user.email}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Contact</p>
-                  <p className="text-lg font-medium text-gray-800 mt-1">{user.contact}</p>
+                  <p className="text-sm text-slate-500">Contact</p>
+                  <p className="text-lg font-medium text-slate-900 mt-1">{user.contact}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Address</p>
-                  <p className="text-lg font-medium text-gray-800 mt-1">{user.address}</p>
+                  <p className="text-sm text-slate-500">Address</p>
+                  <p className="text-lg font-medium text-slate-900 mt-1">{user.address}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Gender</p>
-                  <p className="text-lg font-medium text-gray-800 mt-1">{user.gender}</p>
+                  <p className="text-sm text-slate-500">Gender</p>
+                  <p className="text-lg font-medium text-slate-900 mt-1">{user.gender}</p>
                 </div>
               </div>
 
               <div className="flex flex-col sm:flex-row justify-end gap-4 mt-8">
                 <Link
                   to="/Update"
-                  className="bg-gradient-to-r from-purple-500 to-indigo-600 text-white px-6 py-2 rounded-lg text-center hover:opacity-95 transition"
+                  className="bg-rose-500 text-white px-6 py-2 rounded-lg text-center hover:bg-rose-600 transition"
                 >
                   Edit Profile
                 </Link>
                 <Link
                   to="/UserDashBoard"
-                  className="border border-gray-300 text-gray-700 px-6 py-2 rounded-lg text-center hover:bg-gray-50 transition"
+                  className="border border-rose-200 text-slate-700 px-6 py-2 rounded-lg text-center hover:bg-rose-100 transition"
                 >
                   Back to Dashboard
                 </Link>

@@ -29,11 +29,11 @@ const Login = () => {
       });
       console.log('Login response:', response.data.userRoles);
       //const { token, loggedInUser } = response.data;
-      const token = response.data.jwtToken;
+      const token = response.data.token || response.data.jwtToken;
       const loggedInUser = response.data;
 
-      // Store the token and user details in sessionStorage
-      sessionStorage.setItem('jwtToken', token);
+      // Store the token and user details for authenticated API access.
+      localStorage.setItem('token', token);
       sessionStorage.setItem('user', JSON.stringify(loggedInUser));
 
       console.log("Logged in user:", loggedInUser);
@@ -55,9 +55,9 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-purple-400 via-purple-500 to-purple-300 flex items-center justify-center px-4 py-8">
-      <div className="w-full max-w-4xl bg-white rounded-xl shadow-lg p-8 flex flex-col lg:flex-row overflow-hidden">
-        <div className="w-full lg:w-1/2 bg-gradient-to-br from-purple-600 to-pink-500 text-white flex flex-col justify-center items-center text-center px-8 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-rose-100 via-orange-100 to-amber-200 flex items-center justify-center px-4 py-8">
+      <div className="w-full max-w-4xl bg-white/80 backdrop-blur-sm rounded-2xl border border-rose-200 shadow-md p-8 flex flex-col lg:flex-row overflow-hidden">
+        <div className="w-full lg:w-1/2 bg-gradient-to-br from-rose-400 to-orange-300 text-white flex flex-col justify-center items-center text-center px-8 py-12">
           <p className="text-sm uppercase tracking-[0.35em] text-white/80">Valley 360 Parking</p>
           <h2 className="mt-4 text-4xl font-bold leading-tight">Welcome Back</h2>
           <p className="mt-4 text-sm sm:text-base text-white/90">
@@ -67,19 +67,19 @@ const Login = () => {
 
         <div className="w-full lg:w-1/2 px-4 py-8 sm:px-8 lg:px-10">
           <div className="mb-4">
-            <Link to="/" className="text-sm text-purple-600 hover:text-purple-800 mb-4 inline-block">
+            <Link to="/" className="text-sm text-rose-600 hover:text-rose-500 mb-4 inline-block">
               ← Back to Home
             </Link>
           </div>
 
-          <h2 className="text-2xl font-semibold text-gray-800">Login</h2>
-          <p className="mt-2 text-sm text-gray-600">Access your account securely</p>
+          <h2 className="text-2xl font-semibold text-slate-900">Login</h2>
+          <p className="mt-2 text-sm text-slate-600">Access your account securely</p>
 
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
             <div className="space-y-2">
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="email" className="block text-sm font-medium text-slate-700">
                 Email address
               </label>
               <input
@@ -89,14 +89,14 @@ const Login = () => {
                 value={user.email}
                 onChange={handleChange}
                 required
-                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400"
+                className="w-full border border-rose-200 rounded-md px-3 py-2 text-sm text-slate-900 outline-none focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-rose-400"
                 placeholder="Enter your email"
                 style={{ caretColor: '#1f2937' }}
               />
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="password" className="block text-sm font-medium text-slate-700">
                 Password
               </label>
               <input
@@ -106,7 +106,7 @@ const Login = () => {
                 value={user.password}
                 onChange={handleChange}
                 required
-                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 outline-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400"
+                className="w-full border border-rose-200 rounded-md px-3 py-2 text-sm text-slate-900 outline-none focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-rose-400"
                 placeholder="Enter your password"
                 style={{ caretColor: '#1f2937' }}
               />
@@ -118,15 +118,15 @@ const Login = () => {
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  className="h-4 w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-400"
+                  className="h-4 w-4 rounded border-rose-200 text-rose-600 focus:ring-rose-400"
                 />
-                <label htmlFor="remember-me" className="ml-2 text-sm text-gray-600">
+                <label htmlFor="remember-me" className="ml-2 text-sm text-slate-600">
                   Remember me
                 </label>
               </div>
 
               <div className="text-sm">
-                <a href="#" className="font-medium text-purple-600 hover:text-purple-800">
+                <a href="#" className="font-medium text-rose-600 hover:text-rose-500">
                   Forgot password?
                 </a>
               </div>
@@ -135,16 +135,16 @@ const Login = () => {
             <div className="pt-2">
               <button
                 type="submit"
-                className="w-full rounded-md py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md transition hover:scale-105 hover:shadow-md"
+                className="w-full rounded-md py-2 bg-rose-500 hover:bg-rose-600 text-white shadow-md transition hover:scale-105 hover:shadow-md"
               >
                 Login
               </button>
             </div>
 
             <div className="pt-1 text-center">
-              <span className="text-sm text-gray-600">
+              <span className="text-sm text-slate-600">
                 Don&apos;t have an account?{' '}
-                <a href="/SignUp" className="font-semibold text-purple-600 hover:text-purple-800">
+                <a href="/SignUp" className="font-semibold text-rose-600 hover:text-rose-500">
                   Register
                 </a>
               </span>

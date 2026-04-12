@@ -41,7 +41,7 @@ const OwnerDashboard = () => {
 
   const fetchTodaysBookings = async (ownerId) => {
     try {
-      const token = sessionStorage.getItem('jwtToken');
+      const token = localStorage.getItem('token');
       if (!token) {
         toast.error('User is not authenticated. Please log in.');
         return;
@@ -56,7 +56,7 @@ const OwnerDashboard = () => {
 
   const fetchPreviousBookings = async (ownerId) => {
     try {
-      const token = sessionStorage.getItem('jwtToken');
+      const token = localStorage.getItem('token');
       if (!token) {
         toast.error('User is not authenticated. Please log in.');
         return;
@@ -160,7 +160,7 @@ const OwnerDashboard = () => {
   );
 
   return (
-    <main className="min-h-screen bg-gradient-to-r from-purple-400 via-purple-500 to-purple-300 overflow-x-hidden">
+    <main className="min-h-screen bg-gradient-to-br from-rose-100 via-orange-100 to-amber-200 text-slate-800 overflow-x-hidden">
       <Navbar />
 
       <section className="py-10 sm:py-16">

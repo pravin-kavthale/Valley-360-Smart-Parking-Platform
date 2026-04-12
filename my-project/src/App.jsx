@@ -59,6 +59,11 @@ function App() {
         <Route path="/Update" element={<Update />} />
         <Route path="/Profile" element={<Profile />} />
         <Route path="/Admin" element={<AdminDashboard />} />
+        <Route path="/ViewAllParkingSlots" element={<ViewAllParkingSlots />} />
+        <Route path="/ViewParkingArea" element={<ViewParkingArea />} />
+        <Route path="/ViewOwners" element={<OwnersList />} />
+        <Route path="/ViewCustomers" element={<CustomersList />} />
+        <Route path="/ValidateBookingQR" element={<ValidateBookingQR />} />
         <Route path="admin/parking-slots" element={<ViewAllParkingSlots />} />
         <Route path="admin/parking-areas" element={<ViewParkingArea />} />
         <Route path="admin/owners" element={<OwnersList />} />
