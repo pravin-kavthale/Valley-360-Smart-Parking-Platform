@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -12,7 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,32 +26,34 @@ import lombok.ToString;
 @Table(name = "bookings")
 
 @ToString
-public class Booking extends BaseEntity{
-	
+public class Booking extends BaseEntity {
+
 	@CreationTimestamp
 	private LocalDate bookingDate;
 
 	private LocalDateTime arrivalDate;
-	
+
 	private LocalDateTime departureDate;
 
 	private String vehicleNo;
-	
+
 	@Enumerated(EnumType.STRING)
 	private VehicleType VehicleType;
-	
+
 	@Enumerated(EnumType.STRING)
 	private BookingStatus status;
-	
-	private int parkingHours;
-	
-	private double price;
-	
 
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@Column(unique = true, length = 64)
+	private String qrToken;
+
+	private int parkingHours;
+
+	private double price;
+
+	@ManyToOne(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "customer_id")
 	private User user;
-	
+
 	@OneToOne
 	@JoinColumn(name = "parking_slot_id")
 	private ParkingSlot parkingSlot;
@@ -121,6 +123,14 @@ public class Booking extends BaseEntity{
 		this.status = status;
 	}
 
+	public String getQrToken() {
+		return qrToken;
+	}
+
+	public void setQrToken(String qrToken) {
+		this.qrToken = qrToken;
+	}
+
 	public int getParkingHours() {
 		return parkingHours;
 	}
@@ -152,7 +162,5 @@ public class Booking extends BaseEntity{
 	public void setParkingSlot(ParkingSlot parkingSlot) {
 		this.parkingSlot = parkingSlot;
 	}
-	
-	
-	
+
 }

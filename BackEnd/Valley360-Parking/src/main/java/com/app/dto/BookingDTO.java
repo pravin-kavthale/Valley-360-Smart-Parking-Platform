@@ -24,28 +24,34 @@ import lombok.ToString;
 //@Getter
 //@Setter
 @ToString
-public class BookingDTO extends BaseDTO{
-	
+public class BookingDTO extends BaseDTO {
+
 	@CreationTimestamp
 	private LocalDate bookingDate;
 
 	private LocalDateTime arrivalDate;
-	
+
 	private LocalDateTime departureDate;
-	
+
 	private String vehicleNo;
-	
+
 	private VehicleType VehicleType;
-	
+
 	private BookingStatus status;
-	
+
+	private String qrToken;
+
 	private int parkingHours;
-	
+
 	private double price;
 
 	private Long customer_id;
 
 	private Long parking_slot_id;
+
+	private String parkingAreaName;
+
+	private Long slotNumber;
 
 	public LocalDate getBookingDate() {
 		return bookingDate;
@@ -95,6 +101,14 @@ public class BookingDTO extends BaseDTO{
 		this.status = status;
 	}
 
+	public String getQrToken() {
+		return qrToken;
+	}
+
+	public void setQrToken(String qrToken) {
+		this.qrToken = qrToken;
+	}
+
 	public int getParkingHours() {
 		return parkingHours;
 	}
@@ -126,7 +140,21 @@ public class BookingDTO extends BaseDTO{
 	public void setParking_slot_id(Long parking_slot_id) {
 		this.parking_slot_id = parking_slot_id;
 	}
-	
-	
-	
+
+	public String getParkingAreaName() {
+		return parkingAreaName;
+	}
+
+	public void setParkingAreaName(String parkingAreaName) {
+		this.parkingAreaName = parkingAreaName;
+	}
+
+	public Long getSlotNumber() {
+		return slotNumber;
+	}
+
+	public void setSlotNumber(Long slotNumber) {
+		this.slotNumber = slotNumber;
+	}
+
 }

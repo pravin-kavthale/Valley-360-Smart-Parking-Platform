@@ -14,26 +14,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dto.BookingDTO;
+import com.app.dto.QrValidationRequestDTO;
+import com.app.dto.QrValidationResponseDTO;
 import com.app.service.BookingService;
-
 
 @RestController
 @RequestMapping("/booking")
 @CrossOrigin(origins = "http://localhost:5173")
 public class BookingController {
 
-	@Autowired
-	private BookingService bookingService;
-	
-	@PostMapping("/add")
-	public ResponseEntity<?> bookParkingSlot(@RequestBody BookingDTO dto){
-		bookingService.bookParkingSlot(dto);
-		return ResponseEntity.status(HttpStatus.CREATED).body("Parking slot booked successfully!!");
-	}
-	
-	@GetMapping("/today/{ownerId}")
+    @Autowired
+    private BookingService bookingService;
+
+    @PostMapping("/add")
+    public ResponseEntity<?> bookParkingSlot(@RequestBody BookingDTO dto) {
+        BookingDTO createdBooking = bookingService.bookParkingSlot(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdBooking);
+    }
+
+    @PostMapping("/validate-qr")
+    public ResponseEntity<QrValidationResponseDTO> validateQr(@RequestBody QrValidationRequestDTO request) {
+        QrValidationResponseDTO response = bookingService.validateQrToken(request.getQrToken());
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/today/{ownerId}")
     public ResponseEntity<?> getTodaysBookings(@PathVariable Long ownerId) {
-		System.out.println("in bokking");
+        System.out.println("in bokking");
         List<BookingDTO> bookings = bookingService.getTodaysBookings(ownerId);
         return ResponseEntity.ok(bookings);
     }
@@ -43,5 +50,5 @@ public class BookingController {
         List<BookingDTO> bookings = bookingService.getPreviousBookings(ownerId);
         return ResponseEntity.ok(bookings);
     }
-	
+
 }

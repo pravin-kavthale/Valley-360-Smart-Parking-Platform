@@ -30,6 +30,8 @@ import OwnerDashboard from './Components/OwnerDashBoard/OwnerDashBoard';
 import DeleteUser from './Components/OwnerDashBoard/DeleteUser';
 import Logout from './Components/LoginAndRegistation/Logout.jsx';
 import Review from './Components/Banners/Review.jsx';
+import BookingQR from './Components/UserDashBoard/BookingQR';
+import ValidateBookingQR from './Components/AdminDashboard/ValidateBookingQR';
 
 
 function App() {
@@ -68,6 +70,8 @@ function App() {
         <Route path='Delete/:userid' element={<DeleteUser/>}></Route>
         <Route path='/logout' element={<Logout/>}></Route>
         <Route path="/Book/:slotId" element={<BookParking/>}></Route>
+        <Route path="/BookingQR" element={<BookingQR/>}></Route>
+        <Route path="/admin/validate-qr" element={<ValidateBookingQR/>}></Route>
       </Routes>
     </Router>
   );

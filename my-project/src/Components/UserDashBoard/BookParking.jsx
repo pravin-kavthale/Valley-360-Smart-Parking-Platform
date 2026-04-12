@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import api from '/src/api';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const BookParking = () => {
   const { slotId } = useParams(); // Get parking slot ID from the URL params
+  const navigate = useNavigate();
   console.log('Parking Slot ID:', slotId);
 
   const [formData, setFormData] = useState({
@@ -107,12 +108,18 @@ const BookParking = () => {
     }
 
     try {
-      await api.post('http://localhost:8080/booking/add', {
+      const response = await api.post('http://localhost:8080/booking/add', {
         ...formData,
         parkingHours: hours,
         price: calculatedPrice,
       });
+
       alert('Booking successful!');
+      navigate('/BookingQR', {
+        state: {
+          booking: response.data,
+        },
+      });
     } catch (error) {
       alert('Error during booking');
       console.error(error);

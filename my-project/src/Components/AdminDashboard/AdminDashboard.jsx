@@ -42,6 +42,7 @@ const AdminDashboard = () => {
                     <Button href="/admin/parking-areas">Manage Parking Areas</Button>
                     <Button href="/admin/owners">Manage Owners</Button>
                     <Button href="/admin/customers">Manage Customers</Button>
+                    <Button href="/admin/validate-qr">Validate Booking QR</Button>
                 </div>
             </div>
             </div>
