@@ -3,6 +3,7 @@ import api from '/src/api';
 import { toast } from 'react-toastify';
 import Navbar from '../Navbar';
 import NavbarUser from './NavbarUser';
+import { Link } from 'react-router-dom';
 
 const Profile = () => {
   const [user, setUser] = useState(null); // User state
@@ -54,40 +55,77 @@ const Profile = () => {
 
   if (loading) return <p className="text-white text-center">Loading profile...</p>;
 
+  const fullName = user ? `${user.firstName || ''} ${user.lastName || ''}`.trim() : '';
+  const initials = fullName
+    ? fullName
+        .split(' ')
+        .filter(Boolean)
+        .map((part) => part[0])
+        .slice(0, 2)
+        .join('')
+        .toUpperCase()
+    : 'U';
+
   return (
-    <div>
-    <NavbarUser></NavbarUser>
-    <div className="flex items-center justify-center min-h-screen bg-slate-600 p-4">
-      <div className="bg-white text-gray-800 rounded-lg p-6 shadow-lg w-full max-w-lg">
-        <h2 className="text-3xl font-bold mb-6 text-center">Profile</h2>
-        {user ? (
-          <div className="space-y-4">
-            <div className="flex justify-between">
-              <span className="font-semibold">Name:</span>
-              <span>{user.firstName} {user.lastName}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="font-semibold">Email:</span>
-              <span>{user.email}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="font-semibold">Contact:</span>
-              <span>{user.contact}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="font-semibold">Address:</span>
-              <span>{user.address}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="font-semibold">Gender:</span>
-              <span>{user.gender}</span>
-            </div>
-          </div>
-        ) : (
-          <p className="text-red-500 text-center">No user profile data found.</p>
-        )}
+    <div className="min-h-screen bg-gradient-to-r from-purple-500 to-indigo-600">
+      <NavbarUser></NavbarUser>
+      <div className="max-w-4xl mx-auto mt-16 px-4 pb-16">
+        <div className="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300">
+          {user ? (
+            <>
+              <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 text-center sm:text-left">
+                <div className="w-16 h-16 rounded-full bg-purple-500 text-white flex items-center justify-center text-xl font-bold mx-auto sm:mx-0">
+                  {initials}
+                </div>
+                <div>
+                  <h2 className="text-2xl font-semibold text-gray-800">{fullName || 'Profile'}</h2>
+                  <p className="text-gray-500 mt-1">{user.email}</p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                <div>
+                  <p className="text-sm text-gray-500">Name</p>
+                  <p className="text-lg font-medium text-gray-800 mt-1">{user.firstName} {user.lastName}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500">Email</p>
+                  <p className="text-lg font-medium text-gray-800 mt-1 break-all">{user.email}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500">Contact</p>
+                  <p className="text-lg font-medium text-gray-800 mt-1">{user.contact}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500">Address</p>
+                  <p className="text-lg font-medium text-gray-800 mt-1">{user.address}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500">Gender</p>
+                  <p className="text-lg font-medium text-gray-800 mt-1">{user.gender}</p>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row justify-end gap-4 mt-8">
+                <Link
+                  to="/Update"
+                  className="bg-gradient-to-r from-purple-500 to-indigo-600 text-white px-6 py-2 rounded-lg text-center hover:opacity-95 transition"
+                >
+                  Edit Profile
+                </Link>
+                <Link
+                  to="/UserDashBoard"
+                  className="border border-gray-300 text-gray-700 px-6 py-2 rounded-lg text-center hover:bg-gray-50 transition"
+                >
+                  Back to Dashboard
+                </Link>
+              </div>
+            </>
+          ) : (
+            <p className="text-red-500 text-center">No user profile data found.</p>
+          )}
+        </div>
       </div>
-    </div>
     </div>
   );
 };
