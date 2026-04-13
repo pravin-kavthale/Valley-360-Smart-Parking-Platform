@@ -222,6 +222,107 @@ The backend configuration is currently stored in `src/main/resources/application
 
 If you deploy the project, keep these values externalized and secure.
 
+## Map & Location-Based Features
+
+### 1. Architecture Overview
+
+This project now uses a fully open-source, no-billing map stack in the React frontend:
+
+- Leaflet: map rendering, markers, circles, popups, and route polyline UI.
+- OpenStreetMap (OSM): tile provider and base geographic map data.
+- OSRM (Open Source Routing Machine): driving route calculation between user and parking destination.
+
+This stack was selected for this project context because it:
+
+- avoids Google Maps billing and API key dependency,
+- is practical for student, portfolio, and demo deployments,
+- still provides nearby discovery and route visualization features needed by Valley 360.
+
+### 2. Feature 1: Nearby Parking Visualization
+
+Actual flow in this project:
+
+1. Customer opens the User Dashboard.
+2. Browser requests location using Geolocation API (navigator.geolocation.getCurrentPosition).
+3. Frontend sends latitude and longitude to backend endpoint:
+   - GET /parkingArea/nearby
+4. Backend filters parking areas within the configured 3km radius.
+5. Frontend renders on map:
+   - user location marker,
+   - radius circle,
+   - nearby parking markers.
+
+Implementation notes:
+
+- Radius circle is fixed to 3000 meters.
+- Distance-based filtering is done by backend, not by frontend list scanning.
+- Frontend only visualizes what backend returns.
+
+### 3. Feature 2: Route to Booked/Selected Parking
+
+After selecting a parking destination from the dashboard map, routing is generated as follows:
+
+1. Frontend reads current user coordinates.
+2. Frontend reads selected parking coordinates from nearby results.
+3. Frontend calls OSRM public API:
+   - https://router.project-osrm.org/route/v1/driving/{lon1},{lat1};{lon2},{lat2}
+4. OSRM response includes:
+   - route geometry,
+   - distance,
+   - duration.
+5. Frontend draws the returned route geometry on the map using a Leaflet Polyline.
+6. Distance (km) and duration (minutes) are displayed in route summary UI.
+
+### 4. Data Flow (Important)
+
+Nearby parking discovery flow:
+
+- Frontend (React) -> gets user location.
+- Frontend (React) -> calls backend /parkingArea/nearby with latitude and longitude.
+- Backend (Spring Boot) -> applies distance filtering for nearby parking.
+- Frontend (React) -> renders returned parking markers and 3km circle.
+
+Routing flow:
+
+- Frontend (React) -> calls OSRM route API.
+- OSRM -> returns route path, distance, and duration.
+- Frontend (React) -> renders route polyline and route details.
+
+### 5. Dependencies
+
+Frontend map dependencies used in this project:
+
+- leaflet
+- react-leaflet
+
+### 6. Setup Instructions
+
+To run map features locally in the frontend:
+
+1. Install dependencies in my-project:
+   - npm install leaflet react-leaflet
+2. Import Leaflet CSS in the map component (or global frontend entry):
+   - import "leaflet/dist/leaflet.css";
+3. Ensure the map container has a fixed, explicit height so tiles can render.
+
+This project already satisfies these requirements in the User Dashboard map integration.
+
+### 7. Limitations
+
+Current limitations in this implementation:
+
+- no real-time traffic-aware routing,
+- route quality and availability depend on public OSRM server limits,
+- not ideal for high-scale production without performance hardening.
+
+### 8. Future Improvements
+
+Recommended next steps for scaling map capabilities:
+
+- switch to Google Maps (or equivalent managed provider) for production-grade scale and SLA,
+- self-host OSRM for predictable performance and higher throughput,
+- add marker clustering for dense parking datasets.
+
 ## Future Improvements
 
 - Payment integration for paid parking reservations.
@@ -230,5 +331,5 @@ If you deploy the project, keep these values externalized and secure.
 - Booking notifications and reminders.
 
 ## Author
-- [pravin-kavthale](https://github.com/pravin-kavthale)
 
+- [pravin-kavthale](https://github.com/pravin-kavthale)
