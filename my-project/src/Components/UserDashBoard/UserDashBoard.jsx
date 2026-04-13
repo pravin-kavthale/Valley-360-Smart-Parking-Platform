@@ -17,6 +17,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import NavbarUser from './NavbarUser';
 import Footer from '../Footer/Footer';
+import ParkingMap from './ParkingMap';
 import { FadeRight, FadeUp } from '../../utility/annimation';
 
 const UserDashboard = () => {
@@ -24,6 +25,7 @@ const UserDashboard = () => {
   const [userLocation, setUserLocation] = useState({ lat: null, lng: null });
   const [user, setUser] = useState(null);
   const [loadingLocation, setLoadingLocation] = useState(true);
+  const [locationError, setLocationError] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,8 +38,12 @@ const UserDashboard = () => {
   }, []);
 
   const fetchParkingAreas = async () => {
+    setLocationError('');
     if (!navigator.geolocation) {
-      toast.error('Geolocation is not supported by this browser');
+      const message = 'Location access required to find nearby parking';
+      toast.error(message);
+      setLocationError(message);
+      setUserLocation({ lat: 6.9271, lng: 79.8612 });
       setLoadingLocation(false);
       return;
     }
@@ -55,7 +61,7 @@ const UserDashboard = () => {
         }
 
         try {
-          const response = await api.get('http://localhost:8080/parkingArea/nearby', {
+          const response = await api.get('/parkingArea/nearby', {
             params: {
               latitude,
               longitude,
@@ -72,7 +78,10 @@ const UserDashboard = () => {
         }
       },
       (error) => {
-        toast.error('Error fetching location');
+        const message = 'Location access required to find nearby parking';
+        toast.error(message);
+        setLocationError(message);
+        setUserLocation({ lat: 6.9271, lng: 79.8612 });
         console.error('Error fetching location:', error);
         setLoadingLocation(false);
       }
@@ -291,7 +300,7 @@ const UserDashboard = () => {
                   <p className="mt-2 text-slate-600">
                     {loadingLocation
                       ? 'Locating nearby parking areas...'
-                      : `Showing parking areas near ${userLocation.lat?.toFixed(3) ?? 'your'} / ${userLocation.lng?.toFixed(3) ?? 'location'}.`}
+                      : locationError || `Showing parking areas near ${userLocation.lat?.toFixed(3) ?? 'your'} / ${userLocation.lng?.toFixed(3) ?? 'location'}.`}
                   </p>
                 </div>
                 <button
@@ -300,6 +309,16 @@ const UserDashboard = () => {
                 >
                   Refresh
                 </button>
+              </div>
+
+              <div className="mt-6">
+                <ParkingMap
+                  parkingAreas={parkingAreas}
+                  userLocation={userLocation}
+                  loading={loadingLocation}
+                  locationError={locationError}
+                  onBookNow={handleBookNow}
+                />
               </div>
 
               {parkingAreas.length > 0 ? (
@@ -322,5 +341,3 @@ const UserDashboard = () => {
 };
 
 export default UserDashboard;
-
-
