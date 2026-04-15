@@ -2,11 +2,13 @@ import React, { useEffect, useMemo, useState } from 'react';
 import api from '/src/api';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 import NavbarUser from './NavbarUser';
 import Footer from '../Footer/Footer';
 
 const statusStyle = {
   ACTIVE: 'bg-emerald-100 text-emerald-700',
+  RESERVED: 'bg-amber-100 text-amber-700',
   COMPLETED: 'bg-blue-100 text-blue-700',
   EXPIRED: 'bg-rose-100 text-rose-700',
 };
@@ -19,6 +21,7 @@ const formatDateTime = (value) => {
 };
 
 const UserBookings = () => {
+  const navigate = useNavigate();
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -114,6 +117,15 @@ const UserBookings = () => {
           <div className="rounded-3xl border border-rose-100 bg-white p-6 shadow-md sm:p-8">
             <h1 className="text-3xl font-bold text-slate-900 sm:text-4xl">My Bookings</h1>
             <p className="mt-2 text-slate-600">View your parking bookings and extend active sessions in real time.</p>
+            <div className="mt-4">
+              <button
+                type="button"
+                onClick={() => navigate('/UserDashBoard')}
+                className="rounded-md border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-rose-300 hover:text-rose-600"
+              >
+                Back to User Dashboard
+              </button>
+            </div>
           </div>
 
           <ToastContainer position="top-center" />

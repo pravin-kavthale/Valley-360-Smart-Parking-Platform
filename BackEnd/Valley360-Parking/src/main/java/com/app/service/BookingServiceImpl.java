@@ -88,6 +88,7 @@ public class BookingServiceImpl implements BookingService {
 		response.setDepartureDate(savedBooking.getEndTime());
 		response.setTotalPrice(savedBooking.getTotalPrice());
 		response.setPrice(savedBooking.getTotalPrice());
+		response.setStatus(BookingStatus.valueOf(getBookingStatus(savedBooking)));
 		return response;
 
 	}
@@ -224,11 +225,12 @@ public class BookingServiceImpl implements BookingService {
 			throw new IllegalStateException("Booking end time is missing.");
 		}
 
-		if (booking.getStatus() != BookingStatus.ACTIVE) {
+		String computedStatus = getBookingStatus(booking);
+		if (!"ACTIVE".equals(computedStatus)) {
 			throw new IllegalStateException("Only ACTIVE bookings can be extended.");
 		}
 
-		if (resolvedEndTime.isBefore(LocalDateTime.now())) {
+		if ("COMPLETED".equals(computedStatus)) {
 			booking.setStatus(BookingStatus.EXPIRED);
 			bookingRepo.save(booking);
 			throw new IllegalStateException("Cannot extend expired booking.");
@@ -294,6 +296,23 @@ public class BookingServiceImpl implements BookingService {
 		dto.setDepartureDate(end);
 		dto.setTotalPrice(total);
 		dto.setPrice(total);
+		dto.setStatus(BookingStatus.valueOf(getBookingStatus(booking)));
+	}
+
+	public String getBookingStatus(Booking booking) {
+		LocalDateTime now = LocalDateTime.now();
+		LocalDateTime start = booking.getStartTime() != null ? booking.getStartTime() : booking.getArrivalDate();
+		LocalDateTime end = booking.getEndTime() != null ? booking.getEndTime() : booking.getDepartureDate();
+
+		System.out.println("NOW: " + now);
+		System.out.println("START: " + start);
+		System.out.println("END: " + end);
+
+		if (start != null && now.isBefore(start))
+			return "RESERVED";
+		if (end != null && now.isAfter(end))
+			return "COMPLETED";
+		return "ACTIVE";
 	}
 
 	@Transactional
