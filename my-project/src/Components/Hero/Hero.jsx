@@ -1,10 +1,9 @@
 import React from 'react'
 import {IoBagHandleOutline} from 'react-icons/io5'
-import Image from "../../Images/Bg-clg.jpg";
-import LOGO from '../../Images/logo.jpeg';
 import {motion} from "framer-motion";
 import { FadeRight } from '../Annimations/annimation';
-
+import ParkingAnimation from './ParkingAnimation';
+import Parking3D from './Parking3D';
 const Hero = () => {
   return (
    <section className='container grid grid-cols-1 md:grid-cols-2 min-h-[650px] relative'>
@@ -44,23 +43,16 @@ const Hero = () => {
         </div>
         
     </div>
-     {/* Hero Image*/}
-            <div className='flex flex-col justify-center ml-10'>
-                <motion.img 
-                initial={{opacity:0, x:200, rotate:75}}
-                animate={{opacity:1, x:0, rotate:0}}
-                transition={{duration:1, delay:0.2}}
-                src={Image} alt='' className='w-[350px] ms:w=[550px] drop-shadow md:px-10'></motion.img>
-            </div>
-            
-            <div className='absolute left-80 top-10  bottom-00 10md:top-0 right-2/3 blur-sm opacity-40 rotate-[40deg]'>
-                <motion.img 
-                initial={{opacity:0, y:-200, rotate:75}}
-                animate={{opacity:1, y:0, rotate:0}}
-                transition={{duration:1, delay:1.0}}
-                
-                src={LOGO} alt='' className='w-full md:max-W-[100px]' ></motion.img>
-            </div>
+         {/* Hero Image*/}
+                        <div className='flex flex-col justify-center ml-10'>
+                                <motion.div
+                                initial={{opacity:0, x:200, rotate:0}}
+                                animate={{opacity:1, x:0, rotate:0}}
+                                transition={{duration:1, delay:0.2}}
+                                className='w-[450px] h-[350px] max-w-full'>
+                                    <ParkingAnimation />
+                                </motion.div>
+                        </div>
 
    </section>
   )
