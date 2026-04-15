@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import api from '/src/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const ParkingSlotForm = () => {
     const [slotNumber, setSlotNumber] = useState('');
@@ -15,10 +15,8 @@ const ParkingSlotForm = () => {
     const [statusError, setStatusError] = useState('');
 
     const navigate = useNavigate();
-    
-    // Retrieve parking area ID from session storage
-    const parkingArea = JSON.parse(sessionStorage.getItem('parkingArea'));
-    const parkingId = parkingArea?.id;
+    const location = useLocation();
+    const areaId = location.state?.areaId;
 
     const validateForm = () => {
         let isValid = true;
@@ -60,8 +58,9 @@ const ParkingSlotForm = () => {
         // Validate form inputs
         if (!validateForm()) return;
 
-        if (!parkingId) {
-            toast.error('Parking ID is missing in session storage.');
+        if (!areaId) {
+            toast.error('Invalid navigation. Please select area again.');
+            navigate(-1);
             return;
         }
         
@@ -79,7 +78,7 @@ const ParkingSlotForm = () => {
                 price,
                 vehicleType,
                 status,
-                parkingId: Number(parkingId), // Convert parkingId to number if needed
+                parkingId: Number(areaId),
                 }
             );
 

@@ -79,6 +79,7 @@ function App() {
         <Route path="OwnerDashBoard" element={<ProtectedRoute allowedRoles={["ROLE_OWNER"]}><OwnerDashboard /></ProtectedRoute>} />
         <Route path="/owner/parking-areas" element={<ProtectedRoute allowedRoles={["ROLE_OWNER"]}><OwnerParkingAreas /></ProtectedRoute>} />
         <Route path="/owner/parking-areas/:areaId/slots" element={<ProtectedRoute allowedRoles={["ROLE_OWNER"]}><OwnerParkingSlots /></ProtectedRoute>} />
+        <Route path="/owner/add-slot" element={<ProtectedRoute allowedRoles={["ROLE_OWNER"]}><ParkingSlotForm /></ProtectedRoute>} />
         <Route path="/owner/slots/:slotId/timeline" element={<ProtectedRoute allowedRoles={["ROLE_OWNER"]}><OwnerSlotTimeline /></ProtectedRoute>} />
         <Route path='Delete/:userid' element={<DeleteUser/>}></Route>
         <Route path='/logout' element={<Logout/>}></Route>

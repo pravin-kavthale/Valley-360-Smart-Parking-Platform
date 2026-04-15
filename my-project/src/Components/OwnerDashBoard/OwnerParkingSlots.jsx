@@ -46,13 +46,23 @@ const OwnerParkingSlots = () => {
             <p className="text-sm text-slate-500">Owner &gt; Areas &gt; Slots</p>
             <h1 className="mt-2 text-3xl font-bold text-slate-900 sm:text-4xl">Area Slots</h1>
             <p className="mt-2 text-slate-600">Select a slot to view booking timeline history.</p>
-            <button
-              type="button"
-              onClick={() => navigate(-1)}
-              className="mt-4 rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-rose-300 hover:text-rose-600"
-            >
-              Back
-            </button>
+            <div className="mt-4 flex items-center justify-between">
+              <button
+                type="button"
+                onClick={() => navigate(-1)}
+                className="rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-rose-300 hover:text-rose-600"
+              >
+                Back
+              </button>
+
+              <button
+                type="button"
+                onClick={() => navigate('/owner/add-slot', { state: { areaId } })}
+                className="bg-rose-400 text-white px-4 py-2 rounded-lg shadow-sm hover:scale-105 transition"
+              >
+                Add Slot
+              </button>
+            </div>
           </div>
 
           <ToastContainer position="top-center" />
