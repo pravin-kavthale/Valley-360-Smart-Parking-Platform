@@ -25,6 +25,7 @@ const BookParking = () => {
     arrivalDate: '',
     departureDate: '',
     vehicleNo: '',
+    bookingConflict: '',
   });
 
   useEffect(() => {
@@ -60,6 +61,7 @@ const BookParking = () => {
     const bookingDate = new Date(formData.bookingDate);
     const arrivalDate = new Date(formData.arrivalDate);
     const departureDate = new Date(formData.departureDate);
+    const now = new Date();
 
     const today = new Date();
     today.setHours(0, 0, 0, 0); // Set time to midnight for comparison
@@ -70,6 +72,10 @@ const BookParking = () => {
 
     if (arrivalDate >= departureDate) {
       errors.arrivalDate = 'Departure time must be after arrival time.';
+    }
+
+    if (formData.arrivalDate && arrivalDate < now) {
+      errors.arrivalDate = 'Start time cannot be in the past.';
     }
 
     if (!formData.vehicleNo.trim()) {
@@ -90,6 +96,8 @@ const BookParking = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setErrors((prev) => ({ ...prev, bookingConflict: '' }));
 
     if (!validateForm()) {
       return;
@@ -121,7 +129,14 @@ const BookParking = () => {
         },
       });
     } catch (error) {
-      alert('Error during booking');
+      if (error?.response?.status === 409) {
+        const conflictMessage = error?.response?.data?.message || 'Slot already booked for the selected time range.';
+        setErrors((prev) => ({ ...prev, bookingConflict: conflictMessage }));
+        return;
+      }
+
+      const detailedMessage = error?.response?.data?.message || 'Unable to create booking. Please try again.';
+      setErrors((prev) => ({ ...prev, bookingConflict: detailedMessage }));
       console.error(error);
     }
   };
@@ -136,6 +151,10 @@ const BookParking = () => {
         <div className="w-full md:w-1/2 p-6">
       <h2 className="text-2xl font-bold mb-6 text-slate-900">Book Parking</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
+        {errors.bookingConflict && (
+          <p className="text-red-500 text-sm">{errors.bookingConflict}</p>
+        )}
+
         <label htmlFor="bookingDate" className="block text-sm text-slate-600">
           Booking Date:
         </label>

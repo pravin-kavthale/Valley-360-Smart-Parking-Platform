@@ -2,6 +2,9 @@ package com.app.service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -19,6 +22,7 @@ import com.app.entities.Booking;
 import com.app.entities.ParkingSlot;
 import com.app.entities.User;
 import com.app.enums.BookingStatus;
+import com.app.exception.BookingConflictException;
 import com.app.exception.ParkingNotFoundException;
 import com.app.exception.UserNotFoundException;
 import com.app.repository.BookingRepository;
@@ -57,6 +61,8 @@ public class BookingServiceImpl implements BookingService {
 
 		LocalDateTime start = booking.getStartTime() != null ? booking.getStartTime() : booking.getArrivalDate();
 		LocalDateTime end = booking.getEndTime() != null ? booking.getEndTime() : booking.getDepartureDate();
+		validateBookingConflict(parkingSlot.getId(), start, end);
+
 		double resolvedTotalPrice = booking.getTotalPrice() > 0 ? booking.getTotalPrice() : booking.getPrice();
 
 		book.setStartTime(start);
@@ -91,6 +97,58 @@ public class BookingServiceImpl implements BookingService {
 		response.setStatus(BookingStatus.valueOf(getBookingStatus(savedBooking)));
 		return response;
 
+	}
+
+	private void validateBookingConflict(Long parkingSlotId, LocalDateTime newStartTime, LocalDateTime newEndTime) {
+		if (newStartTime == null || newEndTime == null) {
+			throw new IllegalArgumentException("Start time and end time are required.");
+		}
+
+		if (!newStartTime.isBefore(newEndTime)) {
+			throw new IllegalArgumentException("Start time must be before end time.");
+		}
+
+		LocalDateTime now = LocalDateTime.now();
+		List<Booking> existingBookings = bookingRepo.findAllbyParkingSlotId(parkingSlotId);
+
+		List<Booking> conflicts = existingBookings.stream()
+				.filter(existing -> {
+					LocalDateTime existingStart = existing.getStartTime() != null ? existing.getStartTime()
+							: existing.getArrivalDate();
+					LocalDateTime existingEnd = existing.getEndTime() != null ? existing.getEndTime()
+							: existing.getDepartureDate();
+
+					if (existingStart == null || existingEnd == null) {
+						return false;
+					}
+
+					if (!existingEnd.isAfter(now)) {
+						return false;
+					}
+
+					return newStartTime.isBefore(existingEnd) && newEndTime.isAfter(existingStart);
+				})
+				.collect(Collectors.toList());
+
+		if (!conflicts.isEmpty()) {
+			Booking nearestConflict = conflicts.stream().min(Comparator.comparingLong(existing -> {
+				LocalDateTime existingStart = existing.getStartTime() != null ? existing.getStartTime()
+						: existing.getArrivalDate();
+				return Math.abs(ChronoUnit.MINUTES.between(newStartTime, existingStart));
+			})).orElse(conflicts.get(0));
+
+			LocalDateTime conflictStart = nearestConflict.getStartTime() != null ? nearestConflict.getStartTime()
+					: nearestConflict.getArrivalDate();
+			LocalDateTime conflictEnd = nearestConflict.getEndTime() != null ? nearestConflict.getEndTime()
+					: nearestConflict.getDepartureDate();
+
+			DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
+			String message = String.format(
+					"This slot is already booked from %s to %s. Please choose a time before or after this period.",
+					conflictStart.format(timeFormatter),
+					conflictEnd.format(timeFormatter));
+			throw new BookingConflictException(message);
+		}
 	}
 
 	private String generateUniqueQrToken() {

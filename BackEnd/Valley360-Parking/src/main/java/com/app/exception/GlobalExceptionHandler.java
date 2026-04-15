@@ -59,4 +59,11 @@ public class GlobalExceptionHandler {
         error.put("message", ex.getMessage());
         return new ResponseEntity<>(error, HttpStatus.FORBIDDEN);
     }
+
+    @ExceptionHandler(BookingConflictException.class)
+    public ResponseEntity<Map<String, String>> handleBookingConflict(BookingConflictException ex) {
+        Map<String, String> error = new HashMap<>();
+        error.put("message", ex.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.CONFLICT);
+    }
 }
