@@ -27,32 +27,25 @@ public class SecurityConfig {
 
 	@Autowired
 	private JWTRequestFilter filter;
-	
-	
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.cors().and().csrf().disable().
-		exceptionHandling().
-		authenticationEntryPoint((request, response, ex) -> {
+		http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint((request, response, ex) -> {
 			response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ex.getMessage());
-		}).
-		and().
-		authorizeRequests()
-		 .antMatchers("/User/Register","/Admin/**", "/api/auth/**", "/swagger*/**", "/v*/api-docs/**", "/User/Login").permitAll()
-	      .antMatchers("/User/**").hasAnyRole("OWNER", "CUSTOMER", "ADMIN")
-	      //.antMatchers("/booking/today/**").hasAnyRole("OWNER", "CUSTOMER", "ADMIN")
-        .antMatchers("/booking/**").hasAnyRole("OWNER", "CUSTOMER", "ADMIN")
-        .antMatchers("/parkingSlots/**").hasAnyRole("ADMIN","CUSTOMER","OWNER")
-        .antMatchers("/parkingArea/**").hasAnyRole("ADMIN","CUSTOMER","OWNER")
-        .antMatchers("/User/Register", "/api/auth/**", "/swagger*/**", "/v*/api-docs/**", "/User/Login").permitAll()
-        .antMatchers(HttpMethod.OPTIONS).permitAll().
-		anyRequest().authenticated().
-		and().
-		sessionManagement()
-		.sessionCreationPolicy(SessionCreationPolicy.STATELESS).
-		and()
-		.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+		}).and().authorizeRequests()
+				.antMatchers("/User/Register", "/User/Login", "/Admin/Login", "/admin/login", "/api/auth/**",
+						"/swagger*/**", "/v*/api-docs/**")
+				.permitAll()
+				.antMatchers("/Admin/**", "/admin/**").hasRole("ADMIN")
+				.antMatchers("/owner/**").hasRole("OWNER")
+				.antMatchers("/User/**").hasAnyRole("OWNER", "CUSTOMER", "ADMIN")
+				// .antMatchers("/booking/today/**").hasAnyRole("OWNER", "CUSTOMER", "ADMIN")
+				.antMatchers("/booking/**").hasAnyRole("OWNER", "CUSTOMER", "ADMIN")
+				.antMatchers("/parkingSlots/**").hasAnyRole("ADMIN", "CUSTOMER", "OWNER")
+				.antMatchers("/parkingArea/**").hasAnyRole("ADMIN", "CUSTOMER", "OWNER")
+				.antMatchers(HttpMethod.OPTIONS).permitAll().anyRequest().authenticated().and().sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+				.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
 
 		return http.build();
 	}

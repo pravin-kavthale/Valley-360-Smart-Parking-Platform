@@ -39,4 +39,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
 	@Query("SELECT b FROM Booking b JOIN FETCH b.user u JOIN FETCH b.parkingSlot ps JOIN FETCH ps.parking p WHERE u.id = :userId ORDER BY COALESCE(b.startTime, b.arrivalDate) DESC, b.id DESC")
 	List<Booking> findByUserIdOrderByLatest(@Param("userId") Long userId);
+
+	@Query("SELECT b FROM Booking b JOIN FETCH b.user u JOIN FETCH b.parkingSlot ps JOIN FETCH ps.parking p WHERE ps.id = :slotId ORDER BY COALESCE(b.startTime, b.arrivalDate) ASC, b.id ASC")
+	List<Booking> findTimelineBySlotId(@Param("slotId") Long slotId);
 }

@@ -33,6 +33,10 @@ import Review from './Components/Banners/Review.jsx';
 import BookingQR from './Components/UserDashBoard/BookingQR';
 import ValidateBookingQR from './Components/AdminDashboard/ValidateBookingQR';
 import UserBookings from './Components/UserDashBoard/UserBookings';
+import OwnerParkingAreas from './Components/OwnerDashBoard/OwnerParkingAreas';
+import OwnerParkingSlots from './Components/OwnerDashBoard/OwnerParkingSlots';
+import OwnerSlotTimeline from './Components/OwnerDashBoard/OwnerSlotTimeline';
+import ProtectedRoute from './Components/ProtectedRoute';
 
 
 function App() {
@@ -59,7 +63,7 @@ function App() {
         <Route path="/ContactUs" element={<ContactUs />} />
         <Route path="/Update" element={<Update />} />
         <Route path="/Profile" element={<Profile />} />
-        <Route path="/Admin" element={<AdminDashboard />} />
+        <Route path="/Admin" element={<ProtectedRoute allowedRoles={["ROLE_ADMIN"]}><AdminDashboard /></ProtectedRoute>} />
         <Route path="/ViewAllParkingSlots" element={<ViewAllParkingSlots />} />
         <Route path="/ViewParkingArea" element={<ViewParkingArea />} />
         <Route path="/ViewOwners" element={<OwnersList />} />
@@ -72,7 +76,10 @@ function App() {
         <Route path="Update1" element={<ProfileComponent />} />
         <Route path="/AddParkingSlot" element={<ParkingSlotForm />} />
         <Route path="/AddParkingArea" element={<AddParkingArea />} />
-        <Route path="OwnerDashBoard" element={<OwnerDashboard />} />
+        <Route path="OwnerDashBoard" element={<ProtectedRoute allowedRoles={["ROLE_OWNER"]}><OwnerDashboard /></ProtectedRoute>} />
+        <Route path="/owner/parking-areas" element={<ProtectedRoute allowedRoles={["ROLE_OWNER"]}><OwnerParkingAreas /></ProtectedRoute>} />
+        <Route path="/owner/parking-areas/:areaId/slots" element={<ProtectedRoute allowedRoles={["ROLE_OWNER"]}><OwnerParkingSlots /></ProtectedRoute>} />
+        <Route path="/owner/slots/:slotId/timeline" element={<ProtectedRoute allowedRoles={["ROLE_OWNER"]}><OwnerSlotTimeline /></ProtectedRoute>} />
         <Route path='Delete/:userid' element={<DeleteUser/>}></Route>
         <Route path='/logout' element={<Logout/>}></Route>
         <Route path="/Book/:slotId" element={<BookParking/>}></Route>

@@ -34,7 +34,7 @@ const Footer = () => {
       {/* Copyright section */}
       <div className="text-center">
         <span className="block text-sm text-gray-400x">
-          © 2024 <a href="https://flowbite.com/" className="hover:underline">Valley360 Parking™</a>. All Rights Reserved.
+          © 2026 <a href="https://flowbite.com/" className="hover:underline">Valley360 Parking™</a>. All Rights Reserved.
         </span>
       </div>
     </footer>

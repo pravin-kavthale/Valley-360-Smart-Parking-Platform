@@ -7,6 +7,8 @@ const Logout = () => {
   const logout = () => {
     // Clear session storage
     sessionStorage.removeItem('user');
+    sessionStorage.removeItem('jwtToken');
+    sessionStorage.removeItem('role');
     localStorage.removeItem('token');
     
     // Redirect to the home page

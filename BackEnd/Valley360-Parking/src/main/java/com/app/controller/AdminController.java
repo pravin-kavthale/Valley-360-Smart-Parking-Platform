@@ -31,7 +31,7 @@ import com.app.service.ParkingSlotService;
 import com.app.service.UserService;
 
 @RestController
-@RequestMapping("/Admin")
+@RequestMapping({ "/Admin", "/admin" })
 @CrossOrigin(origins = "*")
 public class AdminController {
 
@@ -70,7 +70,7 @@ public class AdminController {
 		return ResponseEntity.ok(data);
 	}
 
-	@PostMapping("/Login")
+	@PostMapping({ "/Login", "/login" })
 	public ResponseEntity<?> login(@RequestParam String email, @RequestParam String password) {
 		User adminUser = admin.login(email, password);
 

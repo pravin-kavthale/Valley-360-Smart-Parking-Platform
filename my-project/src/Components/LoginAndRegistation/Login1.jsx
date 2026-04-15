@@ -2,6 +2,16 @@ import React, { useState } from 'react';
 import api from '/src/api';
 import { Link, useNavigate } from 'react-router-dom';
 
+const decodeToken = (token) => {
+    try {
+        const payload = token.split('.')[1];
+        const normalized = payload.replace(/-/g, '+').replace(/_/g, '/');
+        return JSON.parse(atob(normalized));
+    } catch (e) {
+        return null;
+    }
+};
+
 
 
 const Login1 = () => {
@@ -31,6 +41,11 @@ const Login1 = () => {
                     throw new Error('Admin login token missing in response.data.token');
                 }
                 localStorage.setItem('token', token);
+                sessionStorage.setItem('jwtToken', token);
+                const decoded = decodeToken(token);
+                if (decoded?.role) {
+                    sessionStorage.setItem('role', decoded.role);
+                }
                 console.log('Stored Token:', localStorage.getItem('token'));
                 navigate('/Admin');
             })

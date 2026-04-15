@@ -1,6 +1,7 @@
 package com.app.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -12,10 +13,11 @@ import com.app.enums.Status;
 public interface ParkingAreaRepository extends JpaRepository<ParkingArea, Long> {
 
 	List<ParkingArea> findByStatus(Status status);
-	
-	
+
 	List<ParkingArea> findByUserId(Long ownerId);
-	
+
+	Optional<ParkingArea> findByIdAndUserId(Long areaId, Long ownerId);
+
 	@Modifying
 	@Query("DELETE FROM ParkingArea pa WHERE pa.user.id = :ownerId")
 	void deleteByUserId(Long ownerId);

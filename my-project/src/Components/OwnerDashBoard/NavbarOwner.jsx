@@ -31,6 +31,12 @@ const NavbarMenu = [
         link:"/AddParkingArea",
     },
 
+    {
+        id: 5,
+        title: "My Areas",
+        link:"/owner/parking-areas",
+    },
+
 ];
    
 const NavbarOwner = () => {

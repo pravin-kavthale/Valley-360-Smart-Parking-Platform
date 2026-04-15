@@ -2,6 +2,16 @@ import React, { useState } from 'react';
 import api from '/src/api';
 import { Link, useNavigate } from 'react-router-dom';
 
+const decodeToken = (token) => {
+  try {
+    const payload = token.split('.')[1];
+    const normalized = payload.replace(/-/g, '+').replace(/_/g, '/');
+    return JSON.parse(atob(normalized));
+  } catch (e) {
+    return null;
+  }
+};
+
 const Login = () => {
   const [user, setUser] = useState({ email: '', password: '' });
   const [error, setError] = useState(null); // State to hold error messages
@@ -31,9 +41,14 @@ const Login = () => {
       //const { token, loggedInUser } = response.data;
       const token = response.data.token || response.data.jwtToken;
       const loggedInUser = response.data;
+      const decoded = decodeToken(token);
 
       // Store the token and user details for authenticated API access.
       localStorage.setItem('token', token);
+      sessionStorage.setItem('jwtToken', token);
+      if (decoded?.role) {
+        sessionStorage.setItem('role', decoded.role);
+      }
       sessionStorage.setItem('user', JSON.stringify(loggedInUser));
 
       console.log("Logged in user:", loggedInUser);
