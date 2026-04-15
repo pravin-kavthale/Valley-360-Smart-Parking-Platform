@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { toast, ToastContainer } from 'react-toastify';
@@ -25,6 +25,7 @@ const OwnerSlotTimeline = () => {
   const [timeline, setTimeline] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const scrollRef = useRef(null);
 
   const fetchTimeline = async () => {
     try {
@@ -49,6 +50,12 @@ const OwnerSlotTimeline = () => {
   useEffect(() => {
     fetchTimeline();
   }, [slotId]);
+
+  useEffect(() => {
+    if (scrollRef.current && timeline.length > 0) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [timeline]);
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-rose-100 via-orange-100 to-amber-200 overflow-x-hidden">
@@ -80,46 +87,59 @@ const OwnerSlotTimeline = () => {
           )}
 
           {!loading && !error && timeline.length > 0 && (
-            <div className="relative mt-10">
-              <div className="absolute left-1/2 top-0 hidden h-full -translate-x-1/2 border-l border-rose-200 md:block" />
+            <div className="relative mt-10 rounded-3xl border border-slate-200 bg-white/80 p-4 sm:p-6 shadow-sm">
+              <div className="pointer-events-none absolute inset-x-0 top-0 z-20 h-10 rounded-t-3xl bg-gradient-to-b from-rose-100/95 to-transparent" />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-10 rounded-b-3xl bg-gradient-to-t from-rose-100/95 to-transparent" />
 
-              <div className="space-y-8">
-                {timeline.map((booking, index) => {
-                  const status = String(booking.status || 'COMPLETED').toUpperCase();
-                  const badge = statusClass[status] || 'bg-slate-200 text-slate-700';
-                  const isLeft = index % 2 === 0;
+              <div
+                ref={scrollRef}
+                className="timeline-scroll relative h-[420px] overflow-y-auto scroll-smooth pb-8 pt-2"
+              >
+                <motion.div
+                  initial={{ scaleY: 0 }}
+                  animate={{ scaleY: 1 }}
+                  transition={{ duration: 0.8, ease: 'easeOut' }}
+                  className="hidden md:block absolute left-1/2 top-0 h-full w-px -translate-x-1/2 origin-top bg-rose-200"
+                />
 
-                  return (
-                    <motion.div
-                      key={booking.bookingId}
-                      initial={{ opacity: 0, y: 24 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.35 }}
-                      viewport={{ once: true }}
-                      className={`relative flex w-full ${isLeft ? 'md:justify-start' : 'md:justify-end'} justify-start`}
-                    >
-                      <div className="hidden md:block absolute left-1/2 top-10 h-3 w-3 -translate-x-1/2 rounded-full border border-rose-300 bg-white" />
+                <div className="space-y-8 pr-1">
+                  {timeline.map((booking, index) => {
+                    const status = String(booking.status || 'COMPLETED').toUpperCase();
+                    const badge = statusClass[status] || 'bg-slate-200 text-slate-700';
+                    const isLeft = index % 2 === 0;
 
-                      <motion.article
-                        whileHover={{ scale: 1.02 }}
-                        className="w-full md:w-[46%] rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+                    return (
+                      <motion.div
+                        key={booking.bookingId}
+                        initial={{ opacity: 0, y: 40 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: index * 0.08 }}
+                        viewport={{ once: false, amount: 0.2 }}
+                        className={`relative flex w-full ${isLeft ? 'md:justify-start' : 'md:justify-end'} justify-start`}
                       >
-                        <div className="flex items-center justify-between gap-3">
-                          <h3 className="text-lg font-bold text-slate-900">Booking #{booking.bookingId}</h3>
-                          <span className={`rounded-full px-3 py-1 text-xs font-semibold ${badge}`}>{status}</span>
-                        </div>
+                        <div className="hidden md:block absolute left-1/2 top-10 h-3 w-3 -translate-x-1/2 rounded-full border border-rose-300 bg-white" />
 
-                        <p className="mt-3 text-slate-700"><span className="font-semibold">User Name:</span> {booking.userName}</p>
-                        <p className="mt-2 text-slate-600">
-                          <span className="font-semibold text-slate-700">Start Time:</span> {formatDateTime(booking.startTime)}
-                        </p>
-                        <p className="mt-1 text-slate-600">
-                          <span className="font-semibold text-slate-700">End Time:</span> {formatDateTime(booking.endTime)}
-                        </p>
-                      </motion.article>
-                    </motion.div>
-                  );
-                })}
+                        <motion.article
+                          whileHover={{ scale: 1.02 }}
+                          className="w-full md:w-[46%] rounded-2xl border border-slate-200 bg-[#fffaf7] p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:scale-[1.02]"
+                        >
+                          <div className="flex items-center justify-between gap-3">
+                            <h3 className="text-lg font-bold text-slate-900">Booking #{booking.bookingId}</h3>
+                            <span className={`rounded-full px-3 py-1 text-xs font-semibold ${badge}`}>{status}</span>
+                          </div>
+
+                          <p className="mt-3 text-slate-700"><span className="font-semibold">User Name:</span> {booking.userName}</p>
+                          <p className="mt-2 text-slate-600">
+                            <span className="font-semibold text-slate-700">Start Time:</span> {formatDateTime(booking.startTime)}
+                          </p>
+                          <p className="mt-1 text-slate-600">
+                            <span className="font-semibold text-slate-700">End Time:</span> {formatDateTime(booking.endTime)}
+                          </p>
+                        </motion.article>
+                      </motion.div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           )}

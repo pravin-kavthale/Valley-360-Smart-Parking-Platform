@@ -15,3 +15,12 @@
         filter: drop-shadow(-6px 8px 15px rgba(0, 0, 0, 0.2));
     }
 }
+
+.timeline-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.timeline-scroll {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
