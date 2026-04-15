@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,6 +54,18 @@ public class BookingServiceImpl implements BookingService {
 
 		Booking book = mapper.map(booking, Booking.class);
 		System.out.println(book.getId());
+
+		LocalDateTime start = booking.getStartTime() != null ? booking.getStartTime() : booking.getArrivalDate();
+		LocalDateTime end = booking.getEndTime() != null ? booking.getEndTime() : booking.getDepartureDate();
+		double resolvedTotalPrice = booking.getTotalPrice() > 0 ? booking.getTotalPrice() : booking.getPrice();
+
+		book.setStartTime(start);
+		book.setArrivalDate(start);
+		book.setEndTime(end);
+		book.setDepartureDate(end);
+		book.setTotalPrice(resolvedTotalPrice);
+		book.setPrice(resolvedTotalPrice);
+
 		book.setUser(user);
 		book.setParkingSlot(parkingSlot);
 		book.setStatus(BookingStatus.ACTIVE);
@@ -68,6 +82,12 @@ public class BookingServiceImpl implements BookingService {
 				savedBooking.getParkingSlot() != null && savedBooking.getParkingSlot().getParking() != null
 						? savedBooking.getParkingSlot().getParking().getArea()
 						: null);
+		response.setStartTime(savedBooking.getStartTime());
+		response.setEndTime(savedBooking.getEndTime());
+		response.setArrivalDate(savedBooking.getStartTime());
+		response.setDepartureDate(savedBooking.getEndTime());
+		response.setTotalPrice(savedBooking.getTotalPrice());
+		response.setPrice(savedBooking.getTotalPrice());
 		return response;
 
 	}
@@ -140,6 +160,7 @@ public class BookingServiceImpl implements BookingService {
 		List<Booking> bookings = bookingRepo.findTodaysBookingsByOwnerId(ownerId, today);
 		return bookings.stream().map(book -> {
 			BookingDTO dto = mapper.map(book, BookingDTO.class);
+			applyBookingTimeAndPrice(dto, book);
 			dto.setCustomer_id(book.getUser() != null ? book.getUser().getId() : null);
 			dto.setParking_slot_id(book.getParkingSlot() != null ? book.getParkingSlot().getId() : null);
 			return dto;
@@ -155,10 +176,124 @@ public class BookingServiceImpl implements BookingService {
 
 		return bookings.stream().map(book -> {
 			BookingDTO dto = mapper.map(book, BookingDTO.class);
+			applyBookingTimeAndPrice(dto, book);
 			dto.setCustomer_id(book.getUser() != null ? book.getUser().getId() : null);
 			dto.setParking_slot_id(book.getParkingSlot() != null ? book.getParkingSlot().getId() : null);
 			return dto;
 		}).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<BookingDTO> getUserBookings(Long userId) {
+		User authenticatedUser = getAuthenticatedUser();
+		if (!authenticatedUser.getId().equals(userId)) {
+			throw new SecurityException("You can only view your own bookings.");
+		}
+
+		List<Booking> bookings = bookingRepo.findByUserIdOrderByLatest(userId);
+		return bookings.stream().map(book -> {
+			BookingDTO dto = mapper.map(book, BookingDTO.class);
+			applyBookingTimeAndPrice(dto, book);
+			dto.setCustomer_id(book.getUser() != null ? book.getUser().getId() : null);
+			dto.setParking_slot_id(book.getParkingSlot() != null ? book.getParkingSlot().getId() : null);
+			dto.setParkingAreaName(book.getParkingSlot() != null && book.getParkingSlot().getParking() != null
+					? book.getParkingSlot().getParking().getArea()
+					: null);
+			dto.setSlotNumber(book.getParkingSlot() != null ? book.getParkingSlot().getId() : null);
+			return dto;
+		}).collect(Collectors.toList());
+	}
+
+	@Override
+	public BookingDTO extendBooking(Long bookingId, int additionalHours) {
+		if (additionalHours <= 0) {
+			throw new IllegalArgumentException("additionalHours must be greater than 0.");
+		}
+
+		Booking booking = bookingRepo.findById(bookingId)
+				.orElseThrow(() -> new ParkingNotFoundException("Booking not found for id: " + bookingId));
+
+		User authenticatedUser = getAuthenticatedUser();
+		if (booking.getUser() == null || !authenticatedUser.getId().equals(booking.getUser().getId())) {
+			throw new SecurityException("You can only extend your own booking.");
+		}
+
+		LocalDateTime resolvedEndTime = booking.getEndTime() != null ? booking.getEndTime()
+				: booking.getDepartureDate();
+		if (resolvedEndTime == null) {
+			throw new IllegalStateException("Booking end time is missing.");
+		}
+
+		if (booking.getStatus() != BookingStatus.ACTIVE) {
+			throw new IllegalStateException("Only ACTIVE bookings can be extended.");
+		}
+
+		if (resolvedEndTime.isBefore(LocalDateTime.now())) {
+			booking.setStatus(BookingStatus.EXPIRED);
+			bookingRepo.save(booking);
+			throw new IllegalStateException("Cannot extend expired booking.");
+		}
+
+		double currentTotalPrice = booking.getTotalPrice() > 0 ? booking.getTotalPrice() : booking.getPrice();
+		double ratePerHour = resolveRatePerHour(booking, currentTotalPrice);
+		double updatedTotalPrice = currentTotalPrice + (ratePerHour * additionalHours);
+
+		LocalDateTime updatedEndTime = resolvedEndTime.plusHours(additionalHours);
+		booking.setEndTime(updatedEndTime);
+		booking.setDepartureDate(updatedEndTime);
+		booking.setTotalPrice(updatedTotalPrice);
+		booking.setPrice(updatedTotalPrice);
+		booking.setParkingHours(Math.max(0, booking.getParkingHours()) + additionalHours);
+
+		Booking updatedBooking = bookingRepo.save(booking);
+
+		BookingDTO dto = mapper.map(updatedBooking, BookingDTO.class);
+		applyBookingTimeAndPrice(dto, updatedBooking);
+		dto.setCustomer_id(updatedBooking.getUser() != null ? updatedBooking.getUser().getId() : null);
+		dto.setParking_slot_id(
+				updatedBooking.getParkingSlot() != null ? updatedBooking.getParkingSlot().getId() : null);
+		dto.setParkingAreaName(
+				updatedBooking.getParkingSlot() != null && updatedBooking.getParkingSlot().getParking() != null
+						? updatedBooking.getParkingSlot().getParking().getArea()
+						: null);
+		dto.setSlotNumber(updatedBooking.getParkingSlot() != null ? updatedBooking.getParkingSlot().getId() : null);
+		return dto;
+	}
+
+	private double resolveRatePerHour(Booking booking, double currentTotalPrice) {
+		if (booking.getParkingSlot() != null && booking.getParkingSlot().getPrice() > 0) {
+			return booking.getParkingSlot().getPrice();
+		}
+
+		if (booking.getParkingHours() > 0 && currentTotalPrice > 0) {
+			return currentTotalPrice / booking.getParkingHours();
+		}
+
+		throw new IllegalStateException("Unable to resolve hourly rate for booking extension.");
+	}
+
+	private User getAuthenticatedUser() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication == null || authentication.getName() == null) {
+			throw new SecurityException("Authentication required.");
+		}
+
+		String email = authentication.getName();
+		return userRepo.findByEmail(email)
+				.orElseThrow(() -> new UserNotFoundException("Authenticated user not found with email: " + email));
+	}
+
+	private void applyBookingTimeAndPrice(BookingDTO dto, Booking booking) {
+		LocalDateTime start = booking.getStartTime() != null ? booking.getStartTime() : booking.getArrivalDate();
+		LocalDateTime end = booking.getEndTime() != null ? booking.getEndTime() : booking.getDepartureDate();
+		double total = booking.getTotalPrice() > 0 ? booking.getTotalPrice() : booking.getPrice();
+
+		dto.setStartTime(start);
+		dto.setArrivalDate(start);
+		dto.setEndTime(end);
+		dto.setDepartureDate(end);
+		dto.setTotalPrice(total);
+		dto.setPrice(total);
 	}
 
 	@Transactional

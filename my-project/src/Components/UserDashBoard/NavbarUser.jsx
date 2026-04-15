@@ -23,6 +23,12 @@ const NavbarMenu = [
         link:"/Update",
     },
 
+    {
+        id: 4,
+        title: "My Bookings",
+        link:"/user/bookings",
+    },
+
 ];
    
 const NavbarUser = () => {

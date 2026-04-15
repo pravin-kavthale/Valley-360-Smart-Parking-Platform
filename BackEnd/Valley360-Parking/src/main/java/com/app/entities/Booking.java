@@ -33,7 +33,11 @@ public class Booking extends BaseEntity {
 
 	private LocalDateTime arrivalDate;
 
+	private LocalDateTime startTime;
+
 	private LocalDateTime departureDate;
+
+	private LocalDateTime endTime;
 
 	private String vehicleNo;
 
@@ -49,6 +53,8 @@ public class Booking extends BaseEntity {
 	private int parkingHours;
 
 	private double price;
+
+	private double totalPrice;
 
 	@ManyToOne(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "customer_id")
@@ -91,12 +97,28 @@ public class Booking extends BaseEntity {
 		this.arrivalDate = arrivalDate;
 	}
 
+	public LocalDateTime getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(LocalDateTime startTime) {
+		this.startTime = startTime;
+	}
+
 	public LocalDateTime getDepartureDate() {
 		return departureDate;
 	}
 
 	public void setDepartureDate(LocalDateTime departureDate) {
 		this.departureDate = departureDate;
+	}
+
+	public LocalDateTime getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(LocalDateTime endTime) {
+		this.endTime = endTime;
 	}
 
 	public String getVehicleNo() {
@@ -145,6 +167,14 @@ public class Booking extends BaseEntity {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	public double getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(double totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 
 	public User getUser() {

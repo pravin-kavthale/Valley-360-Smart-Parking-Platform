@@ -32,6 +32,7 @@ import Logout from './Components/LoginAndRegistation/Logout.jsx';
 import Review from './Components/Banners/Review.jsx';
 import BookingQR from './Components/UserDashBoard/BookingQR';
 import ValidateBookingQR from './Components/AdminDashboard/ValidateBookingQR';
+import UserBookings from './Components/UserDashBoard/UserBookings';
 
 
 function App() {
@@ -76,6 +77,7 @@ function App() {
         <Route path='/logout' element={<Logout/>}></Route>
         <Route path="/Book/:slotId" element={<BookParking/>}></Route>
         <Route path="/BookingQR" element={<BookingQR/>}></Route>
+        <Route path="/user/bookings" element={<UserBookings/>}></Route>
         <Route path="/admin/validate-qr" element={<ValidateBookingQR/>}></Route>
       </Routes>
     </Router>

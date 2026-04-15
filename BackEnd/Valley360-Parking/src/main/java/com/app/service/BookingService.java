@@ -18,5 +18,9 @@ public interface BookingService {
 
 	List<BookingDTO> getPreviousBookings(Long ownerId);
 
+	List<BookingDTO> getUserBookings(Long userId);
+
+	BookingDTO extendBooking(Long bookingId, int additionalHours);
+
 	void DeleteBySlotId(Long id);
 }

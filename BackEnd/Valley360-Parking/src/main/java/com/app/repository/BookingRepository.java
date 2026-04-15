@@ -36,4 +36,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
 	@Query("Select b FROM Booking b WHERE b.parkingSlot.id=:parking_slot_id ")
 	List<Booking> findAllbyParkingSlotId(Long parking_slot_id);
+
+	@Query("SELECT b FROM Booking b JOIN FETCH b.user u JOIN FETCH b.parkingSlot ps JOIN FETCH ps.parking p WHERE u.id = :userId ORDER BY COALESCE(b.startTime, b.arrivalDate) DESC, b.id DESC")
+	List<Booking> findByUserIdOrderByLatest(@Param("userId") Long userId);
 }

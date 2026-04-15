@@ -31,7 +31,11 @@ public class BookingDTO extends BaseDTO {
 
 	private LocalDateTime arrivalDate;
 
+	private LocalDateTime startTime;
+
 	private LocalDateTime departureDate;
+
+	private LocalDateTime endTime;
 
 	private String vehicleNo;
 
@@ -44,6 +48,8 @@ public class BookingDTO extends BaseDTO {
 	private int parkingHours;
 
 	private double price;
+
+	private double totalPrice;
 
 	private Long customer_id;
 
@@ -69,12 +75,28 @@ public class BookingDTO extends BaseDTO {
 		this.arrivalDate = arrivalDate;
 	}
 
+	public LocalDateTime getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(LocalDateTime startTime) {
+		this.startTime = startTime;
+	}
+
 	public LocalDateTime getDepartureDate() {
 		return departureDate;
 	}
 
 	public void setDepartureDate(LocalDateTime departureDate) {
 		this.departureDate = departureDate;
+	}
+
+	public LocalDateTime getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(LocalDateTime endTime) {
+		this.endTime = endTime;
 	}
 
 	public String getVehicleNo() {
@@ -123,6 +145,14 @@ public class BookingDTO extends BaseDTO {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	public double getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(double totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 
 	public Long getCustomer_id() {

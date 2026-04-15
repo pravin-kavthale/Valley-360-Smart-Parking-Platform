@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dto.BookingDTO;
+import com.app.dto.ExtendBookingRequestDTO;
 import com.app.dto.QrValidationRequestDTO;
 import com.app.dto.QrValidationResponseDTO;
 import com.app.service.BookingService;
@@ -49,6 +51,18 @@ public class BookingController {
     public ResponseEntity<?> getPreviousBookings(@PathVariable Long ownerId) {
         List<BookingDTO> bookings = bookingService.getPreviousBookings(ownerId);
         return ResponseEntity.ok(bookings);
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<?> getUserBookings(@PathVariable Long userId) {
+        List<BookingDTO> bookings = bookingService.getUserBookings(userId);
+        return ResponseEntity.ok(bookings);
+    }
+
+    @PutMapping("/extend/{bookingId}")
+    public ResponseEntity<?> extendBooking(@PathVariable Long bookingId, @RequestBody ExtendBookingRequestDTO request) {
+        BookingDTO updatedBooking = bookingService.extendBooking(bookingId, request.getAdditionalHours());
+        return ResponseEntity.ok(updatedBooking);
     }
 
 }
