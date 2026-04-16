@@ -4,7 +4,15 @@ import {motion} from "framer-motion";
 import { FadeRight } from '../Annimations/annimation';
 import ParkingAnimation from './ParkingAnimation';
 import Parking3D from './Parking3D';
+import Login1 from '../LoginAndRegistation/Login1';
+import { useNavigate } from 'react-router-dom';
+
 const Hero = () => {
+    const navigate = useNavigate();
+    const handleBookNow = () => {
+        navigate('/Login');
+    };
+
   return (
    <section className='container grid grid-cols-1 md:grid-cols-2 min-h-[650px] relative'>
     {/*Brand Info */}
@@ -28,15 +36,16 @@ const Hero = () => {
             variants={FadeRight(1.2)}
             initial="hidden"
             animate="visible"
-            className='text-slate-800-400'> Whether you're a business owner, a commuter, or just visiting the city, Valley360 Parking offers a range of services tailored to your needs . <br /> <span className='font-bold'>"Book Now" | "Confirm My Spot"</span></motion.p>
-
+            className='text-slate-800-400 gap-2'> Whether you're a business owner, a commuter, or just visiting the city, Valley360 Parking offers a range of services tailored to your needs . <br /> <span className='font-bold'>"Book Now" | "Confirm My Spot"</span></motion.p>
+            <br />
             <motion.div
             variants={FadeRight(1.6)}
             initial="hidden"
             animate="visible"
             className='flex justify-center md:justify-start'>
-                <button className='primary-btn flex items-center gap-2'>
-                    <span><IoBagHandleOutline></IoBagHandleOutline></span>Book Now</button>
+                <button className='primary-btn flex items-center gap-2' onClick={handleBookNow}>
+                <span><IoBagHandleOutline></IoBagHandleOutline></span>
+                Book Now</button>
             </motion.div>
       
             
@@ -57,5 +66,7 @@ const Hero = () => {
    </section>
   )
 }
+
+
 
 export default Hero
