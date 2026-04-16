@@ -62,7 +62,7 @@ const AboutUs = () => {
               animate="visible"
               className="max-w-xl text-4xl font-bold leading-tight font-averia text-slate-900 sm:text-5xl lg:text-6xl"
             >
-              Modern parking, designed to feel as clear as the home page.
+              🚗 Parking, but finally done right.
             </motion.h1>
 
             <motion.p
@@ -72,6 +72,10 @@ const AboutUs = () => {
               className="max-w-xl text-lg leading-8 text-slate-600"
             >
               Valley360 Parking brings drivers, owners, and administrators into one simple flow. The goal is consistent: make parking easier to find, easier to manage, and easier to trust across every screen.
+              <br/>
+              No confusion. No chaos. Just a smarter way to park.
+              <br/>
+              Find faster. Manage easier. Trust completely. ✨
             </motion.p>
 
             <motion.div
@@ -124,11 +128,13 @@ const AboutUs = () => {
       <section className="py-10 sm:py-16">
         <div className="container">
           <div className="mx-auto max-w-2xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-secondary">Why it feels consistent</p>
-            <h2 className="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">The about page now follows the same visual rhythm as the home page.</h2>
+            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-secondary">✨ Built to feel familiar</p>
+            <h2 className="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">Find it. Book it. Park it.</h2>
             <p className="mt-4 text-slate-600">
-              It uses the same branded colors, spacing, card shapes, and motion so users do not feel like they have jumped into a different product.
+              Finding parking shouldn’t feel like a side quest.
+              We make it quick, simple, and actually reliable.
             </p>
+
           </div>
 
           <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
