@@ -27,6 +27,7 @@ import com.app.exception.ParkingNotFoundException;
 import com.app.exception.UserNotFoundException;
 import com.app.repository.BookingRepository;
 import com.app.repository.ParkingSlotRepository;
+import com.app.repository.ReviewRepository;
 import com.app.repository.UserRepository;
 
 @Service
@@ -44,6 +45,9 @@ public class BookingServiceImpl implements BookingService {
 
 	@Autowired
 	private ModelMapper mapper;
+
+	@Autowired
+	private ReviewRepository reviewRepository;
 
 	@Override
 	public BookingDTO bookParkingSlot(BookingDTO booking) {
@@ -355,6 +359,7 @@ public class BookingServiceImpl implements BookingService {
 		dto.setTotalPrice(total);
 		dto.setPrice(total);
 		dto.setStatus(BookingStatus.valueOf(getBookingStatus(booking)));
+		dto.setHasReview(booking.getId() != null && reviewRepository.existsByBookingId(booking.getId()));
 	}
 
 	public String getBookingStatus(Booking booking) {

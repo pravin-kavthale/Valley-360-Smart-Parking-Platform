@@ -4,7 +4,15 @@ const api = axios.create({
   baseURL: 'http://localhost:8080',
 });
 
-const PUBLIC_ENDPOINTS = ['/User/Login', '/Admin/Login', '/admin/login', '/User/Register', '/api/users'];
+const PUBLIC_ENDPOINTS = [
+  '/User/Login',
+  '/Admin/Login',
+  '/admin/login',
+  '/User/Register',
+  '/api/users',
+  '/reviews/parking',
+  '/reviews/average',
+];
 
 api.interceptors.request.use(
   (config) => {

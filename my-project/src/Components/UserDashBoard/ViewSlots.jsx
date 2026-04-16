@@ -3,6 +3,7 @@ import api from '/src/api';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ParkingReviews from './ParkingReviews';
 
 const ParkingSlots = () => {
   const navigate = useNavigate();
@@ -74,6 +75,8 @@ const ParkingSlots = () => {
             <p className="text-slate-600">No slots available.</p>
           )}
         </div>
+
+        <ParkingReviews parkingId={parkingId} />
       </div>
     </div>
   );

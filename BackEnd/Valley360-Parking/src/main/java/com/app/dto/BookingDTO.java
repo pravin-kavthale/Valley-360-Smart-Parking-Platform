@@ -59,6 +59,8 @@ public class BookingDTO extends BaseDTO {
 
 	private Long slotNumber;
 
+	private boolean hasReview;
+
 	public LocalDate getBookingDate() {
 		return bookingDate;
 	}
@@ -185,6 +187,14 @@ public class BookingDTO extends BaseDTO {
 
 	public void setSlotNumber(Long slotNumber) {
 		this.slotNumber = slotNumber;
+	}
+
+	public boolean isHasReview() {
+		return hasReview;
+	}
+
+	public void setHasReview(boolean hasReview) {
+		this.hasReview = hasReview;
 	}
 
 }

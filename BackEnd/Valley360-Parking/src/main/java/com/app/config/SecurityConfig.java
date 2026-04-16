@@ -36,8 +36,10 @@ public class SecurityConfig {
 				.antMatchers("/User/Register", "/User/Login", "/Admin/Login", "/admin/login", "/api/auth/**",
 						"/swagger*/**", "/v*/api-docs/**")
 				.permitAll()
+				.antMatchers(HttpMethod.GET, "/reviews/**").permitAll()
 				.antMatchers("/Admin/**", "/admin/**").hasRole("ADMIN")
 				.antMatchers("/owner/**").hasRole("OWNER")
+				.antMatchers(HttpMethod.POST, "/reviews/**").hasAnyRole("OWNER", "CUSTOMER", "ADMIN")
 				.antMatchers("/User/**").hasAnyRole("OWNER", "CUSTOMER", "ADMIN")
 				// .antMatchers("/booking/today/**").hasAnyRole("OWNER", "CUSTOMER", "ADMIN")
 				.antMatchers("/booking/**").hasAnyRole("OWNER", "CUSTOMER", "ADMIN")

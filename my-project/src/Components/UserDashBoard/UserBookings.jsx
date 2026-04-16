@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import NavbarUser from './NavbarUser';
 import Footer from '../Footer/Footer';
+import ReviewModal from './ReviewModal';
 
 const statusStyle = {
   ACTIVE: 'bg-emerald-100 text-emerald-700',
@@ -29,6 +30,7 @@ const UserBookings = () => {
   const [selectedBooking, setSelectedBooking] = useState(null);
   const [additionalHours, setAdditionalHours] = useState('1');
   const [extending, setExtending] = useState(false);
+  const [reviewBooking, setReviewBooking] = useState(null);
 
   const user = useMemo(() => {
     const storedUser = sessionStorage.getItem('user');
@@ -106,6 +108,28 @@ const UserBookings = () => {
     } finally {
       setExtending(false);
     }
+  };
+
+  const openReviewModal = (booking) => {
+    const normalizedStatus = String(booking.status || '').toUpperCase();
+    if (normalizedStatus !== 'COMPLETED') {
+      toast.error('Review is available only for completed bookings.');
+      return;
+    }
+    if (booking.hasReview) {
+      toast.info('Review already submitted for this booking.');
+      return;
+    }
+    setReviewBooking(booking);
+  };
+
+  const closeReviewModal = () => {
+    setReviewBooking(null);
+  };
+
+  const handleReviewSuccess = async () => {
+    closeReviewModal();
+    await fetchBookings();
   };
 
   return (
@@ -192,6 +216,14 @@ const UserBookings = () => {
                       >
                         Extend Time
                       </button>
+                      <button
+                        type="button"
+                        onClick={() => openReviewModal(booking)}
+                        className="rounded-md border border-rose-200 bg-rose-50 px-4 py-2 text-sm font-semibold text-rose-700 transition hover:border-rose-300 hover:bg-rose-100 disabled:cursor-not-allowed disabled:opacity-50"
+                        disabled={normalizedStatus !== 'COMPLETED' || Boolean(booking.hasReview)}
+                      >
+                        {booking.hasReview ? 'Review Submitted' : 'Leave Review'}
+                      </button>
                     </div>
                   </article>
                 );
@@ -242,6 +274,14 @@ const UserBookings = () => {
             </div>
           </div>
         </div>
+      )}
+
+      {reviewBooking && (
+        <ReviewModal
+          booking={reviewBooking}
+          onClose={closeReviewModal}
+          onSuccess={handleReviewSuccess}
+        />
       )}
 
       <Footer />

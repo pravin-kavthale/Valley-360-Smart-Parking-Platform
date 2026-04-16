@@ -29,6 +29,8 @@ public class ParkingArea extends BaseEntity{
 	private String pincode;
 	private double latitude;
 	private double longitude;
+	private double avgRating;
+	private long totalReviews;
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	
@@ -88,6 +90,22 @@ public class ParkingArea extends BaseEntity{
 
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
+	}
+
+	public double getAvgRating() {
+		return avgRating;
+	}
+
+	public void setAvgRating(double avgRating) {
+		this.avgRating = avgRating;
+	}
+
+	public long getTotalReviews() {
+		return totalReviews;
+	}
+
+	public void setTotalReviews(long totalReviews) {
+		this.totalReviews = totalReviews;
 	}
 
 	public Status getStatus() {

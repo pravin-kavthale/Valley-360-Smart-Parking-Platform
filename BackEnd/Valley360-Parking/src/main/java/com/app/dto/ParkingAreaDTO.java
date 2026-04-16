@@ -17,6 +17,8 @@ public class ParkingAreaDTO extends BaseDTO{
 	private String pincode;
 	private double latitude;
 	private double longitude;
+	private double avgRating;
+	private long totalReviews;
 	private Status status;
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private Long ownerId;
@@ -32,6 +34,18 @@ public class ParkingAreaDTO extends BaseDTO{
 	}
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
+	}
+	public double getAvgRating() {
+		return avgRating;
+	}
+	public void setAvgRating(double avgRating) {
+		this.avgRating = avgRating;
+	}
+	public long getTotalReviews() {
+		return totalReviews;
+	}
+	public void setTotalReviews(long totalReviews) {
+		this.totalReviews = totalReviews;
 	}
 	public Status getStatus() {
 		return status;
