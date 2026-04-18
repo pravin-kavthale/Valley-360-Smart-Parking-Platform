@@ -485,16 +485,6 @@ VITE_ENVIRONMENT=production
 VITE_MAP_TILE_PROVIDER=https://tile.openstreetmap.org
 ```
 
-### ⚠️ Security Recommendations
-
-1. **Do NOT commit credentials** - Use environment variables
-2. **Generate strong JWT secret** - Use: `openssl rand -base64 32`
-3. **Use HTTPS in production** - Enable SSL/TLS
-4. **Implement refresh tokens** - Current implementation doesn't refresh tokens
-5. **Add rate limiting** - Prevent brute force attacks
-6. **Enable CORS restrictively** - Replace `origins = "*"`
-7. **Validate all inputs** - Frontend + backend validation
-
 ---
 
 ## 🚀 Running the Application
@@ -642,56 +632,6 @@ Login:
 ```
 
 ---
-
-## ⚠️ Known Issues & Limitations
-
-### 🔴 Critical Issues (Security / Stability)
-
-| Issue | Impact | Workaround |
-|-------|--------|-----------|
-| **Hardcoded Database Credentials** | Production leak risk | Use environment variables before deploying |
-| **Exposed JWT Secret in Properties** | Token forgery risk | Generate strong secret, use .env files |
-| **CORS Set to `*`** | Security vulnerability | Restrict to specific domains in production |
-| **No Token Refresh Mechanism** | Stale tokens can't be refreshed | Implement refresh token endpoint |
-| **Hardcoded API URLs in Frontend** | Can't change endpoints without rebuild | Use environment variables |
-| **No HTTPS/SSL Configuration** | Network traffic exposed | Enable SSL in production |
-
-### 🟡 Code Quality Issues
-
-| Issue | Scope | Fix |
-|-------|-------|-----|
-| **Multiple Login Components** | 4 different login files (Login.jsx, Login1.jsx, LoginAdmin.jsx, Registation.jsx) | Consolidate to single auth flow |
-| **System.out.println Logging** | Scattered throughout backend | Implement proper logging (SLF4J/Logback) |
-| **No Input Validation** | Frontend forms lack validation | Add form validators (Zod/Formik) |
-| **API URL Duplication** | Frontend has 'http://localhost:8080' hardcoded throughout | Create API config file |
-| **Dead Code** | Commented out AdminControllers.java | Remove or document |
-| **No Error Typing** | Frontend error handling is generic | Add proper error boundaries |
-
-### 🟠 Missing Features
-
-| Feature | Impact | Status |
-|---------|--------|--------|
-| **Unit Tests** | 0% test coverage | No test framework configured |
-| **Integration Tests** | No E2E testing | No TestContainers setup |
-| **Logging Framework** | Hard to debug production issues | No SLF4J/Logback |
-| **Database Migrations** | Schema changes risky | No Flyway/Liquibase |
-| **Docker Support** | Can't containerize | No Dockerfile/docker-compose |
-| **API Rate Limiting** | Vulnerable to DoS | No rate limiter configured |
-| **Refresh Token** | Long sessions problematic | Only access tokens implemented |
-| **Email Verification** | Security gap | No email confirmation on signup |
-| **Password Reset** | Locked out users can't recover | No password reset flow |
-
-### 📱 Browser & Geolocation Limitations
-
-| Limitation | Workaround |
-|-----------|-----------|
-| Geolocation requires HTTPS in production | Use localhost for dev, HTTPS for prod |
-| Browser Geolocation permission popup | Users must allow location access |
-| Nearby parking limited to 3km hardcoded | Configure in backend if needed |
-| OpenStreetMap tiles may lag | Cache tiles or use CDN |
-
----
-
 ## 🔮 Future Roadmap
 
 ### v2.0 - Quality & Reliability (Q3 2025)
@@ -772,8 +712,8 @@ Limitations: Liability and warranty disclaimers
 
 **Pravin Kavthale**
 - GitHub: [@pravin-kavthale](https://github.com/pravin-kavthale)
-- Email: [your.email@example.com]
-- LinkedIn: [Your LinkedIn Profile]
+- Email: [kavthalepravin@example.com]
+- LinkedIn: [https://www.linkedin.com/in/pravin-kawthale/]
 
 ---
 
@@ -781,7 +721,7 @@ Limitations: Liability and warranty disclaimers
 
 - **Issues**: Use [GitHub Issues](../../issues) for bugs and feature requests
 - **Discussions**: Use [GitHub Discussions](../../discussions) for general questions
-- **Email**: [your.email@example.com]
+- **Email**: [kavthalepravin@example.com]
 
 ---
 
