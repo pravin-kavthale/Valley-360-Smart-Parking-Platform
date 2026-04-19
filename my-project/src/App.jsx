@@ -37,6 +37,8 @@ import OwnerParkingAreas from './Components/OwnerDashBoard/OwnerParkingAreas';
 import OwnerParkingSlots from './Components/OwnerDashBoard/OwnerParkingSlots';
 import OwnerSlotTimeline from './Components/OwnerDashBoard/OwnerSlotTimeline';
 import ProtectedRoute from './Components/ProtectedRoute';
+import OwnerRiskMonitor from './Components/AdminDashboard/OwnerRiskMonitor';
+import ReviewAnalytics from './Components/OwnerDashBoard/ReviewAnalytics';
 
 
 function App() {
@@ -64,6 +66,9 @@ function App() {
         <Route path="/Update" element={<Update />} />
         <Route path="/Profile" element={<Profile />} />
         <Route path="/Admin" element={<ProtectedRoute allowedRoles={["ROLE_ADMIN"]}><AdminDashboard /></ProtectedRoute>} />
+        <Route path="/admin/owner-risk" element={<ProtectedRoute allowedRoles={["ROLE_ADMIN"]}><OwnerRiskMonitor /></ProtectedRoute>} />
+        <Route path="/admin/review-analytics" element={<ProtectedRoute allowedRoles={["ROLE_ADMIN"]}><ReviewAnalytics /></ProtectedRoute>} />
+        <Route path="/admin/owner-risk-monitor" element={<ProtectedRoute allowedRoles={["ROLE_ADMIN"]}><OwnerRiskMonitor /></ProtectedRoute>} />
         <Route path="/ViewAllParkingSlots" element={<ViewAllParkingSlots />} />
         <Route path="/ViewParkingArea" element={<ViewParkingArea />} />
         <Route path="/ViewOwners" element={<OwnersList />} />
@@ -77,6 +82,7 @@ function App() {
         <Route path="/AddParkingSlot" element={<ParkingSlotForm />} />
         <Route path="/AddParkingArea" element={<AddParkingArea />} />
         <Route path="OwnerDashBoard" element={<ProtectedRoute allowedRoles={["ROLE_OWNER"]}><OwnerDashboard /></ProtectedRoute>} />
+        <Route path="/owner/review-analytics" element={<ProtectedRoute allowedRoles={["ROLE_OWNER"]}><ReviewAnalytics /></ProtectedRoute>} />
         <Route path="/owner/parking-areas" element={<ProtectedRoute allowedRoles={["ROLE_OWNER"]}><OwnerParkingAreas /></ProtectedRoute>} />
         <Route path="/owner/parking-areas/:areaId/slots" element={<ProtectedRoute allowedRoles={["ROLE_OWNER"]}><OwnerParkingSlots /></ProtectedRoute>} />
         <Route path="/owner/add-slot" element={<ProtectedRoute allowedRoles={["ROLE_OWNER"]}><ParkingSlotForm /></ProtectedRoute>} />
