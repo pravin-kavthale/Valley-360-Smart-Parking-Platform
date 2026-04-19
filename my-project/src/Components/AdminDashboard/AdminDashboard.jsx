@@ -37,6 +37,32 @@ const AdminDashboard = () => {
                 <Card title="Owners" value={data.owners} />
                 <Card title="Customers" value={data.customers} />
             </div>
+
+            <div className="mt-8">
+                <h2 className="text-xl font-semibold mb-4 text-slate-900">AI Review Intelligence</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <button
+                        type="button"
+                        onClick={() => navigate('/admin/owner-risk')}
+                        className="text-left bg-gradient-to-br from-rose-500 to-orange-500 text-white rounded-xl p-5 shadow-md hover:shadow-lg hover:scale-[1.01] transition"
+                    >
+                        <div className="text-xs uppercase tracking-wide opacity-90">Monitoring</div>
+                        <div className="text-xl font-bold mt-1">Owner Risk Monitor</div>
+                        <p className="mt-2 text-sm text-white/90">View trust score, risk level, negative feedback and security flags for all owners.</p>
+                    </button>
+
+                    <button
+                        type="button"
+                        onClick={() => navigate('/admin/review-analytics')}
+                        className="text-left bg-gradient-to-br from-slate-700 to-slate-900 text-white rounded-xl p-5 shadow-md hover:shadow-lg hover:scale-[1.01] transition"
+                    >
+                        <div className="text-xs uppercase tracking-wide opacity-90">Insights</div>
+                        <div className="text-xl font-bold mt-1">Review Analytics</div>
+                        <p className="mt-2 text-sm text-white/90">Track platform sentiment, average ratings, and top complaint categories.</p>
+                    </button>
+                </div>
+            </div>
+
             <div className="mt-6">
                 <h2 className="text-xl font-semibold mb-4 text-slate-900">Manage</h2>
                 <div className="flex flex-wrap gap-4">
