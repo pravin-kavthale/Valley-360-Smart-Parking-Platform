@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,10 +23,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dto.UserDTO;
+import com.app.dto.AdminOwnerRiskResponse;
 import com.app.entities.User;
 import com.app.enums.RoleEnum;
 import com.app.security.JWTUtils;
 import com.app.service.AdminService;
+import com.app.service.OwnerScoreService;
 import com.app.service.ParkingAreaService;
 import com.app.service.ParkingSlotService;
 import com.app.service.UserService;
@@ -52,6 +55,9 @@ public class AdminController {
 
 	@Autowired
 	private JWTUtils jwtUtils;
+
+	@Autowired
+	private OwnerScoreService ownerScoreService;
 
 	@GetMapping("/findByRole")
 	public ResponseEntity<List<UserDTO>> findByRole(@RequestParam String role) {
@@ -92,6 +98,13 @@ public class AdminController {
 		response.put("token", jwtUtils.generateJwtToken(authenticationDetails));
 		response.put("user", userPayload);
 
+		return ResponseEntity.ok(response);
+	}
+
+	@GetMapping("/owners-risk")
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<List<AdminOwnerRiskResponse>> getOwnersRisk() {
+		List<AdminOwnerRiskResponse> response = ownerScoreService.getAdminOwnerRiskSummaries();
 		return ResponseEntity.ok(response);
 	}
 }

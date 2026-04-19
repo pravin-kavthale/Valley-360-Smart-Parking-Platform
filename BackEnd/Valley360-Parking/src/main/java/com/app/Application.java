@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.client.RestTemplate;
 
 @CrossOrigin(origins = "*")
 @SpringBootApplication
@@ -29,6 +30,11 @@ public class Application {
 		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT)
 				.setPropertyCondition(Conditions.isNotNull());
 		return modelMapper;
+	}
+
+	@Bean
+	public RestTemplate restTemplate() {
+		return new RestTemplate();
 	}
 
 }
