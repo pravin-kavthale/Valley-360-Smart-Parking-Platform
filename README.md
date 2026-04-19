@@ -15,6 +15,7 @@ A full-stack smart parking management platform enabling administrators, parking 
 - [Current Status](#current-status)
 - [Tech Stack](#tech-stack)
 - [Core Features](#core-features)
+- [AI & Analytics Enhancements](#ai--analytics-enhancements)
 - [Project Structure](#project-structure)
 - [Database Schema](#database-schema)
 - [API Endpoints](#api-endpoints)
@@ -48,81 +49,96 @@ The system eliminates manual parking operations through a unified, role-based we
 
 ### ✅ Completed Components
 
-| Feature | Status | Scope |
-|---------|--------|-------|
-| **Authentication** | Complete | JWT-based login/registration for 3 roles (admin, owner, customer) |
-| **User Management** | Complete | CRUD operations, role assignment, account deletion |
-| **Parking Areas** | Complete | Add, update, retrieve, filter by owner or status |
-| **Parking Slots** | Complete | Add slots to areas, retrieve, sort by location |
-| **Booking System** | Complete | Create, retrieve, extend booking duration |
-| **QR Validation** | Complete | Generate QR codes, scan & validate bookings |
-| **Location Services** | Complete | Geolocation, nearby parking discovery (3km radius), route visualization |
-| **Admin Dashboard** | Complete | Real-time stats, user/area/slot management views |
-| **Owner Dashboard** | Complete | Parking area management, booking timeline, slot updates |
-| **Customer Dashboard** | Complete | Map-based parking discovery, booking interface, profile management |
-| **Reviews System** | Complete | Submit and retrieve parking reviews with ratings |
-| **Security** | Complete | Spring Security, role-based access control (RBAC), password hashing |
-| **API Documentation** | Partial | Swagger/SpringDoc available but may need configuration |
+| Feature                    | Status   | Scope                                                                   |
+| -------------------------- | -------- | ----------------------------------------------------------------------- |
+| **Authentication**         | Complete | JWT-based login/registration for 3 roles (admin, owner, customer)       |
+| **User Management**        | Complete | CRUD operations, role assignment, account deletion                      |
+| **Parking Areas**          | Complete | Add, update, retrieve, filter by owner or status                        |
+| **Parking Slots**          | Complete | Add slots to areas, retrieve, sort by location                          |
+| **Booking System**         | Complete | Create, retrieve, extend booking duration                               |
+| **QR Validation**          | Complete | Generate QR codes, scan & validate bookings                             |
+| **Location Services**      | Complete | Geolocation, nearby parking discovery (3km radius), route visualization |
+| **Admin Dashboard**        | Complete | Real-time stats, user/area/slot management views                        |
+| **Owner Dashboard**        | Complete | Parking area management, booking timeline, slot updates                 |
+| **Customer Dashboard**     | Complete | Map-based parking discovery, booking interface, profile management      |
+| **Reviews System**         | Complete | Submit and retrieve parking reviews with ratings                        |
+| **AI Review Intelligence** | Complete | Automated sentiment analysis and issue flagging via Python service      |
+| **Owner Risk Monitoring**  | Complete | Trust score, risk level, trend detection, and suggested actions         |
+| **Admin Review Analytics** | Complete | Platform sentiment, top complaints, and review health insights          |
+| **Security**               | Complete | Spring Security, role-based access control (RBAC), password hashing     |
+| **API Documentation**      | Partial  | Swagger/SpringDoc available but may need configuration                  |
 
 ### 🟡 In Progress / Partially Complete
 
-| Feature | Status | Notes |
-|---------|--------|-------|
-| **Testing** | Not Started | No unit or integration tests implemented; placeholder test class only |
-| **Logging** | Partial | Basic printing used; no centralized logging framework |
-| **Form Validation** | Partial | Backend validation exists but frontend validation is inconsistent |
-| **Error Handling** | Partial | Global exception handler exists but response messages could be more informative |
-| **UI Polish** | Partial | Core functionality works; some duplicate components exist (multiple login screens) |
+| Feature             | Status      | Notes                                                                              |
+| ------------------- | ----------- | ---------------------------------------------------------------------------------- |
+| **Testing**         | Not Started | No unit or integration tests implemented; placeholder test class only              |
+| **Logging**         | Partial     | Basic printing used; no centralized logging framework                              |
+| **Form Validation** | Partial     | Backend validation exists but frontend validation is inconsistent                  |
+| **Error Handling**  | Partial     | Global exception handler exists but response messages could be more informative    |
+| **UI Polish**       | Partial     | Core functionality works; some duplicate components exist (multiple login screens) |
 
 ### 🔴 Planned / Not Started
 
-| Feature | Target | Complexity |
-|---------|--------|-----------|
-| **Automated Testing** | v2.0 | Unit tests, integration tests (TestContainers) |
-| **Docker Support** | v2.0 | Dockerfile, docker-compose for local + production |
-| **CI/CD Pipeline** | v2.0 | GitHub Actions, automated builds and deploys |
-| **Payment Integration** | v3.0 | Stripe/PayPal for parking fees |
-| **Notifications** | v3.0 | Email/SMS alerts for bookings and reminders |
-| **Advanced Analytics** | v3.0 | Parking occupancy heatmaps, revenue reports |
-| **Mobile App** | v3.0 | React Native or Flutter version |
+| Feature                 | Target | Complexity                                        |
+| ----------------------- | ------ | ------------------------------------------------- |
+| **Automated Testing**   | v2.0   | Unit tests, integration tests (TestContainers)    |
+| **Docker Support**      | v2.0   | Dockerfile, docker-compose for local + production |
+| **CI/CD Pipeline**      | v2.0   | GitHub Actions, automated builds and deploys      |
+| **Payment Integration** | v3.0   | Stripe/PayPal for parking fees                    |
+| **Notifications**       | v3.0   | Email/SMS alerts for bookings and reminders       |
+| **Advanced Analytics**  | v3.0   | Parking occupancy heatmaps, revenue reports       |
+| **Mobile App**          | v3.0   | React Native or Flutter version                   |
 
 ---
 
 ## 🛠 Tech Stack
 
 ### Frontend
-| Layer | Technology | Version | Purpose |
-|-------|-----------|---------|---------|
-| **Framework** | React | 18.3 | UI library |
-| **Build Tool** | Vite | 5.4 | Fast bundler and dev server |
-| **Styling** | Tailwind CSS | 3.4 | Utility-first CSS |
-| **HTTP Client** | Axios | 1.7 | API communication with JWT interceptors |
-| **Routing** | React Router | 6.26 | Client-side navigation |
-| **Maps** | Leaflet + React-Leaflet | 1.9 / 4.2 | Map rendering and markers |
-| **Routing** | OSRM (Open Source Routing Machine) | Public API | Driving routes and directions |
-| **Animations** | GSAP / Framer Motion | 3.15 / 11.18 | UI transitions and effects |
-| **3D Graphics** | Three.js | 0.161 | 3D parking visualization |
-| **QR Codes** | qrcode.react | 4.2 | QR code generation |
-| **Icons** | React Icons | 5.6 | Icon library |
-| **Notifications** | React Toastify | 10.0 | Toast notifications |
-| **Linting** | ESLint | 9.8 | Code quality |
+
+| Layer             | Technology                         | Version      | Purpose                                 |
+| ----------------- | ---------------------------------- | ------------ | --------------------------------------- |
+| **Framework**     | React                              | 18.3         | UI library                              |
+| **Build Tool**    | Vite                               | 5.4          | Fast bundler and dev server             |
+| **Styling**       | Tailwind CSS                       | 3.4          | Utility-first CSS                       |
+| **HTTP Client**   | Axios                              | 1.7          | API communication with JWT interceptors |
+| **Routing**       | React Router                       | 6.26         | Client-side navigation                  |
+| **Maps**          | Leaflet + React-Leaflet            | 1.9 / 4.2    | Map rendering and markers               |
+| **Routing**       | OSRM (Open Source Routing Machine) | Public API   | Driving routes and directions           |
+| **Animations**    | GSAP / Framer Motion               | 3.15 / 11.18 | UI transitions and effects              |
+| **3D Graphics**   | Three.js                           | 0.161        | 3D parking visualization                |
+| **QR Codes**      | qrcode.react                       | 4.2          | QR code generation                      |
+| **Icons**         | React Icons                        | 5.6          | Icon library                            |
+| **Notifications** | React Toastify                     | 10.0         | Toast notifications                     |
+| **Linting**       | ESLint                             | 9.8          | Code quality                            |
 
 ### Backend
-| Layer | Technology | Version | Purpose |
-|-------|-----------|---------|---------|
-| **Framework** | Spring Boot | 2.7.18 | REST API framework |
-| **Java Version** | OpenJDK/Java | 11 | Runtime |
-| **Data Layer** | Spring Data JPA / Hibernate | N/A | ORM for database operations |
-| **Security** | Spring Security + JWT (jjwt) | 2.7 / 0.9.1 | Authentication and authorization |
-| **Database** | MySQL | 8+ | Relational data persistence |
-| **Validation** | Spring Validation | 2.7 | Bean validation |
-| **Mapping** | ModelMapper | 3.0 | DTO to Entity mapping |
-| **API Docs** | SpringDoc OpenAPI | 1.7 | Swagger/OpenAPI documentation |
-| **Dev Tools** | Spring Boot DevTools | 2.7 | Hot reload during development |
-| **Testing** | JUnit 5 + Spring Boot Test | 2.7 | Unit and integration testing |
-| **Build** | Maven | 3.8+ | Dependency management and build |
+
+| Layer            | Technology                   | Version     | Purpose                          |
+| ---------------- | ---------------------------- | ----------- | -------------------------------- |
+| **Framework**    | Spring Boot                  | 2.7.18      | REST API framework               |
+| **Java Version** | OpenJDK/Java                 | 11          | Runtime                          |
+| **Data Layer**   | Spring Data JPA / Hibernate  | N/A         | ORM for database operations      |
+| **Security**     | Spring Security + JWT (jjwt) | 2.7 / 0.9.1 | Authentication and authorization |
+| **Database**     | MySQL                        | 8+          | Relational data persistence      |
+| **Validation**   | Spring Validation            | 2.7         | Bean validation                  |
+| **Mapping**      | ModelMapper                  | 3.0         | DTO to Entity mapping            |
+| **API Docs**     | SpringDoc OpenAPI            | 1.7         | Swagger/OpenAPI documentation    |
+| **Dev Tools**    | Spring Boot DevTools         | 2.7         | Hot reload during development    |
+| **Testing**      | JUnit 5 + Spring Boot Test   | 2.7         | Unit and integration testing     |
+| **Build**        | Maven                        | 3.8+        | Dependency management and build  |
+
+### AI Service
+
+| Layer              | Technology | Version | Purpose                            |
+| ------------------ | ---------- | ------- | ---------------------------------- |
+| **Framework**      | FastAPI    | 0.104   | Review analysis microservice       |
+| **Runtime Server** | Uvicorn    | 0.24    | ASGI app server                    |
+| **NLP Library**    | TextBlob   | 0.17    | Sentiment polarity analysis        |
+| **Validation**     | Pydantic   | 2.5     | Request/response schema validation |
 
 ### Infrastructure
+
 - **Database**: MySQL 8.0+
 - **Server Port**: 8080 (backend), 5173 (frontend dev)
 - **Geolocation**: Browser Geolocation API + OpenStreetMap tiles
@@ -132,56 +148,109 @@ The system eliminates manual parking operations through a unified, role-based we
 ## 🎨 Core Features
 
 ### 1. Role-Based Authentication & Authorization
+
 ```
 Login → JWT Token → Role Assignment → Dashboard Redirect
 ├── Admin → Admin Dashboard
-├── Owner → Owner Dashboard  
+├── Owner → Owner Dashboard
 └── Customer → User Dashboard
 ```
 
 **Implementation Details**:
+
 - JWT tokens stored in localStorage/sessionStorage
 - Axios request interceptor auto-injects Authorization headers
 - Spring Security @EnableGlobalMethodSecurity enforces role checks
 - Token expiration: 698765983 seconds (hardcoded in properties)
 
 ### 2. Location-Based Parking Discovery
+
 ```
 User Location → Backend Filter (3km radius) → Return Nearby Parking → Map Visualization
 ```
 
 **Technical Stack**:
+
 - Browser Geolocation API for user coordinates
 - `/parkingArea/nearby?latitude=X&longitude=Y` filters on backend
 - Leaflet renders markers, circles, and user location
 - OpenStreetMap tiles provide base map
 
 ### 3. Real-Time Booking & QR Validation
+
 ```
 Select Slot → Create Booking → Generate QR → Validate on Entry
 ```
 
 **Endpoints**:
+
 - POST `/booking/add` - Create booking
 - POST `/booking/validate-qr` - Verify check-in
 - GET `/booking/user/{userId}` - Retrieve user bookings
 - PUT `/booking/extend/{bookingId}` - Extend parking time
 
 ### 4. Parking Inventory Management
+
 - **Owners**: Add/update parking areas and individual slots
 - **Admins**: View all areas, slots, occupancy status
 - **Customers**: Browse and filter available slots
 
 ### 5. Reviews & Ratings
+
 - Customers can rate and review parking locations
 - Reviews associated with parking areas
 - Average rating calculation for rankings
+
+### 6. AI-Powered Review Intelligence
+
+```
+Customer Review → Spring Review Service → Python AI Service (/analyze-review)
+                → Sentiment Label + Score + Security/Cleanliness Flags
+                → Persisted in Review + Owner Metrics Recalculation
+```
+
+**Implemented Intelligence Flow**:
+
+- Java service integration with FastAPI AI endpoint (`ai.service.url=http://localhost:8000`)
+- TextBlob-based sentiment classification (`POSITIVE`, `NEUTRAL`, `NEGATIVE`)
+- Keyword-driven issue flags for security and cleanliness concerns
+- AI output persisted on review records (`sentimentLabel`, `sentimentScore`, `securityFlag`, `cleanlinessFlag`, `aiProcessed`)
+
+### 7. Owner Trust Score & Risk Monitoring
+
+- Owner-level metrics stored in dedicated `owner_metrics` table
+- Trust score and risk level calculation from review sentiment and complaint signals
+- Admin risk monitor with searchable owner risk matrix and suggested actions
+- Owner analytics endpoints for self-monitoring trust/risk and sentiment summary
+
+---
+
+## 🤖 AI & Analytics Enhancements
+
+### Review Intelligence Pipeline
+
+- `ReviewServiceImpl` triggers AI analysis after review submission
+- `ReviewAIService` calls Python FastAPI endpoint `/analyze-review`
+- AI-enriched review fields are stored and used in dashboard analytics
+
+### Owner Analytics Modules
+
+- Owner endpoints: `/owner/analytics/my-metrics`, `/owner/analytics/summary`, `/owner/analytics/recalculate`
+- Admin endpoints: `/Admin/owners-risk`, `/Admin/review-analytics`, `/admin/metrics/owner-risk-monitor`
+- Platform analytics includes sentiment percentages, average rating, and top complaints
+
+### Admin Monitoring Views
+
+- Admin dashboard cards for **Owner Risk Monitor** and **Review Analytics**
+- Risk tiers and trust score visualization for all owners
+- Trend-aware suggested action outputs for operational review
 
 ---
 
 ## 📁 Project Structure
 
 ### Repository Layout
+
 ```
 Valley-360-Parking--main/
 ├── BackEnd/
@@ -226,6 +295,9 @@ Valley-360-Parking--main/
 │   ├── tailwind.config.js         # Tailwind configuration
 │   ├── postcss.config.js          # PostCSS configuration
 │   └── eslint.config.js           # ESLint rules
+├── ai-service/                     # Python FastAPI AI microservice
+│   ├── main.py                     # Sentiment + issue detection API
+│   └── requirements.txt            # AI service dependencies
 ├── Diagrams/                       # Architecture & ER diagrams
 ├── README.md                       # This file
 └── .gitignore
@@ -245,29 +317,35 @@ User (1) ──→ (Many) Booking (Customer)
 ParkingArea (1) ──→ (Many) ParkingSlot
 ParkingSlot (1) ──→ (Many) Booking
 ParkingArea (1) ──→ (Many) Review
+User (Owner) (1) ──→ (1) OwnerMetrics
+Review (Many) ──→ (1) User (Owner)
 ```
 
 ### Core Entities
 
-| Entity | Fields | Purpose |
-|--------|--------|---------|
-| **User** | id, email, password, firstName, lastName, contact, address, role, registrationDate | User accounts |
-| **Role** | id, name (ADMIN, OWNER, CUSTOMER) | Role definitions |
-| **ParkingArea** | id, name, location, latitude, longitude, city, owner_id, status | Parking locations |
-| **ParkingSlot** | id, slotNumber, parkingArea_id, status, pricePerHour, capacity | Individual spaces |
-| **Booking** | id, user_id, parkingSlot_id, entryTime, exitTime, totalPrice, status | Reservations |
-| **Review** | id, user_id, parkingArea_id, rating, comment, timestamp | Ratings & feedback |
+| Entity           | Fields                                                                                                                                                   | Purpose                        |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
+| **User**         | id, email, password, firstName, lastName, contact, address, role, registrationDate                                                                       | User accounts                  |
+| **Role**         | id, name (ADMIN, OWNER, CUSTOMER)                                                                                                                        | Role definitions               |
+| **ParkingArea**  | id, name, location, latitude, longitude, city, owner_id, status                                                                                          | Parking locations              |
+| **ParkingSlot**  | id, slotNumber, parkingArea_id, status, pricePerHour, capacity                                                                                           | Individual spaces              |
+| **Booking**      | id, user_id, parkingSlot_id, entryTime, exitTime, totalPrice, status                                                                                     | Reservations                   |
+| **Review**       | id, user_id, parking_area_id, owner_id, rating, cleanliness, security, accessibility, comment, sentiment_label, sentiment_score, ai_processed            | Ratings & AI-enriched feedback |
+| **OwnerMetrics** | owner_id, total_reviews, positive_reviews, neutral_reviews, negative_reviews, security_flags, cleanliness_flags, average_rating, trust_score, risk_level | Owner trust & risk analytics   |
 
 ### Key Constraints
+
 - Foreign keys enforce referential integrity
 - Cascade deletes: deleting owner removes their parking areas and slots
 - JPA Hibernate manages DDL auto-generation (`ddl-auto: update`)
+- AI review analysis migration script available: `V1_2__add_ai_review_analysis.sql`
 
 ---
 
 ## 🔌 API Endpoints
 
 ### Authentication Endpoints
+
 ```
 POST /User/Register                 # Register new customer
 POST /User/Login                    # Customer login
@@ -275,6 +353,7 @@ POST /Admin/Login                   # Admin login (separate flow)
 ```
 
 ### User Management Endpoints
+
 ```
 GET    /User/{id}                   # Get user by ID
 GET    /User/getByEmail/{email}     # Get user by email
@@ -285,6 +364,7 @@ GET    /User/GetAllCustomers        # List all customers
 ```
 
 ### Parking Area Endpoints
+
 ```
 POST   /parkingArea/add             # Create parking area
 GET    /parkingArea/GetAllParkingArea  # List all areas
@@ -296,6 +376,7 @@ GET    /parkingArea/byStatus        # Filter by status
 ```
 
 ### Parking Slot Endpoints
+
 ```
 POST   /parkingSlots/Add            # Add slot to area
 GET    /parkingSlots/{parkingAreaId}  # Get slots in area
@@ -304,6 +385,7 @@ GET    /parkingSlots/sortBy         # Sort slots (query param)
 ```
 
 ### Booking Endpoints
+
 ```
 POST   /booking/add                 # Create booking
 POST   /booking/validate-qr         # Validate QR on entry
@@ -314,21 +396,55 @@ PUT    /booking/extend/{bookingId}  # Extend parking duration
 ```
 
 ### Admin Dashboard Endpoints
+
 ```
 GET    /Admin/dashboard             # Dashboard statistics
 GET    /Admin/findByRole            # Find users by role
+GET    /Admin/owners-risk           # Owner risk monitor dataset
+GET    /Admin/review-analytics      # Platform review analytics
 DELETE /Admin/Delete/{id}           # Delete user (admin only)
 DELETE /Admin/deleteParkignArea/{id} # Delete parking area (typo in API)
 ```
 
+### Owner Dashboard Endpoints
+
+```
+GET    /owner/parking-areas                 # Get authenticated owner's areas
+GET    /owner/parking-area/{areaId}/slots   # Get slots for owner area
+GET    /owner/slot/{slotId}/timeline        # Slot booking timeline
+GET    /owner/analytics/my-metrics          # Owner trust metrics
+GET    /owner/analytics/summary             # Owner analytics summary
+POST   /owner/analytics/recalculate         # Recalculate trust score
+```
+
+### Admin Metrics Endpoints
+
+```
+GET    /admin/metrics/owner-risk-monitor    # Risk monitor list
+GET    /admin/metrics/all-owners            # All owner metrics
+GET    /admin/metrics/owner/{ownerId}       # Metrics for one owner
+POST   /admin/metrics/recalculate/{ownerId} # Recalculate one owner score
+GET    /admin/metrics/review-analytics      # Platform review insights
+```
+
 ### Review Endpoints
+
 ```
 GET    /reviews/parking/{parkingAreaId}    # Get reviews for area
 GET    /reviews/average/{parkingAreaId}    # Get average rating
-POST   /reviews/add                 # Submit review (protected)
+POST   /reviews                      # Submit review (protected)
+```
+
+### Python AI Service Endpoints
+
+```
+GET    /health                       # Service health check
+POST   /analyze-review               # Sentiment + issue flag analysis
+GET    /batch-health                 # Batch capability status
 ```
 
 ### Security Notes
+
 ```
 Public Endpoints:
   - /User/Register
@@ -352,14 +468,14 @@ Protected Endpoints:
 
 ### Prerequisites
 
-| Tool | Version | Download |
-|------|---------|----------|
-| Java | 11+ | [Oracle JDK](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html) or OpenJDK |
-| Maven | 3.8+ | [Maven](https://maven.apache.org/download.cgi) |
-| Node.js | 16+ | [Node.js](https://nodejs.org/) |
-| npm | 8+ | Comes with Node.js |
-| MySQL | 8.0+ | [MySQL Community](https://dev.mysql.com/downloads/mysql/) |
-| Git | Latest | [Git](https://git-scm.com/) |
+| Tool    | Version | Download                                                                                              |
+| ------- | ------- | ----------------------------------------------------------------------------------------------------- |
+| Java    | 11+     | [Oracle JDK](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html) or OpenJDK |
+| Maven   | 3.8+    | [Maven](https://maven.apache.org/download.cgi)                                                        |
+| Node.js | 16+     | [Node.js](https://nodejs.org/)                                                                        |
+| npm     | 8+      | Comes with Node.js                                                                                    |
+| MySQL   | 8.0+    | [MySQL Community](https://dev.mysql.com/downloads/mysql/)                                             |
+| Git     | Latest  | [Git](https://git-scm.com/)                                                                           |
 
 ### Step 1: Clone the Repository
 
@@ -450,6 +566,10 @@ spring.jpa.open-in-view=false
 # JWT Configuration
 JWT_SECRET_KEY=HS512@ALGSecretParse
 JWT_EXP_TIMEOUT=698765983
+
+# AI Service Configuration
+ai.service.url=http://localhost:8000
+ai.service.timeout=10000
 ```
 
 ### Frontend Configuration (`src/api.js`)
@@ -457,7 +577,7 @@ JWT_EXP_TIMEOUT=698765983
 ```javascript
 // API Base URL (hardcoded, should be environment variable)
 const api = axios.create({
-  baseURL: 'http://localhost:8080',
+  baseURL: "http://localhost:8080",
 });
 
 // Token Storage
@@ -468,6 +588,7 @@ const api = axios.create({
 ### Environment Variables (Recommended for Production)
 
 **Create `.env` file in backend root:**
+
 ```properties
 DATABASE_URL=jdbc:mysql://prod-db:3306/valley
 DATABASE_USER=db_user
@@ -479,6 +600,7 @@ SERVER_PORT=8080
 ```
 
 **Create `.env` file in frontend root:**
+
 ```bash
 VITE_API_BASE_URL=https://api.yourdomain.com
 VITE_ENVIRONMENT=production
@@ -492,33 +614,46 @@ VITE_MAP_TILE_PROVIDER=https://tile.openstreetmap.org
 ### Development Mode (Recommended for setup)
 
 **Terminal 1 - Start Backend:**
+
 ```bash
 cd BackEnd/Valley360-Parking
 mvn spring-boot:run
 ```
 
 **Terminal 2 - Start Frontend:**
+
 ```bash
 cd my-project
 npm run dev
 ```
 
+**Terminal 3 - Start AI Service:**
+
+```bash
+cd ai-service
+pip install -r requirements.txt
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+```
+
 **Access Application:**
+
 - Frontend: http://localhost:5173
 - Backend API: http://localhost:8080
+- AI Service: http://localhost:8000
 - Swagger Docs: http://localhost:8080/swagger-ui.html (if configured)
 
 ### Test User Accounts (After first registration)
 
-| Role | Email | Password | Purpose |
-|------|-------|----------|---------|
-| Customer | customer@example.com | Password123! | Test booking flow |
-| Owner | owner@example.com | Password123! | Test area management |
-| Admin | admin@example.com | Password123! | Test admin dashboard |
+| Role     | Email                | Password     | Purpose              |
+| -------- | -------------------- | ------------ | -------------------- |
+| Customer | customer@example.com | Password123! | Test booking flow    |
+| Owner    | owner@example.com    | Password123! | Test area management |
+| Admin    | admin@example.com    | Password123! | Test admin dashboard |
 
 ### Build for Production
 
 **Frontend:**
+
 ```bash
 cd my-project
 npm run build
@@ -526,6 +661,7 @@ npm run build
 ```
 
 **Backend:**
+
 ```bash
 cd BackEnd/Valley360-Parking
 mvn clean package -DskipTests
@@ -573,6 +709,34 @@ mvn clean package -DskipTests
          │   MySQL Database       │
          │   (Data Persistence)   │
          └────────────────────────┘
+
+                     │
+                     ▼
+         ┌────────────────────────┐
+         │ Python AI Service      │
+         │ FastAPI + TextBlob     │
+         │ (Review Intelligence)  │
+         │ Running on :8000       │
+         └────────────────────────┘
+```
+
+### Frontend Route Enhancements
+
+```
+Admin Routes:
+  /admin/owner-risk
+  /admin/review-analytics
+  /admin/validate-qr
+
+Owner Routes:
+  /owner/parking-areas
+  /owner/parking-areas/:areaId/slots
+  /owner/slots/:slotId/timeline
+  /owner/review-analytics
+
+Customer Routes:
+  /user/bookings
+  /BookingQR
 ```
 
 ### Authentication Flow
@@ -632,9 +796,11 @@ Login:
 ```
 
 ---
+
 ## 🔮 Future Roadmap
 
 ### v2.0 - Quality & Reliability (Q3 2025)
+
 - [ ] Unit test suite (70%+ coverage)
 - [ ] Integration tests with TestContainers
 - [ ] Docker support (dev + prod images)
@@ -645,6 +811,7 @@ Login:
 - [ ] Input validation framework (Bean Validation)
 
 ### v2.1 - Security Hardening
+
 - [ ] Refresh token mechanism
 - [ ] Rate limiting and throttling
 - [ ] CSRF protection
@@ -654,6 +821,7 @@ Login:
 - [ ] Role-based API versioning
 
 ### v3.0 - Feature Expansion
+
 - [ ] Payment processing (Stripe/PayPal)
 - [ ] Email notifications (NodeMailer/SendGrid)
 - [ ] SMS alerts (Twilio)
@@ -663,6 +831,7 @@ Login:
 - [ ] Admin approval workflow for new owners
 
 ### v4.0 - Mobile & Scale
+
 - [ ] React Native mobile app
 - [ ] Kubernetes deployment
 - [ ] Microservices refactor
@@ -711,6 +880,7 @@ Limitations: Liability and warranty disclaimers
 ## 👤 Author
 
 **Pravin Kavthale**
+
 - GitHub: [@pravin-kavthale](https://github.com/pravin-kavthale)
 - Email: [kavthalepravin@example.com]
 - LinkedIn: [https://www.linkedin.com/in/pravin-kawthale/]
@@ -735,5 +905,5 @@ Limitations: Liability and warranty disclaimers
 
 ---
 
-**Last Updated**: April 2025  
+**Last Updated**: April 2026  
 **Repository**: [Valley-360-Smart-Parking-Platform](https://github.com/pravin-kavthale/Valley-360-Smart-Parking-Platform)
