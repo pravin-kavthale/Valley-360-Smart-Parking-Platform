@@ -41,6 +41,12 @@ public class ReviewServiceImpl implements ReviewService {
     @Autowired
     private ParkingAreaRepository parkingAreaRepository;
 
+    @Autowired
+    private ReviewAIService reviewAIService;
+
+    @Autowired
+    private OwnerScoreService ownerScoreService;
+
     @Override
     public ReviewResponseDTO createReview(ReviewRequestDTO request) {
         validateRatingRange(request.getRating(), "rating");
@@ -75,6 +81,7 @@ public class ReviewServiceImpl implements ReviewService {
         review.setBooking(booking);
         review.setUser(authenticatedUser);
         review.setParkingArea(parkingArea);
+        review.setOwner(parkingArea.getUser()); // Owner is mapped as user on ParkingArea
         review.setRating(request.getRating());
         review.setCleanliness(request.getCleanliness());
         review.setSecurity(request.getSecurity());
@@ -82,6 +89,9 @@ public class ReviewServiceImpl implements ReviewService {
         review.setComment(normalizeComment(request.getComment()));
 
         Review saved = reviewRepository.save(review);
+
+        // Call AI analysis service asynchronously
+        analyzeReviewAsync(saved);
 
         refreshParkingStats(parkingArea.getId());
 
@@ -216,5 +226,41 @@ public class ReviewServiceImpl implements ReviewService {
         }
 
         return user.getEmail() != null ? user.getEmail() : "User";
+    }
+
+    /**
+     * Analyze review using AI service (called after review is saved)
+     * If AI service is unavailable, review is still saved without analysis
+     */
+    private void analyzeReviewAsync(Review review) {
+        try {
+            if (review.getComment() == null || review.getComment().isEmpty()) {
+                return;
+            }
+
+            // Call AI service
+            var aiResponse = reviewAIService.analyzeReview(review.getComment());
+
+            if (aiResponse != null) {
+                // Update review with AI analysis results
+                review.setSentimentLabel(aiResponse.getSentimentLabel());
+                review.setSentimentScore(aiResponse.getSentimentScore());
+                review.setSecurityFlag(aiResponse.getSecurityFlag());
+                review.setCleanlinessFlag(aiResponse.getCleanlinessFlag());
+                review.setAiProcessed(true);
+                review.setAiProcessedAt(LocalDateTime.now());
+
+                // Save updated review
+                reviewRepository.save(review);
+
+                // Recalculate owner trust score
+                if (review.getOwner() != null) {
+                    ownerScoreService.recalculateOwnerScore(review.getOwner().getId());
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Error analyzing review: " + e.getMessage());
+            // Don't throw exception - review already saved
+        }
     }
 }
