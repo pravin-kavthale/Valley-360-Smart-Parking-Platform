@@ -13,11 +13,11 @@ An end-to-end smart parking platform that helps drivers find and book parking qu
 ## Screenshots / Demo GIF
 
 - Main UI preview (existing asset):
-  ![Main UI Preview](Diagrams/Home_page.png)
+  ![Main UI Preview](Diagrams/Home_Page.png)
 - Banner preview (existing asset):
   ![Landing Banner](my-project/src/assets/Banner.png)
 - Admin Dashboard
-- ![Admin Dashboard](Diagrams/Admin_Page.png)
+- ![Admin Dashboard](Diagrams/Admin_Dashboard.png)
 - Owener Risk Monitoring
 - ![Owner Risk Monitoring](Diagrams/Owner_Risk_Monitoring.png)
 - `docs/screenshots/user-booking-flow.gif`
