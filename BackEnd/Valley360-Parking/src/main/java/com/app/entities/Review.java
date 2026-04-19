@@ -47,6 +47,29 @@ public class Review extends BaseEntity {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    // AI Analysis Fields
+    @Column(name = "sentiment_label", length = 50)
+    private String sentimentLabel;
+
+    @Column(name = "sentiment_score")
+    private Double sentimentScore;
+
+    @Column(name = "security_flag")
+    private Boolean securityFlag = false;
+
+    @Column(name = "cleanliness_flag")
+    private Boolean cleanlinessFlag = false;
+
+    @Column(name = "ai_processed")
+    private Boolean aiProcessed = false;
+
+    @Column(name = "ai_processed_at")
+    private LocalDateTime aiProcessedAt;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id")
+    private User owner;
+
     public User getUser() {
         return user;
     }
@@ -113,5 +136,62 @@ public class Review extends BaseEntity {
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    // AI Analysis Getters & Setters
+    public String getSentimentLabel() {
+        return sentimentLabel;
+    }
+
+    public void setSentimentLabel(String sentimentLabel) {
+        this.sentimentLabel = sentimentLabel;
+    }
+
+    public Double getSentimentScore() {
+        return sentimentScore;
+    }
+
+    public void setSentimentScore(Double sentimentScore) {
+        this.sentimentScore = sentimentScore;
+    }
+
+    public Boolean getSecurityFlag() {
+        return securityFlag;
+    }
+
+    public void setSecurityFlag(Boolean securityFlag) {
+        this.securityFlag = securityFlag;
+    }
+
+    public Boolean getCleanlinessFlag() {
+        return cleanlinessFlag;
+    }
+
+    public void setCleanlinessFlag(Boolean cleanlinessFlag) {
+        this.cleanlinessFlag = cleanlinessFlag;
+    }
+
+    public Boolean getAiProcessed() {
+        return aiProcessed;
+    }
+
+    public void setAiProcessed(Boolean aiProcessed) {
+        this.aiProcessed = aiProcessed;
+    }
+
+    public LocalDateTime getAiProcessedAt() {
+        return aiProcessedAt;
+    }
+
+    public void setAiProcessedAt(LocalDateTime aiProcessedAt) {
+        this.aiProcessedAt = aiProcessedAt;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 }

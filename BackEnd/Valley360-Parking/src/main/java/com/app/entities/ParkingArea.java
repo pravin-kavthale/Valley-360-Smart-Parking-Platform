@@ -2,14 +2,13 @@ package com.app.entities;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.app.enums.Status;
@@ -18,12 +17,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-//@Getter
-//@Setter
+// @Getter
+// @Setter
 @Table(name = "parking_area")
 
-public class ParkingArea extends BaseEntity{
-	
+public class ParkingArea extends BaseEntity {
+
 	private String area;
 	private String city;
 	private String pincode;
@@ -33,18 +32,18 @@ public class ParkingArea extends BaseEntity{
 	private long totalReviews;
 	@Enumerated(EnumType.STRING)
 	private Status status;
-	
-	@OneToOne(fetch = FetchType.EAGER)
+
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "owner_id")
 	private User user;
 
 	@OneToMany(mappedBy = "parking")
 	private Set<ParkingSlot> parkingSlots;
-	
+
 	public ParkingArea() {
 		super();
 	}
-	
+
 	public ParkingArea(String area, String city, String pincode, double latitude, double longitude, Status status,
 			Set<ParkingSlot> parkingSlots) {
 		super();
@@ -56,6 +55,7 @@ public class ParkingArea extends BaseEntity{
 		this.status = status;
 		this.parkingSlots = parkingSlots;
 	}
+
 	public String getArea() {
 		return area;
 	}
@@ -124,6 +124,14 @@ public class ParkingArea extends BaseEntity{
 		this.user = user;
 	}
 
+	public User getOwner() {
+		return user;
+	}
+
+	public void setOwner(User owner) {
+		this.user = owner;
+	}
+
 	public Set<ParkingSlot> getParkingSlots() {
 		return parkingSlots;
 	}
@@ -135,6 +143,5 @@ public class ParkingArea extends BaseEntity{
 	public void setArea(String area) {
 		this.area = area;
 	}
-	
-	
+
 }
